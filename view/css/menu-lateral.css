@@ -1,0 +1,68 @@
+nav.menu-lateral{
+    width:60px;
+    height: 100%;
+    background-color: #3f3f3f;
+    padding: 40px 0 40px 1%;
+    box-shadow: 3px 0 0 rgb(244, 110, 110) ;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: .2s;
+    z-index: 1000;
+}
+
+nav.menu-lateral.expandir{
+    width: 200px;
+}
+
+.btn-expandir{
+    width: 100%;
+    padding-left: 0.2px;
+    
+}
+
+.btn-expandir > i{
+    color: aliceblue;
+    font-size: 50px;
+}
+
+ul{
+    height: 100%;
+    list-style-type:none;
+}
+
+ul li.item-menu{
+    transition: .2s;
+}
+
+ul li.item-menu:hover{
+    background-color: rgb(244, 110, 110);
+}
+
+ul li.item-menu a{
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px 4%;
+    display: flex;
+    line-height: 40px;
+}
+
+ul li.item-menu a .txt-link{
+    margin-left: 40px;
+    transition: .4s;
+    opacity: 0;
+}
+
+nav.menu-lateral.expandir .txt-link{
+    margin-left: 20px ;
+    opacity: 1;
+}
+
+ul li.item-menu a .icon > i{
+    font-size: 30px;
+    margin-left: 8px;
+}
+

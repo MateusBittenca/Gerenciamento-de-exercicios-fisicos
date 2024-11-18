@@ -1,0 +1,6 @@
+<script src="./js/sessao.js"></script>
+<script>
+    const obj = existeSessao();
+    const divUsuario = document.getElementById("divUsuario");
+    divUsuario.append(document.createTextNode(obj.nome));
+</script>
