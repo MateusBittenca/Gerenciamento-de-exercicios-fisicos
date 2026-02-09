@@ -60,6 +60,25 @@ module.exports = class Exercicio {
         return operacao;
     }
 
+    async readById(){
+        const operacao = new Promise((resolve,reject)=>{
+            const idexercicio = this._idexercicio;
+            const parametros = [idexercicio];
+            const sql = 'SELECT * FROM exercicios WHERE idexercicio = ?;';
+
+            this._banco.query(sql,parametros,function(erro,resultados){
+                if(erro){
+                    console.log(erro);
+                    reject(erro);
+                }else{
+                    resolve(resultados[0] || null);
+                }
+            });
+        });
+
+        return operacao;
+    }
+
     async update(){
         const operacao = new Promise((resolve,reject)=>{
             const idexercicio = this._idexercicio;

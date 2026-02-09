@@ -1,0 +1,270 @@
+/* ===== MENU LATERAL MODERNO ===== */
+nav.menu-lateral {
+  width: 72px;
+  height: 100vh;
+  background: var(--bg-secondary);
+  padding: var(--space-lg) 0;
+  box-shadow: var(--shadow-xl);
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transition: width var(--transition-base);
+  z-index: 1000;
+  border-right: 1px solid var(--border-subtle);
+  backdrop-filter: blur(20px);
+}
+
+nav.menu-lateral::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, rgba(220, 38, 38, 0.4), transparent);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+nav.menu-lateral.expandido {
+  width: 260px;
+}
+
+/* ===== BOTÃO EXPANDIR ===== */
+.btn-expandir {
+  width: 100%;
+  padding: 0 var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-expandir > i {
+  color: var(--gray-400);
+  font-size: 28px;
+  transition: all var(--transition-base);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  background: transparent;
+}
+
+.btn-expandir:hover > i {
+  color: var(--primary);
+  background: rgba(220, 38, 38, 0.12);
+}
+
+/* ===== LISTA DE ITENS ===== */
+ul {
+  height: calc(100% - 100px);
+  list-style-type: none;
+  padding: 0 var(--space-sm);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+ul li.item-menu {
+  transition: all var(--transition-base);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+ul li.item-menu::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 0;
+  background: var(--primary);
+  border-radius: 0 var(--radius-full) var(--radius-full) 0;
+  transition: height var(--transition-base);
+}
+
+ul li.item-menu:hover::before,
+ul li.item-menu.ativo::before {
+  height: 60%;
+}
+
+ul li.item-menu:hover {
+  background: rgba(220, 38, 38, 0.08);
+}
+
+ul li.item-menu.ativo {
+  background: rgba(220, 38, 38, 0.12);
+}
+
+ul li.item-menu a {
+  color: var(--gray-300);
+  text-decoration: none;
+  font-size: var(--text-base);
+  padding: var(--space-md) var(--space-md);
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  transition: all var(--transition-base);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-lg);
+}
+
+ul li.item-menu:hover a {
+  color: var(--gray-50);
+  padding-left: calc(var(--space-md) + 4px);
+}
+
+ul li.item-menu.ativo a {
+  color: var(--primary-light);
+  font-weight: var(--weight-semibold);
+}
+
+/* ===== ÍCONES ===== */
+ul li.item-menu a .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+ul li.item-menu a .icon > i {
+  font-size: 22px;
+  transition: all var(--transition-base);
+}
+
+ul li.item-menu.ativo a .icon > i {
+  color: var(--primary);
+}
+
+ul li.item-menu:hover a .icon > i {
+  color: var(--primary);
+}
+
+/* ===== TEXTO DOS LINKS ===== */
+ul li.item-menu a .txt-link {
+  margin-left: var(--space-md);
+  transition: all var(--transition-base);
+  opacity: 0;
+  white-space: nowrap;
+  transform: translateX(-8px);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.01em;
+  font-family: var(--font-display);
+}
+
+nav.menu-lateral.expandido .txt-link {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== DADOS DO USUÁRIO NO MENU ===== */
+.dados-usuario {
+  color: var(--gray-50);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== ANIMAÇÕES REMOVIDAS (MAIS MINIMALISTA) ===== */
+/* Removida a animação pulse para um visual mais limpo */
+
+/* ===== SCROLLBAR CUSTOMIZADA ===== */
+nav.menu-lateral::-webkit-scrollbar {
+  width: 6px;
+}
+
+nav.menu-lateral::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+nav.menu-lateral::-webkit-scrollbar-thumb {
+  background: rgba(220, 38, 38, 0.4);
+  border-radius: var(--radius-full);
+}
+
+nav.menu-lateral::-webkit-scrollbar-thumb:hover {
+  background: rgba(220, 38, 38, 0.6);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media screen and (max-width: 768px) {
+  nav.menu-lateral {
+    width: 60px;
+  }
+
+  nav.menu-lateral.expandido {
+    width: 220px;
+  }
+
+  .btn-expandir > i {
+    font-size: 30px;
+  }
+
+  ul li.item-menu a {
+    padding: 15px 10px;
+  }
+
+  ul li.item-menu a .icon > i {
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  nav.menu-lateral {
+    width: 100%;
+    height: 60px;
+    bottom: 0;
+    top: auto;
+    border-right: none;
+    border-top: 2px solid rgba(220, 38, 38, 0.4);
+    padding: 10px 0;
+  }
+
+  nav.menu-lateral.expandido {
+    width: 100%;
+    height: 60px;
+  }
+
+  .btn-expandir {
+    display: none;
+  }
+
+  ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    padding: 0 10px;
+  }
+
+  ul li.item-menu {
+    margin: 0;
+  }
+
+  ul li.item-menu a {
+    padding: 10px;
+    flex-direction: column;
+    font-size: 12px;
+  }
+
+  ul li.item-menu a .icon {
+    margin: 0;
+    min-width: auto;
+  }
+
+  ul li.item-menu a .txt-link {
+    display: none;
+  }
+
+  nav.menu-lateral.expandido .txt-link {
+    display: none;
+  }
+}

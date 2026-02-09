@@ -1,0 +1,223 @@
+/* ===== MODAL DE EXERCÍCIOS MODERNO ===== */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.6);
+  animation: fadeIn var(--transition-base) ease;
+}
+
+.modal[style*="display: block"] {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== CONTEÚDO DO MODAL — minimalista ===== */
+.modal-content {
+  background: var(--bg-secondary);
+  margin: auto;
+  padding: var(--space-2xl);
+  border: 1px solid var(--border-medium);
+  border-top: 3px solid var(--primary);
+  border-radius: var(--radius-lg);
+  max-width: 560px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  color: var(--gray-50);
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  animation: modalIn var(--transition-slow) ease;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== BOTÃO FECHAR ===== */
+.close-button {
+  color: var(--gray-500);
+  position: absolute;
+  right: var(--space-md);
+  top: var(--space-md);
+  font-size: 1.5rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: transparent;
+  border: none;
+  z-index: 10;
+}
+
+.close-button:hover,
+.close-button:focus {
+  background: rgba(220, 38, 38, 0.2);
+  color: var(--primary-light);
+}
+
+/* ===== CONTEÚDO INTERNO DO MODAL ===== */
+.modal-content h2 {
+  color: var(--gray-50);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  margin-bottom: var(--space-lg);
+  padding-right: 44px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.modal-content h3 {
+  color: var(--gray-200);
+  font-size: var(--text-base);
+  margin: var(--space-sm) 0;
+  font-weight: var(--weight-medium);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--primary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.modal-content h4 {
+  color: var(--gray-300);
+  font-size: var(--text-base);
+  line-height: 1.8;
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-lg);
+  font-weight: var(--weight-normal);
+  border: 1px solid var(--border-subtle);
+}
+
+.modal-content img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: var(--radius-xl);
+  margin: var(--space-xl) auto;
+  display: block;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-medium);
+  background: var(--bg-tertiary);
+  padding: var(--space-md);
+  transition: all var(--transition-base);
+}
+
+.modal-content img:hover {
+  border-color: var(--border-medium);
+}
+
+.modal-content br {
+  display: block;
+  content: "";
+  margin: var(--space-md) 0;
+}
+
+/* ===== SCROLLBAR DO MODAL ===== */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--gray-600);
+  border-radius: var(--radius-full);
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-500);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media screen and (max-width: 768px) {
+  .modal-content {
+    padding: 25px 20px;
+    max-width: 95%;
+    border-radius: 16px;
+  }
+
+  .modal-content h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+
+  .modal-content h3 {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+
+  .modal-content h4 {
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  .close-button {
+    right: 15px;
+    top: 15px;
+    font-size: 28px;
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .modal-content {
+    padding: 20px 15px;
+    max-width: 98%;
+  }
+
+  .modal-content h2 {
+    font-size: 22px;
+    padding-right: 40px;
+  }
+
+  .modal-content h3 {
+    font-size: 15px;
+  }
+
+  .modal-content h4 {
+    font-size: 13px;
+  }
+
+  .modal-content img {
+    max-width: 100%;
+  }
+}
+

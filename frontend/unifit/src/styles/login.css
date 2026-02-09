@@ -1,0 +1,333 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--space-lg);
+}
+
+/* ===== BANNER COM BACKGROUND MODERNO ===== */
+.banner {
+  width: 100%;
+  min-height: 100vh;
+  background: 
+    linear-gradient(
+      135deg,
+      rgba(15, 15, 15, 0.95) 0%,
+      rgba(26, 26, 26, 0.9) 100%
+    ),
+    url(../assets/images/academiaTCC.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Efeito de grid sutil no fundo */
+.banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(220, 38, 38, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 38, 38, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+}
+
+/* ===== NAVBAR NO LOGIN ===== */
+.banner .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: var(--space-lg);
+  background: rgba(15, 15, 15, 0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+
+.banner .navbar p {
+  display: none;
+}
+
+.banner .navbar ul {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.banner .navbar ul li a {
+  color: var(--gray-300);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  font-family: var(--font-sans);
+}
+
+.banner .navbar ul li a:hover {
+  color: var(--gray-50);
+  border-color: var(--primary);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+/* ===== CONTENT (Login/Cadastro) ===== */
+.banner .content {
+  width: 100%;
+  max-width: 440px;
+  padding: var(--space-lg);
+  margin-top: 80px;
+  position: relative;
+  z-index: 10;
+}
+
+.banner .content h1 {
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-bold);
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  color: var(--gray-50);
+  background: linear-gradient(135deg, var(--gray-50), var(--gray-300));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== FORM BOX MODERNO COM GLASSMORPHISM ===== */
+.banner .content form {
+  background: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-2xl);
+  box-shadow: 
+    var(--shadow-2xl),
+    0 0 0 1px rgba(220, 38, 38, 0.05) inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner .content form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary),
+    transparent
+  );
+  opacity: 0.5;
+}
+
+/* ===== FORM GROUPS ===== */
+.banner .content .form-group {
+  margin-bottom: var(--space-lg);
+  text-align: left;
+}
+
+.banner .content .form-group label {
+  display: block;
+  color: var(--gray-300);
+  margin-bottom: var(--space-sm);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-sm);
+  letter-spacing: -0.01em;
+}
+
+.banner .content .form-group input {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-medium);
+  background: rgba(36, 36, 36, 0.5);
+  color: var(--gray-50);
+  font-size: var(--text-base);
+  transition: all var(--transition-base);
+  font-family: var(--font-sans);
+}
+
+.banner .content .form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--bg-elevated);
+  box-shadow: 
+    0 0 0 3px rgba(220, 38, 38, 0.1),
+    var(--shadow-md);
+}
+
+.banner .content .form-group input::placeholder {
+  color: var(--gray-600);
+}
+
+/* ===== BOTÃO ===== */
+.banner .content button[type="submit"] {
+  width: 100%;
+  padding: var(--space-md);
+  margin-top: var(--space-md);
+  margin-bottom: 0;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: var(--primary);
+  color: var(--gray-50);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: var(--font-sans);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.banner .content button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--primary-light),
+    var(--primary)
+  );
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.banner .content button[type="submit"]:hover::before {
+  opacity: 1;
+}
+
+.banner .content button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    var(--shadow-xl),
+    var(--shadow-glow);
+}
+
+.banner .content button[type="submit"]:active {
+  transform: translateY(0);
+}
+
+.banner .content button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== LINK PARA CADASTRO/LOGIN ===== */
+.banner .content > p {
+  text-align: center;
+  margin-top: var(--space-xl);
+  color: var(--gray-400);
+  font-size: var(--text-sm);
+}
+
+.banner .content > p a {
+  color: var(--primary-light);
+  font-weight: var(--weight-semibold);
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.banner .content > p a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media screen and (max-width: 768px) {
+  .banner {
+    background-attachment: scroll;
+  }
+
+  .banner .navbar {
+    padding: var(--space-md);
+  }
+
+  .banner .navbar ul {
+    gap: var(--space-sm);
+  }
+
+  .banner .navbar ul li a {
+    padding: var(--space-xs) var(--space-md);
+    font-size: var(--text-xs);
+  }
+
+  .banner .content {
+    max-width: 380px;
+    padding: var(--space-md);
+    margin-top: 60px;
+  }
+
+  .banner .content h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .banner .content form {
+    padding: var(--space-xl);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .banner .navbar ul {
+    flex-direction: column;
+    gap: var(--space-xs);
+    align-items: center;
+  }
+
+  .banner .navbar ul li {
+    width: 100%;
+  }
+
+  .banner .navbar ul li a {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+
+  .banner .content {
+    max-width: 100%;
+    padding: var(--space-sm);
+  }
+
+  .banner .content h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .banner .content form {
+    padding: var(--space-lg);
+    border-radius: var(--radius-xl);
+  }
+
+  .banner .content .form-group {
+    margin-bottom: var(--space-md);
+  }
+}

@@ -36,10 +36,9 @@ module.exports = function(request,response,banco){
                     usuarioId:p_usuarioId,
                     nome:p_nome,
                     email:p_email,
-                    //senha:p_senha,
                     sexo:p_sexo,
                     altura:p_altura,
-                    peso:p_sexo
+                    peso:p_peso
                 },
                  token:jwt.gerar(validou.payload)
             }

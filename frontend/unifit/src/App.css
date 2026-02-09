@@ -1,0 +1,308 @@
+/* ===== ESTILOS GLOBAIS DA APLICAÇÃO ===== */
+
+/* Este arquivo contém estilos específicos da Landing Page */
+/* Estilos globais e variáveis estão em index.css */
+
+/* ===== BANNER / CONTAINER PRINCIPAL (LANDING) ===== */
+.landing-page .banner {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  position: relative;
+}
+
+/* Efeito de vinheta sutil */
+.landing-page .banner::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===== NAVBAR (Landing Page) MODERNA ===== */
+.landing-page .navbar {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-xl) 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.landing-page .navbar ul {
+  list-style: none;
+  display: flex;
+  gap: var(--space-sm);
+  margin: 0;
+  padding: 0;
+}
+
+.landing-page .navbar ul li a {
+  text-decoration: none;
+  color: var(--gray-300);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  letter-spacing: -0.01em;
+  transition: all var(--transition-base);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  position: relative;
+  font-family: var(--font-sans);
+  border: 1px solid transparent;
+}
+
+.landing-page .navbar ul li a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: rgba(220, 38, 38, 0.1);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.landing-page .navbar ul li a:hover::before {
+  opacity: 1;
+}
+
+.landing-page .navbar ul li a:hover {
+  color: var(--gray-50);
+  border-color: var(--primary);
+}
+
+/* ===== CONTENT (Landing Page) - HERO MODERNO ===== */
+.landing-page .content {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  color: var(--gray-50);
+  padding: 180px var(--space-lg) var(--space-3xl);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.landing-page .content h1 {
+  font-size: clamp(3rem, 8vw, 5rem);
+  margin-bottom: var(--space-xl);
+  font-weight: var(--weight-extrabold);
+  font-family: var(--font-display);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  background: linear-gradient(
+    135deg,
+    var(--gray-50) 0%,
+    var(--primary-light) 50%,
+    var(--gray-50) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 100%;
+  animation: shimmerText 3s ease-in-out infinite;
+}
+
+@keyframes shimmerText {
+  0%, 100% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+}
+
+.landing-page .content p {
+  margin: var(--space-lg) auto;
+  font-weight: var(--weight-normal);
+  line-height: 1.7;
+  font-size: var(--text-xl);
+  max-width: 600px;
+  color: var(--gray-400);
+  letter-spacing: -0.01em;
+}
+
+.landing-page .content img {
+  width: 40%;
+  max-width: 350px;
+  height: auto;
+  margin: var(--space-3xl) auto;
+  filter: drop-shadow(0 20px 40px rgba(220, 38, 38, 0.25));
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* ===== BOTÕES (Landing) ===== */
+.landing-page button {
+  padding: var(--space-md) var(--space-2xl);
+  text-align: center;
+  margin: var(--space-md) var(--space-sm);
+  border-radius: var(--radius-full);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-base);
+  letter-spacing: -0.01em;
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: var(--gray-50);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  font-family: var(--font-sans);
+  box-shadow: var(--shadow-sm);
+}
+
+.landing-page button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    var(--primary-light),
+    var(--primary-dark)
+  );
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.landing-page button:hover::before {
+  opacity: 1;
+}
+
+.landing-page button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    var(--shadow-lg),
+    var(--shadow-glow);
+  border-color: var(--primary-light);
+}
+
+.landing-page button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.landing-page button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media screen and (max-width: 968px) {
+  .landing-page .navbar {
+    width: 92%;
+    padding: var(--space-lg) 0;
+  }
+
+  .landing-page .navbar ul {
+    gap: var(--space-md);
+  }
+
+  .landing-page .navbar ul li a {
+    font-size: var(--text-sm);
+    padding: var(--space-xs) var(--space-md);
+  }
+
+  .landing-page .content {
+    padding: 150px var(--space-lg) var(--space-2xl);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .landing-page .navbar {
+    width: 95%;
+    padding: var(--space-md) 0;
+  }
+
+  .landing-page .navbar ul {
+    gap: var(--space-sm);
+  }
+
+  .landing-page .navbar ul li a {
+    font-size: var(--text-xs);
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  .landing-page .content {
+    padding: 140px var(--space-md) var(--space-xl);
+  }
+
+  .landing-page .content h1 {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+  }
+
+  .landing-page .content p {
+    font-size: var(--text-lg);
+  }
+
+  .landing-page .content img {
+    width: 50%;
+    max-width: 300px;
+  }
+
+  .landing-page button {
+    width: 100%;
+    max-width: 320px;
+    padding: var(--space-md) var(--space-xl);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .landing-page .navbar ul {
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    justify-content: center;
+  }
+
+  .landing-page .navbar ul li {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .landing-page .navbar ul li a {
+    display: block;
+    text-align: center;
+  }
+
+  .landing-page .content {
+    padding: 120px var(--space-sm) var(--space-lg);
+  }
+
+  .landing-page .content h1 {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    margin-bottom: var(--space-lg);
+  }
+
+  .landing-page .content p {
+    font-size: var(--text-base);
+  }
+
+  .landing-page .content img {
+    width: 70%;
+    margin: var(--space-xl) auto;
+  }
+
+  .landing-page button {
+    margin: var(--space-sm);
+  }
+}

@@ -8,6 +8,21 @@ const rotas_lista = require("./routes/rotas_lista");
 const rotas_listaExer = require("./routes/rotas_listaExer");
 
 const app = express();
+
+// Configuração de CORS para permitir requisições do frontend React
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Permite qualquer origem (ou específico: 'http://localhost:5173')
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    
+    // Responde a requisições OPTIONS (preflight)
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    
+    next();
+});
+
 app.use(express.json());
 app.use(express.static('js'));
 app.use('/',express.static(__dirname+'/view'));
