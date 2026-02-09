@@ -20,6 +20,42 @@
   min-height: 100vh;
 }
 
+.home-page .home-loading,
+.home-page .home-erro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  gap: var(--space-xl);
+  text-align: center;
+  padding: var(--space-2xl);
+}
+
+.home-page .home-loading .spinner {
+  width: 44px;
+  height: 44px;
+  border-width: 3px;
+}
+
+.home-page .home-loading p,
+.home-page .home-erro p {
+  color: var(--gray-400);
+  font-size: var(--text-base);
+}
+
+.home-page .home-erro h3 {
+  color: var(--gray-50);
+  margin-bottom: var(--space-xs);
+  font-size: var(--text-xl);
+}
+
+.home-page .home-erro .bi-exclamation-triangle {
+  font-size: 3.5rem;
+  color: var(--primary);
+  opacity: 0.9;
+}
+
 /* ===== DASHBOARD DE ESTATÍSTICAS ===== */
 .home-page .stats-grid {
   display: grid;
@@ -40,11 +76,14 @@
   display: flex;
   align-items: center;
   gap: var(--space-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .home-page .stat-card:hover {
-  border-color: rgba(220, 38, 38, 0.3);
+  border-color: rgba(220, 38, 38, 0.35);
   background: var(--bg-tertiary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(220, 38, 38, 0.08);
 }
 
 .home-page .stat-icon {
@@ -160,6 +199,7 @@
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
 }
 
 .home-page .card::before {

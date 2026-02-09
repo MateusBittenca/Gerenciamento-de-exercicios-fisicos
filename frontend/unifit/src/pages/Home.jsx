@@ -16,35 +16,45 @@ const Home = () => {
     totalListas: 0,
     totalRecomendadas: 0
   });
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(null);
   const navigate = useNavigate();
   const { user } = useAuth();
 
   useEffect(() => {
     carregarDados();
-  }, []);
+  }, [user?.usuarioId]);
 
   const carregarDados = async () => {
-    // Carregar exercícios
-    const exerciciosResult = await exercicioService.getExercicios();
-    if (exerciciosResult.success) {
-      setExercicios(exerciciosResult.data);
-      setStats(prev => ({ ...prev, totalExercicios: exerciciosResult.data.length }));
-    }
-
-    // Carregar listas recomendadas
-    const listasRecomendadasResult = await listaService.getListasRecomendadas();
-    if (listasRecomendadasResult.success) {
-      setListasRecomendadas(listasRecomendadasResult.data);
-      setStats(prev => ({ ...prev, totalRecomendadas: listasRecomendadasResult.data.length }));
-    }
-
-    // Carregar minhas listas
-    if (user?.usuarioId) {
-      const minhasListasResult = await listaService.getListasUsuario(user.usuarioId);
-      if (minhasListasResult.success) {
-        setMinhasListas(minhasListasResult.data);
-        setStats(prev => ({ ...prev, totalListas: minhasListasResult.data.length }));
+    setLoading(true);
+    setErro(null);
+    try {
+      const exerciciosResult = await exercicioService.getExercicios();
+      if (exerciciosResult.success) {
+        const data = exerciciosResult.data || [];
+        setExercicios(data);
+        setStats(prev => ({ ...prev, totalExercicios: data.length }));
       }
+
+      const listasRecomendadasResult = await listaService.getListasRecomendadas();
+      if (listasRecomendadasResult.success) {
+        const data = listasRecomendadasResult.data || [];
+        setListasRecomendadas(data);
+        setStats(prev => ({ ...prev, totalRecomendadas: data.length }));
+      }
+
+      if (user?.usuarioId) {
+        const minhasListasResult = await listaService.getListasUsuario(user.usuarioId);
+        if (minhasListasResult.success) {
+          const data = minhasListasResult.data || [];
+          setMinhasListas(data);
+          setStats(prev => ({ ...prev, totalListas: data.length }));
+        }
+      }
+    } catch (_) {
+      setErro('Não foi possível carregar os dados. Tente novamente.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,6 +62,22 @@ const Home = () => {
     <div className="home-page">
       <Sidebar />
       <div className="itens">
+        {loading ? (
+          <div className="home-loading">
+            <span className="spinner" aria-hidden />
+            <p>Carregando seu dashboard...</p>
+          </div>
+        ) : erro ? (
+          <div className="home-erro">
+            <i className="bi bi-exclamation-triangle" aria-hidden></i>
+            <h3>Erro ao carregar</h3>
+            <p>{erro}</p>
+            <button type="button" className="btn-primary" onClick={carregarDados}>
+              Tentar novamente
+            </button>
+          </div>
+        ) : (
+          <>
         {/* Dashboard de Estatísticas */}
         <div className="stats-grid">
           <div className="stat-card" onClick={() => navigate('/exercicios')}>
@@ -161,6 +187,8 @@ const Home = () => {
             </tbody>
           </table>
         </div>
+          </>
+        )}
       </div>
     </div>
   );

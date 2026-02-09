@@ -82,19 +82,21 @@
 /* ===== LISTA CARD — minimalista ===== */
 .listas-page .lista-card {
   background: var(--bg-secondary);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   border: 1px solid var(--border-subtle);
   overflow: hidden;
   cursor: pointer;
-  transition: border-color var(--transition-base), background var(--transition-base);
+  transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-sm);
 }
 
 .listas-page .lista-card:hover {
   border-color: rgba(220, 38, 38, 0.35);
   background: var(--bg-tertiary);
-  box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.08);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(220, 38, 38, 0.1);
 }
 
 .listas-page .lista-card-header {
@@ -215,32 +217,59 @@
 .listas-page .empty-state {
   text-align: center;
   padding: var(--space-3xl);
-  background: var(--bg-secondary);
-  border-radius: var(--radius-lg);
-  border: 1px dashed rgba(220, 38, 38, 0.3);
+  background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border-radius: var(--radius-xl);
+  border: 1px dashed rgba(220, 38, 38, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.listas-page .empty-state::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .listas-page .empty-state i {
-  font-size: 2.5rem;
+  font-size: 3rem;
   color: var(--primary);
-  margin-bottom: var(--space-md);
-  opacity: 0.8;
+  margin-bottom: var(--space-lg);
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
 }
 
 .listas-page .empty-state h3 {
-  color: var(--gray-300);
+  color: var(--gray-200);
   font-size: var(--text-xl);
   font-weight: var(--weight-semibold);
   margin-bottom: var(--space-xs);
+  position: relative;
+  z-index: 1;
 }
 
 .listas-page .empty-state p {
   color: var(--gray-500);
   font-size: var(--text-sm);
+  margin-bottom: var(--space-md);
+  position: relative;
+  z-index: 1;
 }
 
 .listas-page .empty-state .btn-primary {
-  margin-top: var(--space-md);
+  margin-top: var(--space-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.listas-page .empty-state .spinner {
+  margin-bottom: var(--space-md);
 }
 
 /* ===== CONTAINER DE LISTA (MANTIDO PARA COMPATIBILIDADE) ===== */

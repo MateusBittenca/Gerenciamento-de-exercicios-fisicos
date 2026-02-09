@@ -5,7 +5,12 @@ const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div>Carregando...</div>;
+    return (
+      <div className="protected-route-loading" aria-live="polite" aria-busy="true">
+        <div className="spinner" aria-hidden />
+        <p>Carregando...</p>
+      </div>
+    );
   }
 
   if (!isAuthenticated) {

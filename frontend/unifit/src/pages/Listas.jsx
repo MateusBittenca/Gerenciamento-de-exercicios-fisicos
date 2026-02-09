@@ -10,15 +10,22 @@ const Listas = () => {
   const [exerciciosLista, setExerciciosLista] = useState([]);
   const [showExerciciosModal, setShowExerciciosModal] = useState(false);
   const [listaSelecionada, setListaSelecionada] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [erro, setErro] = useState(null);
 
   useEffect(() => {
     carregarListas();
   }, []);
 
   const carregarListas = async () => {
+    setLoading(true);
+    setErro(null);
     const result = await listaService.getListasRecomendadas();
+    setLoading(false);
     if (result.success) {
-      setListas(result.data);
+      setListas(result.data || []);
+    } else {
+      setErro(result.message || 'Não foi possível carregar as listas.');
     }
   };
 
@@ -40,7 +47,21 @@ const Listas = () => {
           <p>Treinos criados por profissionais para você.</p>
         </header>
 
-        {listas.length === 0 ? (
+        {loading ? (
+          <div className="empty-state">
+            <span className="spinner" aria-hidden />
+            <h3>Carregando listas...</h3>
+          </div>
+        ) : erro ? (
+          <div className="empty-state">
+            <i className="bi bi-exclamation-triangle" aria-hidden></i>
+            <h3>Erro ao carregar</h3>
+            <p>{erro}</p>
+            <button type="button" className="btn-primary" onClick={carregarListas}>
+              Tentar novamente
+            </button>
+          </div>
+        ) : listas.length === 0 ? (
           <div className="empty-state">
             <i className="bi bi-inbox"></i>
             <h3>Nenhuma lista recomendada</h3>

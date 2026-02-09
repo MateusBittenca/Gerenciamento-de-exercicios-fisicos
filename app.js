@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql');
 
@@ -9,13 +10,14 @@ const rotas_listaExer = require("./routes/rotas_listaExer");
 
 const app = express();
 
+const CORS_ORIGIN = process.env.CORS_ORIGIN || '*';
+
 // Configuração de CORS para permitir requisições do frontend React
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*'); // Permite qualquer origem (ou específico: 'http://localhost:5173')
+    res.header('Access-Control-Allow-Origin', CORS_ORIGIN);
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     
-    // Responde a requisições OPTIONS (preflight)
     if (req.method === 'OPTIONS') {
         return res.sendStatus(200);
     }
@@ -27,16 +29,16 @@ app.use(express.json());
 app.use(express.static('js'));
 app.use('/',express.static(__dirname+'/view'));
 
-const porta = 3000;
-const complemento = "/index.html"
-const host = 'http://localhost:'+ porta + complemento;
+const porta = process.env.PORT || 3000;
+const complemento = "/index.html";
+const host = 'http://localhost:' + porta + complemento;
 
 const banco = mysql.createPool({
-    connectionLimit : 128,
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'unifit'
+    connectionLimit: 128,
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'unifit'
 });
 
 rotas_usuario(app,banco);

@@ -98,6 +98,7 @@ ul li.item-menu:hover {
 
 ul li.item-menu.ativo {
   background: rgba(220, 38, 38, 0.12);
+  box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.15) inset;
 }
 
 ul li.item-menu a {

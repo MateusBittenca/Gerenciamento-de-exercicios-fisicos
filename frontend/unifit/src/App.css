@@ -7,7 +7,11 @@
 .landing-page .banner {
   width: 100%;
   min-height: 100vh;
-  background: var(--bg-primary);
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(220, 38, 38, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(220, 38, 38, 0.06), transparent),
+    radial-gradient(ellipse 60% 40% at 0% 50%, rgba(220, 38, 38, 0.06), transparent),
+    var(--bg-primary);
   display: flex;
   position: relative;
 }
@@ -20,7 +24,7 @@
   background: radial-gradient(
     circle at center,
     transparent 0%,
-    rgba(0, 0, 0, 0.3) 100%
+    rgba(0, 0, 0, 0.25) 100%
   );
   pointer-events: none;
   z-index: 1;
@@ -152,16 +156,28 @@
   }
 }
 
-/* ===== BOTÕES (Landing) ===== */
-.landing-page button {
+/* ===== BOTÕES (Landing) — grupo de CTAs ===== */
+.landing-page .cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+  margin-top: var(--space-xl);
+}
+
+.landing-page .cta-group a {
+  text-decoration: none;
+}
+
+.landing-page .cta-group button {
   padding: var(--space-md) var(--space-2xl);
+  min-width: 160px;
   text-align: center;
-  margin: var(--space-md) var(--space-sm);
   border-radius: var(--radius-full);
   font-weight: var(--weight-semibold);
   font-size: var(--text-base);
   letter-spacing: -0.01em;
-  border: 1px solid var(--primary);
+  border: 2px solid var(--primary);
   background: var(--primary);
   color: var(--gray-50);
   cursor: pointer;
@@ -169,10 +185,10 @@
   overflow: hidden;
   transition: all var(--transition-base);
   font-family: var(--font-sans);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
-.landing-page button::before {
+.landing-page .cta-group button::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -185,26 +201,41 @@
   transition: opacity var(--transition-base);
 }
 
-.landing-page button:hover::before {
+.landing-page .cta-group button:hover::before {
   opacity: 1;
 }
 
-.landing-page button:hover {
-  transform: translateY(-2px);
+.landing-page .cta-group button:hover {
+  transform: translateY(-3px);
   box-shadow: 
-    var(--shadow-lg),
-    var(--shadow-glow);
+    var(--shadow-xl),
+    0 0 24px rgba(220, 38, 38, 0.25);
   border-color: var(--primary-light);
 }
 
-.landing-page button:active {
+.landing-page .cta-group button:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
 }
 
-.landing-page button span {
+.landing-page .cta-group button span {
   position: relative;
   z-index: 1;
+}
+
+/* Botão secundário (Cadastrar) */
+.landing-page .cta-group button.btn-outline {
+  background: transparent;
+  color: var(--primary-light);
+}
+
+.landing-page .cta-group button.btn-outline::before {
+  background: rgba(220, 38, 38, 0.12);
+}
+
+.landing-page .cta-group button.btn-outline:hover {
+  color: var(--gray-50);
+  background: rgba(220, 38, 38, 0.15);
 }
 
 /* ===== RESPONSIVIDADE ===== */
@@ -260,7 +291,12 @@
     max-width: 300px;
   }
 
-  .landing-page button {
+  .landing-page .cta-group {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .landing-page .cta-group button {
     width: 100%;
     max-width: 320px;
     padding: var(--space-md) var(--space-xl);
@@ -302,7 +338,8 @@
     margin: var(--space-xl) auto;
   }
 
-  .landing-page button {
-    margin: var(--space-sm);
+  .landing-page .cta-group button {
+    margin: 0;
+    max-width: 100%;
   }
 }

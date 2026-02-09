@@ -20,13 +20,77 @@
   min-height: 100vh;
 }
 
-/* ===== SEÇÃO DE FILTROS ===== */
+.exercicios-page .exercicios-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 30vh;
+  gap: var(--space-xl);
+  color: var(--gray-400);
+  font-size: var(--text-base);
+}
+
+.exercicios-page .exercicios-loading .spinner {
+  width: 40px;
+  height: 40px;
+  border-width: 3px;
+}
+
+/* ===== NENHUM RESULTADO ===== */
+.exercicios-page .exercicios-empty {
+  text-align: center;
+  padding: var(--space-3xl);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  border: 1px dashed rgba(220, 38, 38, 0.25);
+}
+
+.exercicios-page .exercicios-empty i {
+  font-size: 3rem;
+  color: var(--gray-600);
+  margin-bottom: var(--space-lg);
+  display: block;
+}
+
+.exercicios-page .exercicios-empty h3 {
+  color: var(--gray-200);
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-xs);
+}
+
+.exercicios-page .exercicios-empty p {
+  color: var(--gray-500);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.exercicios-page .exercicios-empty .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  border: none;
+  background: var(--primary);
+  color: var(--gray-50);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.exercicios-page .exercicios-empty .btn-primary:hover {
+  background: var(--primary-light);
+}
+
+/* ===== SEÇÃO DE FILTROS (compacta) ===== */
 .exercicios-page .filtros {
   background: var(--bg-secondary);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-2xl);
-  margin-bottom: var(--space-xl);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--border-subtle);
   position: relative;
   overflow: hidden;
@@ -45,8 +109,8 @@
 
 .exercicios-page .filtros h2 {
   color: var(--gray-50);
-  font-size: var(--text-3xl);
-  margin-bottom: var(--space-2xl);
+  font-size: var(--text-2xl);
+  margin-bottom: 0;
   font-weight: var(--weight-bold);
   font-family: var(--font-display);
   letter-spacing: -0.02em;
@@ -57,28 +121,115 @@
 .exercicios-page .filtros h2::after {
   content: '';
   position: absolute;
-  bottom: -8px;
+  bottom: -4px;
   left: 0;
-  width: 60px;
-  height: 3px;
+  width: 40px;
+  height: 2px;
   background: linear-gradient(90deg, var(--primary), transparent);
   border-radius: var(--radius-full);
 }
 
-/* ===== BARRA DE BUSCA ===== */
-.exercicios-page .filtros input {
+/* ===== HEADER DOS FILTROS (título + contador + limpar) ===== */
+.exercicios-page .filtros-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.exercicios-page .filtros-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.exercicios-page .filtros-contador {
+  font-size: var(--text-xs);
+  color: var(--gray-500);
+  font-weight: var(--weight-medium);
+}
+
+.exercicios-page .btn-limpar-filtros {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-medium);
+  background: transparent;
+  color: var(--gray-400);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+}
+
+.exercicios-page .btn-limpar-filtros:hover {
+  border-color: var(--primary);
+  color: var(--primary-light);
+  background: rgba(220, 38, 38, 0.08);
+}
+
+/* ===== LINHA ÚNICA: busca + filtros em grid compacto ===== */
+.exercicios-page .filtros-busca-row {
+  margin-bottom: var(--space-md);
+}
+
+.exercicios-page .filtros input[type="search"] {
   width: 100%;
-  max-width: 500px;
-  padding: var(--space-md) var(--space-lg);
+  max-width: 400px;
+  padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-full);
   border: 1px solid var(--border-medium);
   background: var(--bg-tertiary);
   color: var(--gray-50);
-  font-size: var(--text-base);
-  margin-bottom: var(--space-xl);
+  font-size: var(--text-sm);
+  margin-bottom: 0;
   transition: all var(--transition-base);
   outline: none;
   font-family: var(--font-sans);
+}
+
+.exercicios-page .filtros-busca-dica {
+  display: none;
+}
+
+/* ===== GRUPOS DE FILTRO (compactos, em linha em telas grandes) ===== */
+.exercicios-page .filtros-grupos {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--space-md);
+  align-items: start;
+  margin-top: var(--space-xs);
+}
+
+@media screen and (max-width: 960px) {
+  .exercicios-page .filtros-grupos {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+}
+
+.exercicios-page .filtros-grupo {
+  margin-bottom: 0;
+}
+
+.exercicios-page .filtros-grupo:last-of-type {
+  margin-bottom: 0;
+}
+
+.exercicios-page .filtros-label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: var(--weight-semibold);
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
 }
 
 .exercicios-page .filtros input:focus {
@@ -94,22 +245,50 @@
   font-weight: var(--weight-normal);
 }
 
-/* ===== BOTÕES DE FILTRO ===== */
+/* ===== SELECT EQUIPAMENTO ===== */
+.exercicios-page .filtros-equipamento select {
+  width: 100%;
+  min-width: 140px;
+  max-width: 200px;
+  padding: var(--space-xs) var(--space-md);
+  padding-right: 2rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-medium);
+  background: var(--bg-tertiary);
+  color: var(--gray-50);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-family: var(--font-sans);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23737373' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-sm) center;
+}
+
+.exercicios-page .filtros-equipamento select:hover,
+.exercicios-page .filtros-equipamento select:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* ===== BOTÕES DE FILTRO (compactos) ===== */
 .exercicios-page .botoes-filtro {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
 }
 
 .exercicios-page .botoes-filtro button {
-  padding: var(--space-sm) var(--space-lg);
+  padding: var(--space-xs) var(--space-md);
   border-radius: var(--radius-full);
   border: 1px solid var(--border-medium);
   background: var(--bg-tertiary);
   color: var(--gray-300);
   cursor: pointer;
   transition: all var(--transition-base);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   letter-spacing: -0.01em;
   position: relative;
@@ -172,6 +351,7 @@
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
 }
 
 .exercicios-page .card::before {
@@ -376,20 +556,31 @@
     padding: var(--space-xl);
   }
 
+  .exercicios-page .filtros-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .exercicios-page .filtros h2 {
     font-size: var(--text-2xl);
   }
 
+  .exercicios-page .filtros input[type="search"],
   .exercicios-page .filtros input {
     max-width: 100%;
   }
 
+  .exercicios-page .filtros-equipamento select {
+    max-width: 100%;
+  }
+
   .exercicios-page .botoes-filtro {
-    flex-direction: column;
+    flex-wrap: wrap;
   }
 
   .exercicios-page .botoes-filtro button {
-    width: 100%;
+    flex: 1;
+    min-width: 120px;
     justify-content: center;
   }
 
