@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import StatCard from '../../components/admin/StatCard';
 import ChartCard from '../../components/admin/ChartCard';
-import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Line, Bar, Pie } from 'react-chartjs-2';
+import { defaultChartOptions, lineChartOptions, pieChartOptions, CHART_COLORS, createLineGradient, createBarGradient } from '../../utils/chartConfig';
 import { getDashboardStats } from '../../services/adminService';
 import '../../styles/admin.css';
 
@@ -26,7 +27,53 @@ const AdminDashboard = () => {
     }
   };
 
-  const COLORS = ['#dc2626', '#ef4444', '#f87171', '#fca5a5', '#fecaca', '#fee2e2'];
+  const crescimentoUsuariosData = {
+    labels: stats?.crescimentoUsuarios?.map((d) => d.mes) || [],
+    datasets: [
+      {
+        label: 'Novos Usuários',
+        data: stats?.crescimentoUsuarios?.map((d) => d.novos) || [],
+        borderColor: '#dc2626',
+        backgroundColor: (ctx) => createLineGradient(ctx.chart),
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: '#dc2626',
+        pointBorderColor: 'rgba(255,255,255,0.9)',
+        pointBorderWidth: 2,
+        pointHoverBackgroundColor: '#ef4444',
+        pointHoverBorderColor: '#fff',
+      },
+    ],
+  };
+
+  const exerciciosPorMusculoData = {
+    labels: stats?.distribuicaoPorMusculo?.map((d) => d.musculo) || [],
+    datasets: [
+      {
+        data: stats?.distribuicaoPorMusculo?.map((d) => d.total) || [],
+        backgroundColor: CHART_COLORS,
+        borderColor: 'rgba(23, 23, 23, 0.9)',
+        borderWidth: 2.5,
+        hoverOffset: 12,
+        hoverBorderWidth: 2,
+      },
+    ],
+  };
+
+  const exerciciosMaisUsadosData = {
+    labels: stats?.exerciciosMaisUsados?.map((d) => d.nome) || [],
+    datasets: [
+      {
+        label: 'Vezes Usado',
+        data: stats?.exerciciosMaisUsados?.map((d) => d.vezes_usado) || [],
+        backgroundColor: (ctx) => createBarGradient(ctx.chart),
+        borderColor: 'rgba(220, 38, 38, 0.6)',
+        borderWidth: 1,
+        borderRadius: 8,
+        hoverBackgroundColor: 'rgba(239, 68, 68, 0.95)',
+      },
+    ],
+  };
 
   if (loading) {
     return (
@@ -81,76 +128,22 @@ const AdminDashboard = () => {
 
         {/* Charts */}
         <div className="admin-charts-grid">
-          {/* Crescimento de Usuários */}
           <ChartCard title="Crescimento de Usuários" subtitle="Novos usuários nos últimos 12 meses" className="chart-card--full">
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={stats?.crescimentoUsuarios || []}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                <XAxis dataKey="mes" stroke="#a3a3a3" />
-                <YAxis stroke="#a3a3a3" />
-                <Tooltip
-                  contentStyle={{
-                    background: '#141414',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '10px',
-                    color: '#fafafa'
-                  }}
-                />
-                <Legend />
-                <Line type="monotone" dataKey="novos" name="Novos Usuários" stroke="#dc2626" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
+            <div style={{ height: 300 }}>
+              <Line data={crescimentoUsuariosData} options={lineChartOptions} />
+            </div>
           </ChartCard>
 
-          {/* Distribuição por Músculo */}
           <ChartCard title="Exercícios por Músculo" subtitle="Distribuição dos exercícios">
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={stats?.distribuicaoPorMusculo || []}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ musculo, percent }) => `${musculo} (${(percent * 100).toFixed(0)}%)`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="total"
-                  nameKey="musculo"
-                >
-                  {stats?.distribuicaoPorMusculo?.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    background: '#141414',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '10px',
-                    color: '#fafafa'
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+            <div style={{ height: 300 }}>
+              <Pie data={exerciciosPorMusculoData} options={pieChartOptions} />
+            </div>
           </ChartCard>
 
-          {/* Exercícios Mais Usados */}
           <ChartCard title="Exercícios Mais Usados" subtitle="Top 10 exercícios em listas">
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={stats?.exerciciosMaisUsados || []}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                <XAxis dataKey="nome" stroke="#a3a3a3" angle={-45} textAnchor="end" height={100} fontSize={12} />
-                <YAxis stroke="#a3a3a3" />
-                <Tooltip
-                  contentStyle={{
-                    background: '#141414',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '10px',
-                    color: '#fafafa'
-                  }}
-                />
-                <Bar dataKey="vezes_usado" name="Vezes Usado" fill="#dc2626" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div style={{ height: 300 }}>
+              <Bar data={exerciciosMaisUsadosData} options={defaultChartOptions} />
+            </div>
           </ChartCard>
         </div>
 

@@ -4,7 +4,8 @@ import StatCard from '../../components/admin/StatCard';
 import ChartCard from '../../components/admin/ChartCard';
 import DataTable from '../../components/admin/DataTable';
 import FilterBar from '../../components/admin/FilterBar';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Bar, Pie } from 'react-chartjs-2';
+import { defaultChartOptions, pieChartOptions, CHART_COLORS, createBarGradient } from '../../utils/chartConfig';
 import { getUsersStats } from '../../services/adminService';
 import userService from '../../services/userService';
 import Swal from 'sweetalert2';
@@ -141,7 +142,33 @@ const AdminUsuarios = () => {
     }
   ];
 
-  const COLORS = ['#dc2626', '#3b82f6'];
+  const sexoChartData = {
+    labels: stats?.distribuicaoPorSexo?.map((d) => d.Sexo) || [],
+    datasets: [
+      {
+        data: stats?.distribuicaoPorSexo?.map((d) => d.total) || [],
+        backgroundColor: ['#dc2626', '#3b82f6'],
+        borderColor: 'rgba(23, 23, 23, 0.9)',
+        borderWidth: 2.5,
+        hoverOffset: 12,
+      },
+    ],
+  };
+
+  const topUsuariosChartData = {
+    labels: stats?.topUsuarios?.map((d) => d.Nome) || [],
+    datasets: [
+      {
+        label: 'Listas',
+        data: stats?.topUsuarios?.map((d) => d.total_listas) || [],
+        backgroundColor: (ctx) => createBarGradient(ctx.chart),
+        borderColor: 'rgba(220, 38, 38, 0.6)',
+        borderWidth: 1,
+        borderRadius: 8,
+        hoverBackgroundColor: 'rgba(239, 68, 68, 0.95)',
+      },
+    ],
+  };
 
   if (loading) {
     return (
@@ -197,52 +224,15 @@ const AdminUsuarios = () => {
         {/* Charts */}
         <div className="admin-charts-grid">
           <ChartCard title="Distribuição por Sexo" subtitle="Proporção de usuários">
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie
-                  data={stats?.distribuicaoPorSexo || []}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ Sexo, percent }) => `${Sexo} (${(percent * 100).toFixed(0)}%)`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="total"
-                  nameKey="Sexo"
-                >
-                  {stats?.distribuicaoPorSexo?.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    background: '#141414',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '10px',
-                    color: '#fafafa'
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+            <div style={{ height: 250 }}>
+              <Pie data={sexoChartData} options={pieChartOptions} />
+            </div>
           </ChartCard>
 
           <ChartCard title="Top 10 Usuários" subtitle="Usuários com mais listas criadas">
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={stats?.topUsuarios || []}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                <XAxis dataKey="Nome" stroke="#a3a3a3" angle={-45} textAnchor="end" height={80} fontSize={11} />
-                <YAxis stroke="#a3a3a3" />
-                <Tooltip
-                  contentStyle={{
-                    background: '#141414',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '10px',
-                    color: '#fafafa'
-                  }}
-                />
-                <Bar dataKey="total_listas" name="Listas" fill="#dc2626" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div style={{ height: 250 }}>
+              <Bar data={topUsuariosChartData} options={defaultChartOptions} />
+            </div>
           </ChartCard>
         </div>
 

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import ChartCard from '../../components/admin/ChartCard';
-import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Bar, Pie } from 'react-chartjs-2';
+import { defaultChartOptions, pieChartOptions, CHART_COLORS, createBarGradient } from '../../utils/chartConfig';
 import { getUsersStats, getExerciciosStats, getDashboardStats } from '../../services/adminService';
 import Swal from 'sweetalert2';
 import '../../styles/admin.css';
@@ -43,7 +44,81 @@ const AdminRelatorios = () => {
     });
   };
 
-  const COLORS = ['#dc2626', '#ef4444', '#f87171', '#fca5a5', '#fecaca', '#fee2e2'];
+  const distribuicaoSexoData = {
+    labels: usuariosStats?.distribuicaoPorSexo?.map((d) => d.Sexo) || [],
+    datasets: [
+      {
+        data: usuariosStats?.distribuicaoPorSexo?.map((d) => d.total) || [],
+        backgroundColor: CHART_COLORS,
+        borderColor: 'rgba(23, 23, 23, 0.9)',
+        borderWidth: 2.5,
+        hoverOffset: 12,
+      },
+    ],
+  };
+
+  const imcData = {
+    labels: ['Abaixo do Peso', 'Peso Normal', 'Sobrepeso', 'Obesidade'],
+    datasets: [
+      {
+        label: 'Usuários',
+        data: [
+          usuariosStats?.imcStats?.abaixo_peso || 0,
+          usuariosStats?.imcStats?.peso_normal || 0,
+          usuariosStats?.imcStats?.sobrepeso || 0,
+          usuariosStats?.imcStats?.obesidade || 0,
+        ],
+        backgroundColor: (ctx) => createBarGradient(ctx.chart),
+        borderColor: 'rgba(220, 38, 38, 0.6)',
+        borderWidth: 1,
+        borderRadius: 8,
+        hoverBackgroundColor: 'rgba(239, 68, 68, 0.95)',
+      },
+    ],
+  };
+
+  const dificuldadeData = {
+    labels: exerciciosStats?.distribuicaoPorDificuldade?.map((d) => d.dificuldade) || [],
+    datasets: [
+      {
+        data: exerciciosStats?.distribuicaoPorDificuldade?.map((d) => d.total) || [],
+        backgroundColor: CHART_COLORS,
+        borderColor: 'rgba(23, 23, 23, 0.9)',
+        borderWidth: 2.5,
+        hoverOffset: 12,
+      },
+    ],
+  };
+
+  const exerciciosPopularesData = {
+    labels: exerciciosStats?.exerciciosPopulares?.slice(0, 8)?.map((d) => d.nome) || [],
+    datasets: [
+      {
+        label: 'Vezes Usado',
+        data: exerciciosStats?.exerciciosPopulares?.slice(0, 8)?.map((d) => d.vezes_usado) || [],
+        backgroundColor: (ctx) => createBarGradient(ctx.chart),
+        borderColor: 'rgba(220, 38, 38, 0.6)',
+        borderWidth: 1,
+        borderRadius: 8,
+        hoverBackgroundColor: 'rgba(239, 68, 68, 0.95)',
+      },
+    ],
+  };
+
+  const exerciciosMaisUsadosListasData = {
+    labels: dashboardStats?.exerciciosMaisUsados?.map((d) => d.nome) || [],
+    datasets: [
+      {
+        label: 'Vezes Usado',
+        data: dashboardStats?.exerciciosMaisUsados?.map((d) => d.vezes_usado) || [],
+        backgroundColor: (ctx) => createBarGradient(ctx.chart),
+        borderColor: 'rgba(220, 38, 38, 0.6)',
+        borderWidth: 1,
+        borderRadius: 8,
+        hoverBackgroundColor: 'rgba(239, 68, 68, 0.95)',
+      },
+    ],
+  };
 
   if (loading) {
     return (
@@ -90,59 +165,15 @@ const AdminRelatorios = () => {
 
           <div className="admin-charts-grid">
             <ChartCard title="Distribuição por Sexo" subtitle="Total de usuários por gênero">
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={usuariosStats?.distribuicaoPorSexo || []}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ Sexo, percent }) => `${Sexo} (${(percent * 100).toFixed(0)}%)`}
-                    outerRadius={100}
-                    fill="#8884d8"
-                    dataKey="total"
-                    nameKey="Sexo"
-                  >
-                    {usuariosStats?.distribuicaoPorSexo?.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      background: '#141414',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      borderRadius: '10px',
-                      color: '#fafafa'
-                    }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+              <div style={{ height: 300 }}>
+                <Pie data={distribuicaoSexoData} options={pieChartOptions} />
+              </div>
             </ChartCard>
 
             <ChartCard title="Distribuição de IMC" subtitle="Usuários por categoria de IMC">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart
-                  data={[
-                    { categoria: 'Abaixo do Peso', total: usuariosStats?.imcStats?.abaixo_peso || 0 },
-                    { categoria: 'Peso Normal', total: usuariosStats?.imcStats?.peso_normal || 0 },
-                    { categoria: 'Sobrepeso', total: usuariosStats?.imcStats?.sobrepeso || 0 },
-                    { categoria: 'Obesidade', total: usuariosStats?.imcStats?.obesidade || 0 }
-                  ]}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                  <XAxis dataKey="categoria" stroke="#a3a3a3" angle={-15} textAnchor="end" height={80} />
-                  <YAxis stroke="#a3a3a3" />
-                  <Tooltip
-                    contentStyle={{
-                      background: '#141414',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      borderRadius: '10px',
-                      color: '#fafafa'
-                    }}
-                  />
-                  <Bar dataKey="total" name="Usuários" fill="#dc2626" />
-                </BarChart>
-              </ResponsiveContainer>
+              <div style={{ height: 300 }}>
+                <Bar data={imcData} options={defaultChartOptions} />
+              </div>
             </ChartCard>
           </div>
 
@@ -201,59 +232,15 @@ const AdminRelatorios = () => {
 
           <div className="admin-charts-grid">
             <ChartCard title="Exercícios por Dificuldade" subtitle="Distribuição por nível">
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={exerciciosStats?.distribuicaoPorDificuldade || []}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ dificuldade, percent }) => `${dificuldade} (${(percent * 100).toFixed(0)}%)`}
-                    outerRadius={100}
-                    fill="#8884d8"
-                    dataKey="total"
-                    nameKey="dificuldade"
-                  >
-                    {exerciciosStats?.distribuicaoPorDificuldade?.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      background: '#141414',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      borderRadius: '10px',
-                      color: '#fafafa'
-                    }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+              <div style={{ height: 300 }}>
+                <Pie data={dificuldadeData} options={pieChartOptions} />
+              </div>
             </ChartCard>
 
             <ChartCard title="Exercícios Mais Populares" subtitle="Top 8 mais usados">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={exerciciosStats?.exerciciosPopulares?.slice(0, 8) || []}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                  <XAxis
-                    dataKey="nome"
-                    stroke="#a3a3a3"
-                    angle={-45}
-                    textAnchor="end"
-                    height={120}
-                    fontSize={11}
-                  />
-                  <YAxis stroke="#a3a3a3" />
-                  <Tooltip
-                    contentStyle={{
-                      background: '#141414',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      borderRadius: '10px',
-                      color: '#fafafa'
-                    }}
-                  />
-                  <Bar dataKey="vezes_usado" name="Vezes Usado" fill="#dc2626" />
-                </BarChart>
-              </ResponsiveContainer>
+              <div style={{ height: 300 }}>
+                <Bar data={exerciciosPopularesData} options={defaultChartOptions} />
+              </div>
             </ChartCard>
           </div>
 
@@ -312,29 +299,9 @@ const AdminRelatorios = () => {
 
           <div className="admin-charts-grid">
             <ChartCard title="Exercícios Mais Usados em Listas" subtitle="Top 10">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={dashboardStats?.exerciciosMaisUsados || []}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                  <XAxis
-                    dataKey="nome"
-                    stroke="#a3a3a3"
-                    angle={-45}
-                    textAnchor="end"
-                    height={120}
-                    fontSize={11}
-                  />
-                  <YAxis stroke="#a3a3a3" />
-                  <Tooltip
-                    contentStyle={{
-                      background: '#141414',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      borderRadius: '10px',
-                      color: '#fafafa'
-                    }}
-                  />
-                  <Bar dataKey="vezes_usado" name="Vezes Usado" fill="#dc2626" />
-                </BarChart>
-              </ResponsiveContainer>
+              <div style={{ height: 300 }}>
+                <Bar data={exerciciosMaisUsadosListasData} options={defaultChartOptions} />
+              </div>
             </ChartCard>
           </div>
         </div>

@@ -4,7 +4,8 @@ import StatCard from '../../components/admin/StatCard';
 import ChartCard from '../../components/admin/ChartCard';
 import DataTable from '../../components/admin/DataTable';
 import FilterBar from '../../components/admin/FilterBar';
-import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Bar, Pie } from 'react-chartjs-2';
+import { defaultChartOptions, pieChartOptions, CHART_COLORS, createBarGradient } from '../../utils/chartConfig';
 import { getExerciciosStats, bulkDeleteExercicios } from '../../services/adminService';
 import exercicioService from '../../services/exercicioService';
 import Swal from 'sweetalert2';
@@ -185,7 +186,33 @@ const AdminExercicios = () => {
     }
   ];
 
-  const COLORS = ['#dc2626', '#ef4444', '#f87171', '#fca5a5', '#fecaca', '#fee2e2'];
+  const musculoChartData = {
+    labels: stats?.distribuicaoPorMusculo?.slice(0, 8)?.map((d) => d.musculo) || [],
+    datasets: [
+      {
+        label: 'Total',
+        data: stats?.distribuicaoPorMusculo?.slice(0, 8)?.map((d) => d.total) || [],
+        backgroundColor: (ctx) => createBarGradient(ctx.chart),
+        borderColor: 'rgba(220, 38, 38, 0.6)',
+        borderWidth: 1,
+        borderRadius: 8,
+        hoverBackgroundColor: 'rgba(239, 68, 68, 0.95)',
+      },
+    ],
+  };
+
+  const dificuldadeChartData = {
+    labels: stats?.distribuicaoPorDificuldade?.map((d) => d.dificuldade) || [],
+    datasets: [
+      {
+        data: stats?.distribuicaoPorDificuldade?.map((d) => d.total) || [],
+        backgroundColor: CHART_COLORS,
+        borderColor: 'rgba(23, 23, 23, 0.9)',
+        borderWidth: 2.5,
+        hoverOffset: 12,
+      },
+    ],
+  };
 
   if (loading) {
     return (
@@ -243,52 +270,15 @@ const AdminExercicios = () => {
         {/* Charts */}
         <div className="admin-charts-grid">
           <ChartCard title="Distribuição por Músculo" subtitle="Exercícios por grupo muscular">
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={stats?.distribuicaoPorMusculo?.slice(0, 8) || []}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                <XAxis dataKey="musculo" stroke="#a3a3a3" angle={-45} textAnchor="end" height={100} fontSize={12} />
-                <YAxis stroke="#a3a3a3" />
-                <Tooltip
-                  contentStyle={{
-                    background: '#141414',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '10px',
-                    color: '#fafafa'
-                  }}
-                />
-                <Bar dataKey="total" name="Total" fill="#dc2626" />
-              </BarChart>
-            </ResponsiveContainer>
+            <div style={{ height: 300 }}>
+              <Bar data={musculoChartData} options={defaultChartOptions} />
+            </div>
           </ChartCard>
 
           <ChartCard title="Distribuição por Dificuldade" subtitle="Níveis de dificuldade">
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={stats?.distribuicaoPorDificuldade || []}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ dificuldade, percent }) => `${dificuldade} (${(percent * 100).toFixed(0)}%)`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="total"
-                  nameKey="dificuldade"
-                >
-                  {stats?.distribuicaoPorDificuldade?.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip
-                  contentStyle={{
-                    background: '#141414',
-                    border: '1px solid rgba(255,255,255,0.1)',
-                    borderRadius: '10px',
-                    color: '#fafafa'
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+            <div style={{ height: 300 }}>
+              <Pie data={dificuldadeChartData} options={pieChartOptions} />
+            </div>
           </ChartCard>
         </div>
 

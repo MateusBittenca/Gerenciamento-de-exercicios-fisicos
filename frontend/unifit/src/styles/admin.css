@@ -369,6 +369,10 @@
   min-height: 300px;
 }
 
+.chart-card__body > div {
+  border-radius: var(--radius-md);
+}
+
 /* ===== DATA TABLE ===== */
 .data-table {
   background: var(--bg-secondary);
