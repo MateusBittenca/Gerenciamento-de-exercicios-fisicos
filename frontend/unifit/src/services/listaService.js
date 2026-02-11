@@ -5,10 +5,24 @@ export const listaService = {
   async getListasRecomendadas() {
     try {
       const response = await api.get('/lista');
-      return { success: response.data.status, data: response.data.dados };
+      const dados = response?.data?.dados;
+      const listas = Array.isArray(dados) ? dados : [];
+      return { success: true, data: listas };
     } catch (error) {
       console.error('Erro ao buscar listas:', error);
-      return { success: false, message: 'Erro ao buscar listas' };
+      return { success: false, message: error.response?.data?.msg || 'Não foi possível carregar as listas.' };
+    }
+  },
+
+  // Buscar todas as listas (recomendadas e usuários)
+  async getAllListas() {
+    try {
+      const response = await api.get('/listas/read');
+      console.log('Response getAllListas:', response.data);
+      return response.data.dados || [];
+    } catch (error) {
+      console.error('Erro ao buscar todas as listas:', error);
+      return [];
     }
   },
 
@@ -79,5 +93,12 @@ export const listaService = {
       console.error('Erro ao deletar lista:', error);
       return { success: false, message: 'Erro ao deletar lista' };
     }
+  },
+
+  // Alias para deletarLista
+  async deleteLista(idLista) {
+    return await this.deletarLista(idLista);
   }
 };
+
+export default listaService;

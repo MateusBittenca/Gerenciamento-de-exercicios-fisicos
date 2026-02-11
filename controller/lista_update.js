@@ -28,7 +28,7 @@ module.exports = function (request, response, banco) {
                     nome: p_nome,
                     tipo: p_tipo
                 },
-                token:jwt.gerar(validou.payload)
+                token:jwt.gerar(validou.payload.payload)
             }
             response.status(200).send(resposta)
         }).catch(erro => {

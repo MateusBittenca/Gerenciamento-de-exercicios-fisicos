@@ -40,7 +40,7 @@ module.exports = function(request,response,banco){
                     altura:p_altura,
                     peso:p_peso
                 },
-                 token:jwt.gerar(validou.payload)
+                 token:jwt.gerar(validou.payload.payload)
             }
             response.status(200).send(resposta);
         }).catch(erro=>{

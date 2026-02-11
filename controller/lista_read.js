@@ -17,7 +17,7 @@ module.exports = function(request,response,banco){
                 msg:'sucesso!!',
                 codigo:'002',
                 dados: respostaPromisse,
-                token: jwt.gerar(validou.payload)       
+                token: jwt.gerar(validou.payload.payload)       
             }
             response.status(200).send(resposta);
         }).catch(erro =>{

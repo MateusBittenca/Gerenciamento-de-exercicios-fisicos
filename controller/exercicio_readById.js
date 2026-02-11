@@ -19,7 +19,7 @@ module.exports = function(request, response, banco){
                     msg: 'Exercício encontrado com sucesso!',
                     codigo: '002',
                     dados: respostaPromise,
-                    token: jwt.gerar(validou.payload)       
+                    token: jwt.gerar(validou.payload.payload)       
                 };
                 response.status(200).send(resposta);
             } else {

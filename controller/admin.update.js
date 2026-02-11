@@ -31,7 +31,7 @@ module.exports = function(request,response,banco){
                     senha:p_senha
                    
                 },
-                 token:jwt.gerar(validou.payload)
+                 token:jwt.gerar(validou.payload.payload)
             }
             response.status(200).send(resposta);
         }).catch(erro =>{

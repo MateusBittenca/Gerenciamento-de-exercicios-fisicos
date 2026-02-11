@@ -159,6 +159,43 @@ LOCK TABLES `usuarios` WRITE;
 INSERT INTO `usuarios` VALUES (83,'Heinz','mateusheinzthomesen@gmail.com','521b1fc298c08850972c88e67fe57e8c','Masculino',1.77,66.00),(88,'pedro','pedrin123@gmail','bf70246a043401423f100a9c59660dd1','Masculino',1.23,20.00),(98,'Mateus Bittencourt','mpbittenc@gmail.com','202cb962ac59075b964b07152d234b70','Masculino',1.79,66.00);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `activity_logs`
+--
+
+DROP TABLE IF EXISTS `activity_logs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `activity_logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_tipo` enum('usuario','admin') NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `usuario_nome` varchar(100) DEFAULT NULL,
+  `acao` varchar(100) NOT NULL,
+  `detalhes` text DEFAULT NULL,
+  `ip` varchar(45) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_created_at` (`created_at`),
+  KEY `idx_usuario` (`usuario_tipo`,`usuario_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `activity_logs`
+--
+
+LOCK TABLES `activity_logs` WRITE;
+/*!40000 ALTER TABLE `activity_logs` DISABLE KEYS */;
+INSERT INTO `activity_logs` VALUES 
+(1,'admin',6,'Mateus','LOGIN','Login realizado com sucesso','127.0.0.1','2024-11-18 12:00:00'),
+(2,'usuario',98,'Mateus Bittencourt','LOGIN','Login realizado com sucesso','127.0.0.1','2024-11-18 12:05:00'),
+(3,'usuario',98,'Mateus Bittencourt','CRIAR_LISTA','Criou lista: Treino A','127.0.0.1','2024-11-18 12:10:00'),
+(4,'admin',6,'Mateus','CRIAR_EXERCICIO','Criou exercício: Agachamento Livre','127.0.0.1','2024-11-18 12:15:00'),
+(5,'usuario',83,'Heinz','LOGIN','Login realizado com sucesso','127.0.0.1','2024-11-18 12:20:00');
+/*!40000 ALTER TABLE `activity_logs` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

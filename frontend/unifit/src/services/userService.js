@@ -25,6 +25,27 @@ export const userService = {
     }
   },
 
+  async getAllUsers() {
+    try {
+      const response = await api.get('/usuarios');
+      console.log('Response getAllUsers:', response.data);
+      return response.data.dados || [];
+    } catch (error) {
+      console.error('Erro ao buscar usuários:', error);
+      return [];
+    }
+  },
+
+  async deleteUser(usuarioId) {
+    try {
+      const response = await api.delete(`/usuario/${usuarioId}`);
+      return { success: response.data.status, data: response.data };
+    } catch (error) {
+      console.error('Erro ao deletar usuário:', error);
+      return { success: false, message: 'Erro ao deletar usuário' };
+    }
+  },
+
   async updateUsuario(usuarioId, { nome, email, sexo, altura, peso }) {
     try {
       const response = await api.put(`/usuario/${usuarioId}`, {
@@ -54,3 +75,5 @@ export const userService = {
     }
   }
 };
+
+export default userService;

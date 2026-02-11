@@ -124,10 +124,10 @@ async login(){
                     const obj = {
                         status:true,
                         dados:{
-                            adminID:resultados[0].AdministradorID,
-                            nome:resultados[0].Nome,
-                            email:resultados[0].Email,
-                            cargo:resultados[0].Cargo
+                            AdministradorID:resultados[0].AdministradorID,
+                            Nome:resultados[0].Nome,
+                            Email:resultados[0].Email,
+                            Cargo:resultados[0].Cargo
                         }
                     }
                     resolve(obj);

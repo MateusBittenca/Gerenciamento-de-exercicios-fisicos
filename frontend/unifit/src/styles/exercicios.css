@@ -409,20 +409,44 @@
   border: 1px solid rgba(220, 38, 38, 0.2);
 }
 
-.exercicios-page .card-content img {
+/* Wrapper para placeholder + imagem (evita layout shift e permite fade-in) */
+.exercicios-page .card-image-wrap {
+  position: relative;
   width: 100%;
   max-width: 200px;
   height: 200px;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.exercicios-page .card-image-placeholder {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, rgba(255, 255, 255, 0.03) 100%);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.exercicios-page .card-image-wrap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 200px;
   object-fit: contain;
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.02);
   padding: var(--space-md);
-  transition: all var(--transition-base);
+  transition: opacity 0.3s ease, filter var(--transition-base), transform var(--transition-base);
   filter: brightness(0.95) contrast(1.05);
-  margin-top: auto;
 }
 
-.exercicios-page .card:hover .card-content img {
+.exercicios-page .card:hover .card-image-wrap img {
   transform: scale(1.03);
   filter: brightness(1) contrast(1.1);
 }

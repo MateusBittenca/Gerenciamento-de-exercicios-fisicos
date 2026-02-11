@@ -43,7 +43,7 @@ module.exports = function (request, response, banco) {
                     msg: 'Exercícios da lista encontrados com sucesso',
                     codigo: '002',
                     dados: resultados,
-                    token: jwt.gerar(validou.payload)
+                    token: jwt.gerar(validou.payload.payload)
                 };
                 response.status(200).send(resposta);
             }

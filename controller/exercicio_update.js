@@ -43,7 +43,7 @@ module.exports = function(request,response,banco){
                         tipo:p_tipo,
                         imagem:p_imagem
                     },
-                    token:jwt.gerar(validou.payload)
+                    token:jwt.gerar(validou.payload.payload)
                 }
                 response.status(200).send(resposta)
     
