@@ -9,10 +9,8 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  animation: fadeIn 0.2s ease;
+  background: rgba(0, 0, 0, 0.6);
+  animation: fadeIn var(--transition-base) ease;
 }
 
 .modal[style*="display: block"] {
@@ -38,26 +36,26 @@
   padding: var(--space-2xl);
   border: 1px solid var(--border-medium);
   border-top: 3px solid var(--primary);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   max-width: 560px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
   overflow-x: auto;
   color: var(--gray-50);
-  box-shadow: var(--shadow-2xl), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  box-shadow: var(--shadow-xl);
   position: relative;
-  animation: modalIn 0.25s ease;
+  animation: modalIn var(--transition-slow) ease;
 }
 
 @keyframes modalIn {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.98);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -67,11 +65,12 @@
   position: absolute;
   right: var(--space-md);
   top: var(--space-md);
-  font-size: 1.125rem;
+  font-size: 1.5rem;
+  font-weight: 400;
   cursor: pointer;
-  transition: color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
-  width: 40px;
-  height: 40px;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,13 +81,9 @@
 }
 
 .close-button:hover,
-.close-button:focus-visible {
-  background: rgba(220, 38, 38, 0.15);
+.close-button:focus {
+  background: rgba(220, 38, 38, 0.2);
   color: var(--primary-light);
-}
-
-.close-button:active {
-  transform: scale(0.95);
 }
 
 /* ===== CONTEÚDO INTERNO DO MODAL ===== */

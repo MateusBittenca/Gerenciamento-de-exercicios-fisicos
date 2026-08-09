@@ -16,15 +16,15 @@ const Landing = () => {
         <div className="content">
           <img src={logo} alt="Unifit Logo" />
           <p>Gerencie seus treinos e alcance seus objetivos</p>
-          <div className="cta-group">
+          <div>
             <Link to="/login">
               <button type="button">
-                <span></span>Entrar
+                <span></span>ENTRAR
               </button>
             </Link>
             <Link to="/cadastro">
-              <button type="button" className="btn-outline">
-                <span></span>Cadastrar
+              <button type="button">
+                <span></span>CADASTRAR
               </button>
             </Link>
           </div>

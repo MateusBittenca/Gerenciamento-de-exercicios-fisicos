@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
+  baseURL: 'http://localhost:3000',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
@@ -22,20 +22,15 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor para atualizar o token na resposta e tratar 401 (sessão expirada)
+// Interceptor para atualizar o token na resposta
 api.interceptors.response.use(
   (response) => {
-    if (response.data?.token) {
+    if (response.data.token) {
       localStorage.setItem('token', response.data.token);
     }
     return response;
   },
   (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('payload');
-      window.location.href = `${window.location.origin}/login`;
-    }
     return Promise.reject(error);
   }
 );

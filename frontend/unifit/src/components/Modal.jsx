@@ -22,14 +22,9 @@ const Modal = ({ isOpen, onClose, children, className = '' }) => {
         className={`modal-content ${className}`} 
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          type="button"
-          className="close-button"
-          onClick={onClose}
-          aria-label="Fechar"
-        >
-          <i className="bi bi-x-lg" aria-hidden />
-        </button>
+        <span className="close-button" onClick={onClose}>
+          &times;
+        </span>
         {children}
       </div>
     </div>
