@@ -1,9 +1,0 @@
-{
-  "name": "frontend",
-  "private": true,
-  "scripts": {
-    "dev": "npm run dev --prefix Unifit",
-    "build": "npm run build --prefix Unifit",
-    "preview": "npm run preview --prefix Unifit"
-  }
-}

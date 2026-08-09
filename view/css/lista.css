@@ -1,0 +1,157 @@
+
+#tabelaExercicios {
+    padding: 15px;
+    margin-left: 100px;
+    display: flex;
+    flex-wrap: wrap; /* Permite que as tabelas quebrem linha */
+    gap: 25px; /* Espaço entre as tabelas */
+    
+ 
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+
+table {
+    border-collapse: collapse;
+    width: auto;
+    max-width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+
+.tabela-list:hover {
+    transform: scale(1.10);
+    transition: 0.2s;
+}
+
+
+th, td {
+    padding: 10px 15px;
+    text-align: center;
+    color: aliceblue;
+    max-width: 200px; /* Limitar a largura das células */
+    word-break: break-word; /* Quebrar as palavras longas */
+}
+
+th {
+    background-color: rgb(70, 70, 70);
+    font-weight: bold;
+}
+
+td {
+    background-color: rgb(58, 58, 58);
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    
+}
+
+tr:hover td {
+    background-color: rgb(95, 95, 95);
+}
+
+
+
+
+
+
+
+/* Estilos para os botões de excluir e editar */
+
+
+/* Estilo específico para o botão de excluir */
+
+
+
+
+
+
+h2{
+    color: #fff;
+}
+
+
+.modal-lista {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+    border-radius: 12px;
+    backdrop-filter: blur(5px); /* Adiciona desfoque ao fundo */
+}
+
+.modal-content-lista {
+    background-color: #3f3f3f;
+    margin: 5% auto;
+    padding: 20px;
+    width: 41%;
+    color: #fff;
+    border-radius: 12px;
+    height: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+.modal-content-lista img{
+    width: 400px; /* Ajuste a largura conforme necessário */
+    height: 50%; /* Mantém a proporção da imagem */
+    max-width: 100%; /* Assegura que a imagem não ultrapasse o tamanho do contêiner */
+    display: block; /* Remove espaços em branco ao redor da imagem */
+    margin: 0 auto; /* Centraliza a imagem horizontalmente */
+    border-radius: 12px;
+}
+
+.close-button-lista {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button-lista:hover,
+.close-button-lista:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-modal-lista{
+    background-color: #3498db;
+    color: white;
+}
+
+.button-modal-lista :hover{
+    background-color: #2980b9;
+    transform: scale(1.05);
+}
+
+
+
+.tabela {
+    color: #fff;
+    width: auto;
+    margin: 12px;
+    height: auto;
+    background-color: #1f2021;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
