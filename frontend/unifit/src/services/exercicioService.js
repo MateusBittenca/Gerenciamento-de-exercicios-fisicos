@@ -12,18 +12,6 @@ export const exercicioService = {
     }
   },
 
-  // Alias para getExercicios (para compatibilidade)
-  async getAll() {
-    try {
-      const response = await api.get('/exercicios');
-      console.log('Response getAll exercicios:', response.data);
-      return response.data.dados || [];
-    } catch (error) {
-      console.error('Erro ao buscar exercícios:', error);
-      return [];
-    }
-  },
-
   // Buscar exercício por ID
   async getExercicioPorId(id) {
     try {
@@ -66,12 +54,5 @@ export const exercicioService = {
       console.error('Erro ao deletar exercício:', error);
       return { success: false, message: 'Erro ao deletar exercício' };
     }
-  },
-
-  // Alias para deletarExercicio
-  async delete(id) {
-    return await this.deletarExercicio(id);
   }
 };
-
-export default exercicioService;

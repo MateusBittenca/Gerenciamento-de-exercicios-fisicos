@@ -7,7 +7,6 @@ const rotas_exercicios = require('./routes/rotas_exercicios');
 const rotas_admin = require("./routes/rotas_admin");
 const rotas_lista = require("./routes/rotas_lista");
 const rotas_listaExer = require("./routes/rotas_listaExer");
-const rotas_admin_panel = require("./routes/rotas_admin_panel");
 
 const app = express();
 
@@ -47,7 +46,6 @@ rotas_exercicios(app,banco);
 rotas_admin(app,banco);
 rotas_lista(app,banco);
 rotas_listaExer(app,banco);
-rotas_admin_panel(app,banco);
 
 app.listen(porta,function(){
     console.log("Servidor rodando:"+porta);

@@ -22,11 +22,10 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor: só atualiza token em respostas de login (evita sobrescrever com token de outras rotas)
+// Interceptor para atualizar o token na resposta e tratar 401 (sessão expirada)
 api.interceptors.response.use(
   (response) => {
-    const isLogin = response.config?.url?.includes('/login') || response.config?.url?.includes('/cadastrar');
-    if (isLogin && response.data?.token) {
+    if (response.data?.token) {
       localStorage.setItem('token', response.data.token);
     }
     return response;
