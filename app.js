@@ -19,8 +19,9 @@ const host = 'http://localhost:'+ porta + complemento;
 const banco = mysql.createPool({
     connectionLimit : 128,
     host:'localhost',
+    port: 3307,
     user:'root',
-    password:'',
+    password:'root',
     database:'unifit'
 });
 

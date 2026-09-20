@@ -160,9 +160,6 @@ function limparTabela() {
 }
 
 
-
-
-
 function construirTabela(filtro = null) {
     limparTabela();
     for (let exercicio of exercicios_json) {
