@@ -1,0 +1,538 @@
+html, body, #root {
+  width: 100% !important;
+  min-height: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  background-color: #000 !important;
+  font-family: sans-serif;
+}
+
+.banner {
+  width: 100% !important;
+  min-height: 100vh;
+  height: auto !important;
+  box-sizing: border-box;
+  overflow: visible !important;
+  display: block !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
+
+.pagina-landing,
+.pagina-login {
+  height: 100vh !important;
+  min-height: 100vh;
+  overflow: hidden !important;
+  position: relative;
+}
+
+.pagina-landing .navbar {
+  width: 85% !important;
+  margin: 0 auto;
+  padding: 28px 0 !important;
+  position: relative;
+  z-index: 2;
+  background: transparent !important;
+}
+
+.pagina-landing .navbar ul {
+  height: auto !important;
+}
+
+.pagina-landing .content {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  text-align: center;
+  z-index: 1;
+}
+
+.pagina-landing .content img {
+  width: min(420px, 46vw);
+  height: auto;
+}
+
+.pagina-landing button {
+  display: inline-block !important;
+  width: 200px !important;
+  padding: 15px 0 !important;
+  text-align: center;
+  margin: 20px 10px !important;
+  border-radius: 25px !important;
+  font-weight: bold;
+  border: 2px solid #c30505 !important;
+  background: transparent !important;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.pagina-landing button span {
+  background-color: #c30505;
+  height: 100%;
+  width: 0;
+  border-radius: 25px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: 0.5s;
+}
+
+.pagina-landing button:hover span {
+  width: 100%;
+}
+
+.pagina-landing button:hover {
+  border-color: #c30505;
+  background: transparent !important;
+  transform: none;
+}
+
+.pagina-login .container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagina-login .form-box,
+.pagina-cadastro .form-box {
+  max-width: 360px;
+  width: 92%;
+}
+
+.pagina-login .form button,
+.pagina-cadastro .form button {
+  background-color: #060404 !important;
+  color: #fff;
+  border: 0 !important;
+  border-radius: 24px !important;
+  padding: 10px 16px !important;
+  width: auto !important;
+  margin: 0 auto !important;
+}
+
+.pagina-login .form button:hover,
+.pagina-cadastro .form button:hover {
+  background-color: #e60000 !important;
+  transform: none;
+}
+
+.pagina-login .input,
+.pagina-cadastro .input {
+  width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box;
+  background: none !important;
+  border-radius: 0 !important;
+  height: auto !important;
+}
+
+.pagina-cadastro {
+  min-height: 100vh;
+  height: auto !important;
+  overflow: auto !important;
+}
+
+.pagina-cadastro .container {
+  min-height: 100vh;
+  height: auto;
+  padding: 32px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-user {
+  display: block;
+}
+
+.app-user .conteudo {
+  margin-left: 72px;
+  padding: 20px 24px 40px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+nav.menu-lateral {
+  z-index: 1000;
+}
+
+nav.menu-lateral ul {
+  height: 100%;
+}
+
+nav.menu-lateral .icon,
+nav.menu-lateral .txt-link {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  background: none !important;
+  z-index: auto !important;
+  border-radius: 0 !important;
+  left: auto !important;
+  bottom: auto !important;
+}
+
+nav.menu-lateral ul li.item-menu.ativo,
+nav.menu-lateral ul li.item-menu:has(a.ativo) {
+  background-color: rgb(244, 110, 110);
+}
+
+nav.menu-lateral .btn-expandir {
+  cursor: pointer;
+}
+
+.app-user .itens {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  margin-left: 0 !important;
+  align-items: start;
+}
+
+.app-user .sugestoes,
+.app-user .exerfav {
+  width: auto !important;
+  height: auto !important;
+  margin: 0;
+}
+
+.app-user .sugestoes {
+  grid-column: 1 / -1;
+}
+
+.app-user .sugestoes .card,
+.app-user .pagina-home .card {
+  width: 190px !important;
+  height: 230px !important;
+  margin: 8px !important;
+  flex: 0 0 190px;
+}
+
+.app-user .cards-sugestoes {
+  justify-content: flex-start;
+}
+
+.app-user .exerfav table {
+  display: table !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  overflow: visible !important;
+}
+
+.app-user .exerfav th,
+.app-user .exerfav td {
+  max-width: none !important;
+  white-space: nowrap;
+  word-break: normal !important;
+}
+
+.app-user #filtro,
+.app-admin #filtro {
+  margin: 0 0 16px !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 14px 16px;
+  background: rgba(31, 32, 33, 0.92);
+  border-radius: 12px;
+}
+
+.app-user #filtro button,
+.app-admin #filtro button {
+  width: auto !important;
+  min-width: 96px;
+  margin: 0 !important;
+  padding: 8px 14px !important;
+  border-radius: 8px;
+  background-color: rgb(244, 110, 110);
+}
+
+.app-user #filtro button.filtro-ativo,
+.app-admin #filtro button.filtro-ativo {
+  background-color: #e60000;
+}
+
+.app-user #busca,
+.app-admin #busca {
+  margin-left: auto;
+  height: auto !important;
+  width: 220px !important;
+}
+
+.app-user .card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.app-user .card-container .card {
+  width: 190px !important;
+  height: 274px !important;
+  margin: 0 !important;
+  flex: 0 0 190px;
+}
+
+.app-user .card {
+  cursor: pointer;
+}
+
+
+.app-user .pagina-perfil {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0 48px;
+}
+
+.app-user .pagina-perfil .model {
+  margin: 0 !important;
+  height: auto !important;
+  max-width: 420px;
+  width: 100%;
+}
+
+.app-user .pagina-perfil input {
+  width: calc(100% - 8px) !important;
+  margin: 8px 0 !important;
+  box-sizing: border-box;
+}
+
+.app-user .tabela {
+  margin: 0 0 16px;
+  width: auto !important;
+}
+
+.app-admin .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100% !important;
+  box-sizing: border-box;
+  padding: 10px 20px !important;
+  flex-wrap: nowrap;
+  background-color: #000 !important;
+}
+
+.app-admin .navbar img {
+  max-width: 100px;
+  height: auto;
+}
+
+.app-admin .navbar ul {
+  display: block;
+  height: auto !important;
+  margin: 0;
+  padding: 0;
+}
+
+.app-admin .navbar a.ativo {
+  color: #ff6b6b;
+}
+
+.app-admin .conteudo-admin {
+  padding: 20px 24px 48px;
+}
+
+.app-admin .tabela {
+  margin: 0 auto;
+  max-width: 1400px;
+  width: auto !important;
+  overflow: visible;
+}
+
+.app-admin .tabela-scroll {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.app-admin .tabela-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.app-admin .tabela-scroll::-webkit-scrollbar-thumb {
+  background: #c30505;
+  border-radius: 8px;
+}
+
+.app-admin .tabela-scroll::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.app-admin .cabeca {
+  align-items: center;
+}
+
+.app-admin .cabeca img,
+.app-user .tabela .cabeca img {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+.app-admin #txtFiltro,
+.app-user #txtFiltro {
+  width: 100% !important;
+  max-width: none;
+  box-sizing: border-box;
+  margin: 12px 0 0 !important;
+}
+
+.app-admin .tabela-scroll table {
+  display: table !important;
+  width: max-content !important;
+  min-width: 100%;
+  max-width: none !important;
+  overflow: visible !important;
+  word-wrap: normal !important;
+  table-layout: auto;
+}
+
+.app-admin .tabela th,
+.app-admin .tabela td {
+  max-width: none !important;
+  white-space: nowrap !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  vertical-align: middle;
+  padding: 12px 16px;
+}
+
+.app-admin .tabela button {
+  width: auto !important;
+  min-width: 92px;
+  margin: 0 4px !important;
+  padding: 8px 12px !important;
+  transform: none;
+}
+
+.app-admin .tabela button:hover {
+  transform: none;
+}
+
+.app-admin .tabela td input,
+.app-admin .tabela td select {
+  width: 160px !important;
+  min-width: 120px;
+  margin: 0 !important;
+  box-sizing: border-box;
+}
+
+.app-admin .tabela a button {
+  width: auto !important;
+  margin: 12px 0 0 !important;
+}
+
+.app-user #tabelaExercicios,
+.app-admin #tabelaExercicios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-left: 0 !important;
+  padding: 8px 0 24px;
+}
+
+.app-user #tabelaExercicios table,
+.app-admin #tabelaExercicios table {
+  display: table !important;
+  width: 240px !important;
+  min-width: 240px !important;
+  max-width: 260px !important;
+  table-layout: fixed;
+  overflow: hidden;
+}
+
+.app-user #tabelaExercicios th,
+.app-user #tabelaExercicios td,
+.app-admin #tabelaExercicios th,
+.app-admin #tabelaExercicios td {
+  max-width: none !important;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.55);
+  padding: 24px;
+  box-sizing: border-box;
+  border-radius: 0;
+}
+
+.modal.aberto,
+.modal-lista.aberto {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content,
+.modal-content-lista {
+  width: min(640px, 92vw) !important;
+  max-height: 88vh;
+  overflow: auto;
+  margin: 0 auto;
+}
+
+.modal-content-lista {
+  width: min(860px, 94vw) !important;
+}
+
+.modal-content img,
+.modal-content-lista img {
+  max-width: 100%;
+  height: auto;
+}
+
+.modal-content button,
+.modal-content-lista button {
+  width: auto !important;
+  margin: 8px 6px 0 !important;
+}
+
+tr:hover td {
+  transform: none;
+}
+
+.card-content img {
+  object-fit: cover;
+}
+
+@media screen and (max-width: 1100px) {
+  .app-user .itens {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .app-user .conteudo {
+    margin-left: 60px;
+    padding: 12px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .pagina-landing button {
+    display: block;
+    margin: 12px auto !important;
+  }
+}
