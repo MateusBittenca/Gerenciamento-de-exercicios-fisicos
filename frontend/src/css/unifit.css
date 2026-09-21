@@ -1,0 +1,621 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  background: var(--uf-bg);
+  color: var(--uf-text);
+  font-family: var(--uf-font-body);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--uf-font-title);
+  color: var(--uf-text);
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+.uf-btn,
+.uf-btn-primary,
+.uf-btn-outline,
+.uf-btn-ghost,
+.uf-btn-danger,
+.uf-btn-edit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--uf-radius-pill);
+  font-family: var(--uf-font-title);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.uf-btn-primary {
+  background: var(--uf-primary);
+  color: #fff;
+}
+
+.uf-btn-primary:hover {
+  background: var(--uf-primary-hover);
+}
+
+.uf-btn-outline {
+  background: transparent;
+  color: var(--uf-primary);
+  border: 1.5px solid var(--uf-primary);
+}
+
+.uf-btn-outline:hover {
+  background: var(--uf-soft-bg);
+}
+
+.uf-btn-ghost {
+  background: var(--uf-bg);
+  color: var(--uf-text);
+  border: 1px solid var(--uf-border);
+}
+
+.uf-btn-danger {
+  background: var(--uf-danger);
+  color: #fff;
+}
+
+.uf-btn-edit {
+  background: var(--uf-secondary);
+  color: #fff;
+}
+
+.uf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: var(--uf-radius-pill);
+  border: 1px solid var(--uf-border);
+  background: var(--uf-surface);
+  color: var(--uf-text-2);
+  font-family: var(--uf-font-title);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.uf-chip.ativo,
+.uf-chip-ativo {
+  background: var(--uf-primary);
+  border-color: var(--uf-primary);
+  color: #fff;
+}
+
+.uf-card {
+  background: var(--uf-surface);
+  border: 1px solid var(--uf-border);
+  border-radius: var(--uf-radius-xl);
+  box-shadow: var(--uf-shadow-1);
+}
+
+.uf-input,
+.uf-select,
+.uf-textarea {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 1.5px solid var(--uf-border);
+  border-radius: var(--uf-radius-sm);
+  background: var(--uf-surface);
+  color: var(--uf-text);
+  font-size: 14px;
+}
+
+.uf-textarea {
+  height: auto;
+  min-height: 96px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.uf-input:focus,
+.uf-select:focus,
+.uf-textarea:focus {
+  outline: none;
+  border-color: var(--uf-primary);
+  box-shadow: 0 0 0 3px rgba(195, 5, 5, 0.12);
+}
+
+.uf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.uf-field label {
+  font-family: var(--uf-font-title);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.uf-table-wrap {
+  overflow-x: auto;
+}
+
+.uf-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--uf-surface);
+}
+
+.uf-table th {
+  background: var(--uf-bg);
+  color: var(--uf-text-2);
+  font-family: var(--uf-font-title);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--uf-border);
+  white-space: nowrap;
+}
+
+.uf-table td {
+  height: 56px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--uf-border);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.uf-table tbody tr:hover {
+  background: var(--uf-bg);
+}
+
+.uf-table .uf-btn-danger,
+.uf-table .uf-btn-edit,
+.uf-table .uf-btn-primary,
+.uf-table .uf-btn-ghost {
+  min-height: 36px;
+  padding: 0 14px;
+}
+
+.uf-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--uf-overlay);
+  backdrop-filter: blur(4px);
+}
+
+.uf-modal-card {
+  position: relative;
+  width: min(720px, 92vw);
+  max-height: 88vh;
+  overflow: auto;
+  background: var(--uf-surface);
+  border-radius: var(--uf-radius-xl);
+  box-shadow: var(--uf-shadow-2);
+  padding: 28px;
+}
+
+.uf-modal-card.largo {
+  width: min(860px, 94vw);
+}
+
+.uf-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--uf-bg);
+  color: var(--uf-text-2);
+  cursor: pointer;
+  font-size: 22px;
+}
+
+.uf-page-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.uf-page-head h1 {
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.015em;
+}
+
+.uf-page-head p {
+  margin: 8px 0 0;
+  color: var(--uf-text-2);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.uf-empty {
+  padding: 32px;
+  text-align: center;
+  color: var(--uf-text-2);
+}
+
+.uf-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--uf-primary);
+  font-family: var(--uf-font-title);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.uf-grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.uf-grid-lists {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.uf-ex-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.uf-ex-card img {
+  width: 100%;
+  height: 192px;
+  object-fit: cover;
+  background: var(--uf-surface-low);
+}
+
+.uf-ex-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.uf-ex-card-body h3 {
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.uf-ex-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.uf-add {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--uf-soft-bg);
+  color: var(--uf-primary);
+  cursor: pointer;
+}
+
+.uf-list-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.uf-list-card h3 {
+  font-size: 18px;
+}
+
+.uf-list-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--uf-text-2);
+}
+
+.uf-list-card li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--uf-border);
+  cursor: pointer;
+}
+
+.uf-list-card li:last-child {
+  border-bottom: 0;
+}
+
+.uf-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.uf-search {
+  position: relative;
+  flex: 1;
+}
+
+.uf-search .material-symbols-outlined {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--uf-text-2);
+}
+
+.uf-search .uf-input {
+  padding-left: 44px;
+  height: 48px;
+  border-radius: var(--uf-radius);
+}
+
+.uf-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  background: var(--uf-bg);
+}
+
+.uf-auth-card {
+  width: min(440px, 100%);
+  padding: 32px 28px;
+  text-align: center;
+}
+
+.uf-auth-card img {
+  height: 40px;
+  width: auto;
+}
+
+.uf-auth-card h1 {
+  font-size: 22px;
+  margin: 8px 0 4px;
+}
+
+.uf-auth-card .uf-muted {
+  color: var(--uf-text-2);
+  margin: 0 0 20px;
+}
+
+.uf-auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.uf-auth-card .uf-btn-primary {
+  width: 100%;
+  min-height: 48px;
+  border-radius: var(--uf-radius);
+}
+
+.uf-landing {
+  min-height: 100vh;
+  background: var(--uf-bg);
+}
+
+.uf-landing-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--uf-shadow-1);
+}
+
+.uf-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--uf-font-title);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.uf-brand img {
+  height: 32px;
+}
+
+.uf-landing-hero {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 72px 24px 96px;
+  text-align: center;
+}
+
+.uf-landing-hero h1 {
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.02em;
+}
+
+.uf-landing-hero p {
+  max-width: 560px;
+  margin: 16px auto 32px;
+  color: var(--uf-text-2);
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.uf-landing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.uf-admin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  color: var(--uf-text-2);
+  font-family: var(--uf-font-title);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.uf-profile {
+  max-width: 520px;
+}
+
+.uf-profile .uf-field {
+  margin-bottom: 12px;
+}
+
+.uf-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.uf-table .uf-input,
+.uf-table .uf-select {
+  height: 36px;
+  min-width: 120px;
+}
+
+.uf-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.uf-modal-form h2 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.uf-pick-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.uf-pick-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--uf-border);
+  cursor: pointer;
+}
+
+.uf-pick-list li:hover {
+  color: var(--uf-primary);
+}
+
+.uf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.uf-home-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+}
+
+.uf-stat {
+  font-family: var(--uf-font-title);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--uf-text-2);
+}
+
+.uf-gif {
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: var(--uf-radius);
+  background: var(--uf-surface-low);
+}
+
+.uf-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin: 16px 0;
+  color: var(--uf-text-2);
+}
+
+.uf-muted {
+  color: var(--uf-text-2);
+}
+
+@media (max-width: 960px) {
+  .uf-home-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .uf-landing-header {
+    padding: 0 16px;
+  }
+
+  .uf-landing-hero h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}

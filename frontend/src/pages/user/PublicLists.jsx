@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../../auth/AuthContext';
 import { groupListsById } from '../../api/client';
 import ExerciseModal from '../../components/ExerciseModal';
-import '../../css/lista.css';
-import '../../css/modalExercicios.css';
-import '../../css/exercicios.css';
 
 export default function PublicLists() {
   const { request } = useAuth();
@@ -26,35 +23,35 @@ export default function PublicLists() {
   const agrupadas = groupListsById(listaExer);
 
   return (
-    <div id="tabelaExercicios">
-      {listaExer.length === 0 && (
-        <tr>
-          <td>Nenhuma lista encontrada!</td>
-        </tr>
+    <div>
+      <div className="uf-page-head">
+        <div>
+          <h1>Listas oficiais</h1>
+          <p>Treinos recomendados pela academia. Clique em um exercício para ver os detalhes.</p>
+        </div>
+      </div>
+
+      {listaExer.length === 0 ? (
+        <p className="uf-empty uf-card">Nenhuma lista encontrada!</p>
+      ) : (
+        <div className="uf-grid-lists" id="tabelaExercicios">
+          {Object.keys(agrupadas).map((idLista) => {
+            const lista = agrupadas[idLista];
+            return (
+              <article className="uf-card uf-list-card" key={idLista}>
+                <h3>{lista[0].nome_lista}</h3>
+                <ul>
+                  {lista.map((exercicio) => (
+                    <li key={exercicio.id_exercicio} onClick={() => setSelecionado(exercicio)}>
+                      {exercicio.nome_exercicio}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
+        </div>
       )}
-      {Object.keys(agrupadas).map((idLista) => {
-        const lista = agrupadas[idLista];
-        return (
-          <div className="container-tabela" key={idLista}>
-            <table>
-              <thead>
-                <tr>
-                  <th onClick={() => alert('Você clicou no cabeçalho: ' + lista[0].nome_lista)}>
-                    {lista[0].nome_lista}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {lista.map((exercicio) => (
-                  <tr key={exercicio.id_exercicio} onClick={() => setSelecionado(exercicio)}>
-                    <td>{exercicio.nome_exercicio}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        );
-      })}
       <ExerciseModal exercicio={selecionado} onClose={() => setSelecionado(null)} />
     </div>
   );

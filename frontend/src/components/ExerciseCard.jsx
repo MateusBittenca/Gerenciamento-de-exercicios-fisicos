@@ -2,28 +2,25 @@ import { exerciseImageSrc } from '../api/client';
 
 export default function ExerciseCard({ exercicio, compact = false, onOpen, onAdd }) {
   return (
-    <div className="card">
-      <div className="card-content" onClick={onOpen}>
-        {compact ? <h5>{exercicio.nome}</h5> : <h3>{exercicio.nome}</h3>}
-        {compact ? (
-          <h5>Musculo:{exercicio.musculo}</h5>
+    <article className="uf-card uf-ex-card">
+      <div onClick={onOpen}>
+        {exercicio.imagem ? (
+          <img src={exerciseImageSrc(exercicio.imagem)} alt={exercicio.nome} />
         ) : (
-          <p>Musculo:{exercicio.musculo}</p>
-        )}
-        {exercicio.imagem && (
-          <img src={exerciseImageSrc(exercicio.imagem)} alt="Imagem do exercício" />
+          <div style={{ height: compact ? 140 : 192, background: '#F5F3F4' }} />
         )}
       </div>
-      {onAdd && (
-        <label className="ui-bookmark" onClick={(e) => {
-          e.preventDefault();
-          onAdd(exercicio);
-        }}>
-          <div className="bookmark">
-            <i className="bi bi-plus-lg"></i>
-          </div>
-        </label>
-      )}
-    </div>
+      <div className="uf-ex-card-body">
+        <h3 onClick={onOpen} style={{ cursor: 'pointer' }}>{exercicio.nome}</h3>
+        <div className="uf-ex-card-foot">
+          <span className="uf-chip" style={{ cursor: 'default' }}>{exercicio.musculo}</span>
+          {onAdd && (
+            <button type="button" className="uf-add" onClick={() => onAdd(exercicio)} aria-label="Adicionar à lista">
+              <span className="material-symbols-outlined">add</span>
+            </button>
+          )}
+        </div>
+      </div>
+    </article>
   );
 }

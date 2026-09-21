@@ -8,23 +8,23 @@ export default function ExerciseModal({ exercicio, onClose }) {
   const nome = exercicio.nome || exercicio.nome_exercicio;
   const musculo = exercicio.musculo || exercicio.musculo_trabalhado;
   const tipo = exercicio.tipo || exercicio.tipo_exercicio;
+  const imagem = exercicio.imagem;
 
   return (
-    <div className="modal aberto">
-      <div className="modal-content">
-        <span className="close-button" onClick={onClose}>&times;</span>
+    <div className="uf-modal" onClick={onClose}>
+      <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
+        <button type="button" className="uf-modal-close" onClick={onClose}>&times;</button>
         <h2>{nome}</h2>
-        <br />
-        <h3>Musculo: {musculo}</h3>
-        <h3>Equipamento: {exercicio.equipamento}</h3>
-        <h3>Dificuldade: {exercicio.dificuldade}</h3>
-        <h3>Tipo: {tipo}</h3>
-        <br />
-        {exercicio.imagem && (
-          <img src={exerciseImageSrc(exercicio.imagem)} alt="Imagem do exercício" />
+        {imagem && (
+          <img className="uf-gif" src={exerciseImageSrc(imagem)} alt={nome} style={{ marginTop: 16 }} />
         )}
-        <br />
-        <h4>{exercicio.instrucao}</h4>
+        <div className="uf-meta">
+          <div><strong>Músculo:</strong> {musculo}</div>
+          <div><strong>Equipamento:</strong> {exercicio.equipamento}</div>
+          <div><strong>Dificuldade:</strong> {exercicio.dificuldade}</div>
+          <div><strong>Tipo:</strong> {tipo}</div>
+        </div>
+        <p>{exercicio.instrucao}</p>
       </div>
     </div>
   );

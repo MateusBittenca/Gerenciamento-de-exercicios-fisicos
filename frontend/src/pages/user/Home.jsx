@@ -3,9 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
-import '../../css/home.css';
-import '../../css/table.css';
-import '../../css/modalExercicios.css';
 
 export default function Home() {
   const { payload, request } = useAuth();
@@ -42,82 +39,72 @@ export default function Home() {
   const sugestoes = exercicios.slice(0, 2);
 
   return (
-    <div className="itens pagina-home">
-      <div className="sugestoes">
-        <h2>Sugestões de exercicios</h2>
-        <br />
-        <div className="cards-sugestoes" id="card">
-          {sugestoes.length === 0 ? (
-            <p>Nenhum exercício encontrado.</p>
-          ) : (
-            sugestoes.map((exercicio) => (
-              <ExerciseCard
-                key={exercicio.idexercicio}
-                exercicio={exercicio}
-                compact
-                onOpen={() => setSelecionado(exercicio)}
-              />
-            ))
-          )}
+    <div>
+      <div className="uf-page-head">
+        <div>
+          <p className="uf-kicker">Portal do aluno</p>
+          <h1>Olá, {payload?.nome}</h1>
+          <p>Continue de onde parou: listas oficiais, as suas e sugestões do catálogo.</p>
+        </div>
+        <div className="uf-stat">
+          {listasSugeridas.length} oficiais · {minhasListas.length} minhas
         </div>
       </div>
 
-      <div className="exerfav">
-        <div id="cabeca" onClick={() => navigate('/app/listas')}>
-          <h2>Listas Recomendadas</h2>
-        </div>
-        <br />
-        <table id="tblListSugerida">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>tipo</th>
-            </tr>
-          </thead>
-          <tbody>
+      <div className="uf-home-grid">
+        <section>
+          <div className="uf-page-head">
+            <h2>Sugestões de exercícios</h2>
+          </div>
+          <div className="uf-grid-cards">
+            {sugestoes.length === 0 ? (
+              <p className="uf-empty uf-card">Nenhum exercício encontrado.</p>
+            ) : (
+              sugestoes.map((exercicio) => (
+                <ExerciseCard
+                  key={exercicio.idexercicio}
+                  exercicio={exercicio}
+                  compact
+                  onOpen={() => setSelecionado(exercicio)}
+                />
+              ))
+            )}
+          </div>
+        </section>
+
+        <div>
+          <section className="uf-card uf-list-card" style={{ marginBottom: 20, cursor: 'pointer' }} onClick={() => navigate('/app/listas')}>
+            <h3>Listas recomendadas</h3>
             {listasSugeridas.length === 0 ? (
-              <tr>
-                <td colSpan="3">Nenhuma lista recomendada</td>
-              </tr>
+              <p className="uf-muted">Nenhuma lista recomendada</p>
             ) : (
-              listasSugeridas.map((lista) => (
-                <tr key={lista.idlista}>
-                  <td>{lista.nome}</td>
-                  <td>{lista.tipo}</td>
-                </tr>
-              ))
+              <ul>
+                {listasSugeridas.map((lista) => (
+                  <li key={lista.idlista}>
+                    <strong>{lista.nome}</strong>
+                    <span className="uf-muted"> · {lista.tipo}</span>
+                  </li>
+                ))}
+              </ul>
             )}
-          </tbody>
-        </table>
-      </div>
+          </section>
 
-      <div className="exerfav">
-        <div id="cabeca2" onClick={() => navigate('/app/minhas-listas')}>
-          <h2>Minhas Listas</h2>
-        </div>
-        <br />
-        <table id="tblMinhasListas">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>tipo</th>
-            </tr>
-          </thead>
-          <tbody>
+          <section className="uf-card uf-list-card" style={{ cursor: 'pointer' }} onClick={() => navigate('/app/minhas-listas')}>
+            <h3>Minhas listas</h3>
             {minhasListas.length === 0 ? (
-              <tr>
-                <td colSpan="3">Nenhuma lista personalizada</td>
-              </tr>
+              <p className="uf-muted">Nenhuma lista personalizada</p>
             ) : (
-              minhasListas.map((lista) => (
-                <tr key={lista.idlista}>
-                  <td>{lista.nome}</td>
-                  <td>{lista.tipo}</td>
-                </tr>
-              ))
+              <ul>
+                {minhasListas.map((lista) => (
+                  <li key={lista.idlista}>
+                    <strong>{lista.nome}</strong>
+                    <span className="uf-muted"> · {lista.tipo}</span>
+                  </li>
+                ))}
+              </ul>
             )}
-          </tbody>
-        </table>
+          </section>
+        </div>
       </div>
 
       <ExerciseModal exercicio={selecionado} onClose={() => setSelecionado(null)} />

@@ -1,0 +1,27 @@
+:root {
+  --uf-bg: #f6f7f8;
+  --uf-surface: #ffffff;
+  --uf-surface-low: #f5f3f4;
+  --uf-text: #1f2021;
+  --uf-text-2: #5c5f63;
+  --uf-border: #e6e8ea;
+  --uf-primary: #c30505;
+  --uf-primary-hover: #e60000;
+  --uf-primary-press: #960404;
+  --uf-soft: #f46e6e;
+  --uf-soft-bg: #feeceb;
+  --uf-secondary: #2f80ed;
+  --uf-danger: #e74c3c;
+  --uf-success: #27ae60;
+  --uf-radius-sm: 8px;
+  --uf-radius: 12px;
+  --uf-radius-xl: 16px;
+  --uf-radius-pill: 9999px;
+  --uf-shadow-1: 0 2px 8px -2px rgba(31, 32, 33, 0.04), 0 4px 16px -4px rgba(31, 32, 33, 0.06);
+  --uf-shadow-2: 0 8px 24px -4px rgba(31, 32, 33, 0.08), 0 4px 12px -2px rgba(195, 5, 5, 0.06);
+  --uf-overlay: rgba(31, 32, 33, 0.4);
+  --uf-sidebar: 288px;
+  --uf-topbar: 80px;
+  --uf-font-title: 'Plus Jakarta Sans', sans-serif;
+  --uf-font-body: Inter, sans-serif;
+}

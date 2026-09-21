@@ -4,10 +4,6 @@ import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
 import { groupListsById, swalDark } from '../../api/client';
 import ExerciseModal from '../../components/ExerciseModal';
-import '../../css/table.css';
-import '../../css/homepageAdm.css';
-import '../../css/lista.css';
-import '../../css/modalExercicios.css';
 
 export default function AdminLists() {
   const { request } = useAuth();
@@ -98,109 +94,101 @@ export default function AdminLists() {
   const agrupadas = groupListsById(listaExer);
 
   return (
-    <>
-      <div className="tabela">
-        <div className="cabeca">
-          <h1>Lista de exercicios</h1>
-          <img
-            src="/image/alem-disso-positivo-adicionar-simbolo-matematico.png"
-            alt=""
-            id="Create-lista"
-            onClick={() => setCriarAberto(true)}
-          />
+    <div>
+      <div className="uf-page-head">
+        <div>
+          <h1>Listas de treino</h1>
+          <p>Listas oficiais visíveis para os alunos.</p>
         </div>
-        <Link to="/admin/listas/adicionar"><button>Adicionar Exercicios</button></Link>
+        <div className="uf-actions">
+          <button type="button" className="uf-btn-primary" id="Create-lista" onClick={() => setCriarAberto(true)}>
+            <span className="material-symbols-outlined">add</span>
+            Nova lista
+          </button>
+          <Link to="/admin/listas/adicionar" className="uf-btn-outline">Adicionar exercícios</Link>
+        </div>
       </div>
-      <div id="tabelaExercicios">
-        {listaExer.length === 0 && (
-          <tr>
-            <td colSpan="2">nenhuma lista encontrada!</td>
-          </tr>
-        )}
-        {Object.keys(agrupadas).map((idLista) => {
-          const lista = agrupadas[idLista];
-          return (
-            <div className="container-tabela" key={idLista}>
-              <table className="tabela-list">
-                <thead>
-                  <tr>
-                    <th onClick={() => setDetalheLista(lista)}>{lista[0].nome_lista}</th>
-                  </tr>
-                </thead>
-                <tbody>
+
+      {listaExer.length === 0 ? (
+        <p className="uf-empty uf-card">Nenhuma lista encontrada!</p>
+      ) : (
+        <div className="uf-grid-lists" id="tabelaExercicios">
+          {Object.keys(agrupadas).map((idLista) => {
+            const lista = agrupadas[idLista];
+            return (
+              <article className="uf-card uf-list-card" key={idLista}>
+                <h3 style={{ cursor: 'pointer' }} onClick={() => setDetalheLista(lista)}>{lista[0].nome_lista}</h3>
+                <ul>
                   {lista.map((exercicio) => (
-                    <tr key={exercicio.id_exercicio} onClick={() => setSelecionado(exercicio)}>
-                      <td>{exercicio.nome_exercicio}</td>
-                    </tr>
+                    <li key={exercicio.id_exercicio} onClick={() => setSelecionado(exercicio)}>
+                      {exercicio.nome_exercicio}
+                    </li>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          );
-        })}
-      </div>
+                </ul>
+              </article>
+            );
+          })}
+        </div>
+      )}
 
       <ExerciseModal exercicio={selecionado} onClose={() => setSelecionado(null)} />
 
       {criarAberto && (
-        <div className="modal aberto">
-          <div className="modal-content">
-            <span className="close-button" onClick={() => setCriarAberto(false)}>&times;</span>
-            <h2>Criar Lista</h2>
-            <input placeholder="Nome da Lista" value={nomeLista} onChange={(e) => setNomeLista(e.target.value)} />
-            <select id="txtTipo" required value={tipoLista} onChange={(e) => setTipoLista(e.target.value)}>
-              <option value="" disabled>Tipo</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-            </select>
-            <button type="submit" onClick={criarLista}>Criar</button>
+        <div className="uf-modal" onClick={() => setCriarAberto(false)}>
+          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="uf-modal-close" onClick={() => setCriarAberto(false)}>&times;</button>
+            <div className="uf-modal-form">
+              <h2>Criar lista</h2>
+              <input className="uf-input" placeholder="Nome da Lista" value={nomeLista} onChange={(e) => setNomeLista(e.target.value)} />
+              <select id="txtTipo" className="uf-select" required value={tipoLista} onChange={(e) => setTipoLista(e.target.value)}>
+                <option value="" disabled>Tipo</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+              </select>
+              <button type="submit" className="uf-btn-primary" onClick={criarLista}>Criar</button>
+            </div>
           </div>
         </div>
       )}
 
       {detalheLista && (
-        <div className="modal-lista aberto">
-          <div className="modal-content-lista">
-            <span className="close-button-lista" onClick={() => setDetalheLista(null)}>&times;</span>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="uf-modal" onClick={() => setDetalheLista(null)}>
+          <div className="uf-modal-card largo" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="uf-modal-close" onClick={() => setDetalheLista(null)}>&times;</button>
+            <div className="uf-page-head">
               <h2>{detalheLista[0].nome_lista}</h2>
-              <i
-                className="bi bi-trash-fill"
-                style={{ cursor: 'pointer', marginLeft: '10px' }}
-                onClick={() => excluirLista(detalheLista)}
-              ></i>
+              <button type="button" className="uf-btn-danger" onClick={() => excluirLista(detalheLista)}>Excluir lista</button>
             </div>
-            <br /><br />
-            <table>
-              <thead>
-                <tr>
-                  <th>Nome do Exercício</th>
-                  <th>Músculo Trabalhado</th>
-                  <th>Equipamento</th>
-                  <th>Dificuldade</th>
-                  <th>Ação</th>
-                </tr>
-              </thead>
-              <tbody>
-                {detalheLista.map((exercicio) => (
-                  <tr key={exercicio.id_exercicio}>
-                    <td>{exercicio.nome_exercicio}</td>
-                    <td>{exercicio.musculo_trabalhado}</td>
-                    <td>{exercicio.equipamento}</td>
-                    <td>{exercicio.dificuldade}</td>
-                    <td>
-                      <button onClick={() => removerExercicio(exercicio)}>
-                        <i className="bi bi-trash3-fill" style={{ cursor: 'pointer' }}></i>
-                      </button>
-                    </td>
+            <div className="uf-table-wrap">
+              <table className="uf-table">
+                <thead>
+                  <tr>
+                    <th>Nome do Exercício</th>
+                    <th>Músculo Trabalhado</th>
+                    <th>Equipamento</th>
+                    <th>Dificuldade</th>
+                    <th>Ação</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {detalheLista.map((exercicio) => (
+                    <tr key={exercicio.id_exercicio}>
+                      <td>{exercicio.nome_exercicio}</td>
+                      <td>{exercicio.musculo_trabalhado}</td>
+                      <td>{exercicio.equipamento}</td>
+                      <td>{exercicio.dificuldade}</td>
+                      <td>
+                        <button type="button" className="uf-btn-danger" onClick={() => removerExercicio(exercicio)}>Remover</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

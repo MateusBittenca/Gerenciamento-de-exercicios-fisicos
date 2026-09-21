@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary":"#ffffff","surface-container-low":"#f5f3f4","inverse-primary":"#ffb4a8","error-container":"#ffdad6","inverse-surface":"#303031","error":"#ba1a1a","outline":"#926f69","secondary":"#005cba","on-surface-variant":"#5d3f3b","surface-container-lowest":"#ffffff","on-surface":"#1b1c1d","surface-container":"#efedee","outline-variant":"#e7bdb6","tertiary-container":"#ab383b","surface-container-high":"#e9e8e9","surface-bright":"#faf9fa","on-error-container":"#93000a","secondary-fixed":"#d7e3ff","tertiary-fixed-dim":"#ffb3b0","surface-container-highest":"#e3e2e3","on-background":"#1b1c1d","on-primary-fixed-variant":"#930001","on-primary-container":"#ffd1ca","on-tertiary":"#ffffff","background":"#faf9fa","on-secondary":"#ffffff","primary-fixed-dim":"#ffb4a8","primary":"#970001","on-tertiary-fixed":"#410006","on-error":"#ffffff","secondary-container":"#448ffd","on-secondary-fixed-variant":"#00458e","inverse-on-surface":"#f2f0f1","on-tertiary-fixed-variant":"#881d24","tertiary-fixed":"#ffdad8","on-tertiary-container":"#ffd1cf","surface-variant":"#e3e2e3","on-secondary-fixed":"#001b3f","tertiary":"#8b2026","on-primary-fixed":"#410000","surface":"#faf9fa","surface-dim":"#dbdadb","primary-fixed":"#ffdad5","surface-tint":"#c00103","secondary-fixed-dim":"#abc7ff","primary-container":"#c30505","on-secondary-container":"#002959"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"1.5rem","space-lg":"1.5rem","gutter":"1.5rem","space-xl":"2rem","space-xs":"0.25rem","margin-lg":"3rem","space-md":"1rem","gutter-sm":"1rem","space-2xl":"3rem","gutter-lg":"2rem","space-sm":"0.5rem","margin-sm":"1rem"},"fontFamily":{"display-lg":["Plus Jakarta Sans"],"body-md":["Inter"],"label-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"body-sm":["Inter"],"display-lg-mobile":["Plus Jakarta Sans"],"body-lg":["Inter"],"headline-sm":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"]},"fontSize":{"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"700"}],"headline-md":["22px",{"lineHeight":"30px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-sm":["18px",{"lineHeight":"26px","letterSpacing":"-0.005em","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"700"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 overflow-y-auto"><div class="p-space-lg flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #c30505
+- Font: plusJakartaSans
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VIYmGz3qPuk3DMVLnYt1DzL1VEqcpo0yWXFzpFNe2gF59gNktKpJ0QQJFGYOXbgJC9_7WSedVfIXzSWvm-ZqbiFWoi3qnswn55XRvvf_GYKAlyiBJb8dA7RUixoeG5-Kd5wmwhf33-sdISU-_k6CKabE5bC7OhkMbE3ku4NLA1a4BW4w3um2AejHWk5I9JNCbkm8m3DFafnFWsCafDT4KnKZ7NIGBYOGxKdgOg2L0glxJeR-El_mauw1Ar"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none font-bold">UniFit</span><span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold mt-space-xs">PORTAL ADMIN &amp; GESTÃO</span></div></div><div class="px-space-md py-space-xs"><p class="px-space-sm mb-space-xs font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider font-bold">Menu Operacional</p><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="visao-geral" href="#"><span class="material-symbols-outlined text-[20px]">bar_chart</span><span>Visão Geral</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="gestao-de-usuarios" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span>Gestão de Usuários</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="catalogo-de-exercicios" href="#"><span class="material-symbols-outlined text-[20px]">fitness_center</span><span>Catálogo de Exercícios</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="listas-oficiais" href="#"><span class="material-symbols-outlined text-[20px]">fact_check</span><span>Listas Oficiais</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="relatorios-e-presenca" href="#"><span class="material-symbols-outlined text-[20px]">assignment</span><span>Relatórios &amp; Presença</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" data-path="configuracoes-da-unidade" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Configurações da Unidade</span></a></nav></div></div><div class="p-space-md bg-surface-container-low"><div class="p-space-sm bg-surface-container-lowest rounded-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center justify-between mb-space-xs"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[18px] text-primary">location_on</span><span class="font-label-md text-label-md text-on-surface font-semibold truncate">Unidade Jardins — SP</span></div></div><div class="flex items-center gap-space-xs mb-space-sm"><span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span><span class="font-body-sm text-body-sm text-on-surface-variant">Sincronizado há 2 min</span></div><a class="flex items-center justify-center gap-space-xs w-full py-space-xs px-space-sm rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-all" data-path="login" href="#"><span class="material-symbols-outlined text-[16px]">logout</span><span>Encerrar Sessão</span></a></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-gutter-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md"><span class="hover:text-on-surface cursor-pointer">UniFit Hub</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="font-semibold text-primary">Painel Administrativo</span></div><div class="relative hidden xl:flex items-center ml-space-md"><span class="material-symbols-outlined absolute left-space-sm text-[18px] text-on-surface-variant">search</span><input class="w-72 pl-9 pr-space-md py-space-xs bg-surface-container-lowest rounded-full font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/25 transition-all" placeholder="Buscar alunos, treinos, Cref, fichas..." type="text"/></div></div><div class="flex items-center gap-space-md"><button class="relative w-9 h-9 flex items-center justify-center rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full"></span></button><div class="flex items-center gap-space-sm pl-space-sm bg-surface-container-lowest py-1 px-space-sm rounded-full shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1V6emmBV36bNgboONtr_Ec8ZxYMd-QomcqX09H6amQvxRq3A4xPlJS928C0fdpf6UpsMluXqncdqqSKnSY6Dg3KNb8mDp7kN7i-vkWV_OmQBIXxFUOM_UVOxEUfzxCCsyO2kEVLjyR7KmA-71cgzoyb9Aw0vLrqCbRkhEvTFWeA3Uk0BCQTDGhC_fF8u_rR-PSyiT3OjMz43McZNtjm5_GQXmmdyA_5nEg_Gk4K_tMt_BGKxq1U27gT5Z4"/><div class="flex flex-col pr-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Prof. Lucas Mendes</span><span class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-tight">Coordenador Técnico / Admin</span></div></div></div></div></header><main class="w-full pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<div class="relative w-full px-gutter-lg py-space-xl overflow-hidden">
+<div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 left-1/4 w-80 h-80 rounded-full bg-secondary-container/10 blur-2xl pointer-events-none"></div>
+<!-- Header de Ação -->
+<div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-space-lg mb-space-xl">
+<div class="flex flex-col max-w-3xl">
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+            Motor Cinesiológico Ativo
+          </span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">v3.8 • Atualizado hoje às 08:45</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Catálogo Técnico de Exercícios &amp; Biomecânica</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+          Cadastre novos exercícios, gerencie vídeos em alta resolução, padrões motores, músculos agonistas/sinergistas e equipamentos disponíveis no salão.
+        </p>
+</div>
+<div class="flex items-center flex-wrap gap-space-sm">
+<button class="inline-flex items-center gap-space-xs h-10 px-space-md rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all shadow-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">upload_file</span>
+<span>Importar (JSON/Planilha)</span>
+</button>
+<button class="inline-flex items-center gap-space-xs h-10 px-space-lg rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md shadow-md hover:shadow-lg transition-all" id="btnOpenNewModal">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Cadastrar Novo Exercício</span>
+</button>
+</div>
+</div>
+<!-- Métricas do Catálogo (Cards KPI) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md mb-space-xl">
+<!-- Card 1 -->
+<div class="relative bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Total no Catálogo</span>
+<div class="w-9 h-9 rounded-full bg-primary-fixed flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-on-surface font-bold">354</span>
+<span class="inline-flex items-center gap-0.5 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+            +8 este mês
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Disponíveis nos totens e app do aluno</p>
+</div>
+<!-- Card 2 -->
+<div class="relative bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Demonstração em HD</span>
+<div class="w-9 h-9 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">videocam</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-on-surface font-bold">328</span>
+<span class="font-label-md text-label-md text-secondary font-semibold">92% de cobertura</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-space-sm overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 92%"></div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="relative bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Grupos Musculares</span>
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]">accessibility_new</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-on-surface font-bold">14</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Padrões 100% mapeados</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Classificação anatômica segundo Cref</p>
+</div>
+<!-- Card 4 -->
+<div class="relative bg-surface-container-lowest p-space-lg rounded-xl shadow-sm hover:shadow-md transition-all">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Calibração &amp; 1RM</span>
+<div class="w-9 h-9 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</div>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-display-lg text-display-lg text-on-surface font-bold">100%</span>
+<span class="inline-flex items-center gap-0.5 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Pronto p/ IA
+          </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Cálculo de sobrecarga progressiva ativo</p>
+</div>
+</div>
+<!-- Barra de Ferramentas e Filtros -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-sm mb-space-xl flex flex-col gap-space-md">
+<!-- Linha 1: Busca e Selects -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-center">
+<div class="lg:col-span-5 relative">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full h-11 pl-11 pr-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:bg-surface-container-lowest shadow-sm transition-all" placeholder="Pesquisar por nome do exercício, músculo alvo, equipamento..." type="text" value="Supino Reto com Barra"/>
+</div>
+<div class="lg:col-span-3">
+<div class="relative">
+<select class="w-full h-11 px-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none appearance-none cursor-pointer">
+<option>Equipamento: Todos</option>
+<option selected="">Barra / Pesos Livres (112)</option>
+<option>Halteres (84)</option>
+<option>Polia / Cabo (62)</option>
+<option>Máquina Articulada (54)</option>
+<option>Peso Corporal (42)</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="lg:col-span-2">
+<div class="relative">
+<select class="w-full h-11 px-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none appearance-none cursor-pointer">
+<option>Dificuldade: Todas</option>
+<option>Iniciante</option>
+<option selected="">Intermediário</option>
+<option>Avançado</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="lg:col-span-2">
+<div class="relative">
+<select class="w-full h-11 px-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none appearance-none cursor-pointer">
+<option selected="">Ordenar: Mais Utilizados</option>
+<option>Nome (A - Z)</option>
+<option>Carga Média Cadastrada</option>
+<option>Recentemente Editados</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">sort</span>
+</div>
+</div>
+</div>
+<!-- Linha 2: Chips de Grupo Muscular -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 text-nowrap">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider pr-space-xs hidden md:inline">Músculo:</span>
+<button class="px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container text-on-surface hover:bg-surface-container-high transition-all">Todos (354)</button>
+<button class="px-space-md py-1.5 rounded-full font-label-md text-label-md bg-primary-container text-on-primary font-semibold shadow-sm">Peito (48)</button>
+<button class="px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">Costas (52)</button>
+<button class="px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">Quadríceps (42)</button>
+<button class="px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">Posterior (34)</button>
+<button class="px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">Ombros (38)</button>
+<button class="px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">Braços (64)</button>
+<button class="px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">Core (40)</button>
+<button class="px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all">Funcional (36)</button>
+</div>
+</div>
+<!-- Tabela / Lista de Exercícios de Fundo -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden mb-space-2xl">
+<div class="px-space-lg py-space-md bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface">Exercícios Listados</span>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container-highest font-label-sm text-label-sm text-on-surface-variant">48 Resultados em Peito</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          Salão Jardins: Todos os equipamentos calibrados
+        </div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container-low uppercase text-on-surface-variant font-label-sm text-label-sm">
+<tr>
+<th class="py-space-sm px-space-lg">Exercício / Biomecânica</th>
+<th class="py-space-sm px-space-md">Padrão Motor</th>
+<th class="py-space-sm px-space-md">Equipamento</th>
+<th class="py-space-sm px-space-md">Músculo Alvo</th>
+<th class="py-space-sm px-space-md">Dificuldade</th>
+<th class="py-space-sm px-space-md text-center">Mídia HD</th>
+<th class="py-space-sm px-space-lg text-right">Ações Rápidas</th>
+</tr>
+</thead>
+<tbody class="divide-none">
+<!-- Linha 1: Ativa / Foco da Edição -->
+<tr class="bg-primary-fixed/20 hover:bg-primary-fixed/30 transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Athletic fitness athlete executing flat barbell bench press inside premium gym facility with warm dynamic cinematic spotlight and chrome equipment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUTGriPPguR0IJDbJ9t5YNVP2pV5x3j4cLi65HN7KGVndaxMhMM1keTwjHL23OoGIk3M3kQXmdwXGAB_ZIdHv0N-fSSUe9-dvUj0eJx2HcD10UwkRdGL4H4YvQVxtsJAWRMAStZz5pc1ZP3RcEpxKJhrl7dS3XbIDkJj06LNgKyEtCCaiU0Nc4IIGQcUkVnp2a9sOg1u_fpdUhVeGPhrbAeAKN0_tMYr3On5b0nxUo1P3ti6rfpyvdJw"/>
+<span class="absolute bottom-1 right-1 bg-inverse-surface/80 text-inverse-on-surface text-[10px] font-bold px-1 rounded">0:45</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Supino Reto com Barra Olímpica</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-[10px] uppercase font-bold">Em Edição</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Código: EX-PEIT-001 • Peitoral Maior</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="px-space-sm py-1 rounded bg-surface-container font-label-md text-label-md text-on-surface">Empurrar Horizontal</span>
+</td>
+<td class="py-space-md px-space-md font-body-md text-body-md text-on-surface">
+                Banco Reto Olímpico + Anilhas
+              </td>
+<td class="py-space-md px-space-md">
+<span class="font-label-md text-label-md text-primary font-semibold">Peitoral Maior</span>
+<span class="block text-on-surface-variant text-[11px]">Tríceps, Deltóide Ant.</span>
+</td>
+<td class="py-space-md px-space-md">
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">Intermediário</span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="material-symbols-outlined text-primary text-[20px]" title="Vídeo 4K 60fps verificado">smart_display</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-2 rounded-full hover:bg-surface-container text-primary" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant" title="Mais opções">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Linha 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Female lifter performing dumbbell incline press on an adjustable leather bench in modern athletic training center with bright rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRrAYQJ1Tm3o1RPzdyqDjeVjqwB8wLJUYd3BqQDyiyqm-inDYUhZY8dqQzIMur7ibmvK55s6MkWKKSccDvV2D_fXmz_bGA1Tsn6xDh1GWoVxKDoageScng3rutRAn6Jv1kHIji7oVSWuwitE-UPYjALaIPs27ATJT0rFO_SKvjhdpjPStq9dPIgcbsl2RRitSZ_0L5yuk-L_47WjzieJM9H5wjWc34ELjO9nwNZBxqGUyFEV_Y6Thx3w"/>
+<span class="absolute bottom-1 right-1 bg-inverse-surface/80 text-inverse-on-surface text-[10px] font-bold px-1 rounded">0:38</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Supino Inclinado com Halteres</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Código: EX-PEIT-004 • Porção Clavicular</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="px-space-sm py-1 rounded bg-surface-container font-label-md text-label-md text-on-surface">Empurrar Inclinado</span>
+</td>
+<td class="py-space-md px-space-md font-body-md text-body-md text-on-surface">
+                Banco Regulável + Halteres
+              </td>
+<td class="py-space-md px-space-md">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Peitoral Clavicular</span>
+<span class="block text-on-surface-variant text-[11px]">Deltóide Anterior</span>
+</td>
+<td class="py-space-md px-space-md">
+<span class="px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Iniciante</span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="material-symbols-outlined text-primary text-[20px]">smart_display</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant" title="Mais opções">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Linha 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Muscular male trainer doing cable crossover flyes with dual pulleys in high tech modern gym studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSng2lJNh_94fZDdyq0DWGfybJbHZD4JKnM7pocM0VNkrRRmFkkPejjWIC1K_vanSUGzvkVr1DecL7XrXqHfuTD0bZVTc6K2xpJs_ECDDukUKISfD8ls3ehDntHh1VSRffYwkmb1hdWeEugMfzSldyEmnpes3_MtPC9AHdeuBdQi-2vFt7lCR54C_b4x0l8KWkIckOLp6laeQd3QnTuz84I7mPojPn2i9F-A6me2akHoohATQnf1CwvQ"/>
+<span class="absolute bottom-1 right-1 bg-inverse-surface/80 text-inverse-on-surface text-[10px] font-bold px-1 rounded">0:50</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Crucifixo no Crossover Polia Média</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Código: EX-PEIT-008 • Adução Horizontal</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="px-space-sm py-1 rounded bg-surface-container font-label-md text-label-md text-on-surface">Isolamento Adutor</span>
+</td>
+<td class="py-space-md px-space-md font-body-md text-body-md text-on-surface">
+                Torre de Polia Dupla Ajustável
+              </td>
+<td class="py-space-md px-space-md">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Peitoral Maior</span>
+<span class="block text-on-surface-variant text-[11px]">Bíceps Cabeça Curta</span>
+</td>
+<td class="py-space-md px-space-md">
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">Intermediário</span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="material-symbols-outlined text-primary text-[20px]">smart_display</span>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant" title="Editar">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant" title="Duplicar">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant" title="Mais opções">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- MODAL / DRAWER CRUD TÉCNICO ABERTO EM PRIMEIRO PLANO -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md sm:p-space-lg overflow-y-auto bg-inverse-surface/40 backdrop-blur-sm" id="exerciseModal">
+<div class="relative w-full max-w-5xl bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
+<!-- Top Accent Bar -->
+<div class="h-1.5 w-full bg-gradient-to-r from-primary via-primary-container to-secondary-container"></div>
+<!-- Modal Header -->
+<div class="px-space-xl py-space-lg bg-surface-container-lowest flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[28px]">edit_note</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">Editar Exercício: Supino Reto com Barra Olímpica</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[11px]">ID #EX-PEIT-001</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Definições biomecânicas, segurança motora e calibragem para fichas personalizadas.</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center text-on-surface-variant transition-all" id="btnCloseModal">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Scrollable Form Body -->
+<div class="px-space-xl py-space-lg overflow-y-auto space-y-space-xl">
+<!-- SEÇÃO 1: IDENTIFICAÇÃO BÁSICA -->
+<div>
+<div class="flex items-center gap-space-xs mb-space-md">
+<span class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-label-sm font-bold">1</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Identificação Básica &amp; Nível</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<div class="md:col-span-6 flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-medium">Nome Técnico Oficial do Exercício</label>
+<input class="h-11 px-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all font-semibold" type="text" value="Supino Reto com Barra"/>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Exibido nos terminais e exportações de treino.</span>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-medium">Equipamento Necessário</label>
+<div class="relative">
+<select class="w-full h-11 px-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none appearance-none cursor-pointer">
+<option selected="">Banco Reto Olímpico + Anilhas</option>
+<option>Halteres Monobloco</option>
+<option>Smith Machine (Barra Guiada)</option>
+<option>Polia Regulável Dupla</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">expand_more</span>
+</div>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Vinculará os avisos de fila de espera do salão.</span>
+</div>
+<div class="md:col-span-12 flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-medium">Nível de Dificuldade Recomendado</label>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-lg py-2 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" type="button">
+                  Iniciante (Adaptação)
+                </button>
+<button class="px-space-lg py-2 rounded-full font-label-md text-label-md bg-primary-container text-on-primary font-bold shadow-sm" type="button">
+                  Intermediário (Padrão Ativo)
+                </button>
+<button class="px-space-lg py-2 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:bg-surface-container transition-all" type="button">
+                  Avançado (Cargas Altas / RPE 9+)
+                </button>
+</div>
+</div>
+</div>
+</div>
+<div class="h-px bg-surface-container-high"></div>
+<!-- SEÇÃO 2: ESPECIFICAÇÃO BIOMECÂNICA & CINESIOLOGIA -->
+<div>
+<div class="flex items-center gap-space-xs mb-space-md">
+<span class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-label-sm font-bold">2</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Especificação Biomecânica &amp; Cinesiologia</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+<div class="md:col-span-6 flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-medium">Padrão Motor Primário</label>
+<div class="relative">
+<select class="w-full h-11 px-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none appearance-none cursor-pointer">
+<option selected="">Empurrar Horizontal Bilateral</option>
+<option>Puxar Horizontal Bilateral</option>
+<option>Dominância de Joelho</option>
+<option>Dominância de Quadril</option>
+<option>Anti-Rotação de Tronco</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none text-[18px]">account_tree</span>
+</div>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-medium">Músculo Alvo Primário (Agonista)</label>
+<input class="h-11 px-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30" type="text" value="Peitoral Maior - Fibras Esterno-costais"/>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-medium">Músculos Sinergistas (Co-ativadores)</label>
+<input class="h-11 px-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30" type="text" value="Tríceps Braquial, Deltoide Anterior"/>
+</div>
+<div class="md:col-span-6 flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-medium">Músculos Estabilizadores Dinâmicos</label>
+<input class="h-11 px-space-md bg-surface-container-low rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30" type="text" value="Manguito Rotador, Serrátil Anterior, Core"/>
+</div>
+</div>
+</div>
+<div class="h-px bg-surface-container-high"></div>
+<!-- SEÇÃO 3: DEMONSTRAÇÃO E MÍDIA HD -->
+<div>
+<div class="flex items-center gap-space-xs mb-space-md">
+<span class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-label-sm font-bold">3</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Demonstração Técnica em Vídeo HD</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center bg-surface-container-low p-space-md rounded-xl">
+<div class="md:col-span-5">
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-inverse-surface shadow-inner group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="High quality detailed visual guide for barbell bench press, anatomical biomechanics angle, clear gym lighting with grid lines showing 45 degree elbow tuck" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXYJcC85Z0b4wTSvaFtN-Hfx3BtvITcBS5izfdKGLEnl4tsGerDHFYFTlIcvNvY5EAYeKGaG03Xr8UeO0RAkd0af5y5CYvIYq7bDyKlL8_1PeJSILeNs_p6XIIW2PW0ca1AMrfEtkfJRYVhmbx5uNNGonRYWH-PCa6DgIyKfaqAQfYdBj0G5KBsNDhne3xNZiLSca9eNaayJUi8MjeD-bXu54PrFCmNtoynIPvy9bCV5fKbfytNf8lOg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-transparent to-transparent flex items-end p-space-sm justify-between">
+<span class="inline-flex items-center gap-1 text-[11px] font-bold text-on-primary bg-primary px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]">hd</span>
+                    4K PRO / 60 FPS
+                  </span>
+<span class="text-on-primary font-label-sm text-label-sm font-mono">00:45</span>
+</div>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-12 h-12 rounded-full bg-on-primary/90 text-primary flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-[28px] pl-0.5">play_arrow</span>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-7 flex flex-col gap-space-sm">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-on-surface">supino_reto_olimpico_demonstracao_master.mp4</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tamanho: 34.2 MB • Codec: H.264 / AAC • Resolução: 2160x1440</span>
+</div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="px-2 py-1 bg-surface-container rounded font-label-sm text-label-sm text-on-surface">Ângulo Frontal (0°)</span>
+<span class="px-2 py-1 bg-surface-container rounded font-label-sm text-label-sm text-on-surface">Ângulo Sagital (90°)</span>
+<span class="px-2 py-1 bg-surface-container rounded font-label-sm text-label-sm text-on-surface">Loop Suave</span>
+</div>
+<div class="flex items-center gap-space-sm mt-space-xs">
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-full bg-surface-container-highest hover:bg-surface-container text-on-surface font-label-md text-label-md transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">cached</span>
+                  Alterar Arquivo de Vídeo
+                </button>
+<button class="inline-flex items-center gap-space-xs px-space-md py-2 rounded-full bg-surface-container text-primary hover:bg-primary-fixed font-label-md text-label-md transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">photo_camera</span>
+                  Capturar Novo Frame
+                </button>
+</div>
+</div>
+</div>
+</div>
+<div class="h-px bg-surface-container-high"></div>
+<!-- SEÇÃO 4: INSTRUÇÕES DE SEGURANÇA & EXECUÇÃO TÉCNICA -->
+<div>
+<div class="flex items-center gap-space-xs mb-space-md">
+<span class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-sm text-label-sm font-bold">4</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Instruções de Segurança &amp; Execução Técnica</h3>
+</div>
+<div class="flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-medium">Passo a Passo Biomecânico de Execução (Guia do Aluno)</label>
+<div class="bg-surface-container-low rounded-lg p-space-md flex flex-col gap-space-sm">
+<div class="flex items-start gap-space-xs">
+<span class="font-bold text-primary text-[14px]">1.</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+<strong class="font-semibold text-on-surface">Posicionamento e Fixação:</strong> Deite com os olhos alinhados diretamente abaixo da barra. Plante firmemente os pés no solo, deprima e retraia as escápulas criando arco torácico natural estável.
+                  </p>
+</div>
+<div class="flex items-start gap-space-xs">
+<span class="font-bold text-primary text-[14px]">2.</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+<strong class="font-semibold text-on-surface">Pegada e Desengate:</strong> Segure na largura aproximada de 1,5x a largura biacromial, com os polegares travados (pegada pronada fechada). Desengate e estabilize a barra acima do peitoral.
+                  </p>
+</div>
+<div class="flex items-start gap-space-xs">
+<span class="font-bold text-primary text-[14px]">3.</span>
+<p class="font-body-sm text-body-sm text-on-surface">
+<strong class="font-semibold text-on-surface">Fase Excêntrica &amp; Retorno:</strong> Inspire e desça a barra de forma controlada até tocar suavemente a linha intermamilar (cotovelos a aproximadamente 45° do tronco). Empurre em aceleração contínua sem descolar as escápulas do banco.
+                  </p>
+</div>
+</div>
+</div>
+<!-- Advertência Postural / Risco de Lesão -->
+<div class="p-space-md rounded-xl bg-error-container/40 flex items-start gap-space-md">
+<span class="material-symbols-outlined text-error text-[24px] flex-shrink-0 mt-0.5">warning</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg font-bold text-error">Alerta Crítico de Risco Articular &amp; Postura</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  Evitar abdução excessiva dos cotovelos (90° em relação ao tronco) sob risco de impacto mecânico no manguito rotador. Não realizar pegada falsa (suicide grip) sem autorização e supervisão do personal trainer responsável.
+                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Footer Sticky Actions -->
+<div class="px-space-xl py-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<button class="inline-flex items-center gap-space-xs text-error hover:bg-error-container/50 px-space-md py-2 rounded-full font-label-md text-label-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+<span>Excluir Exercício</span>
+</button>
+<div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
+<button class="px-space-lg py-2.5 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md transition-all" id="btnCancelModal" type="button">
+            Salvar como Rascunho
+          </button>
+<button class="inline-flex items-center gap-space-xs px-space-xl py-2.5 rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md shadow-md transition-all" id="btnSaveModal" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Salvar Alterações</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for closing/opening the modal drawer in this prototype
+  const modal = document.getElementById('exerciseModal');
+  const btnClose = document.getElementById('btnCloseModal');
+  const btnCancel = document.getElementById('btnCancelModal');
+  const btnSave = document.getElementById('btnSaveModal');
+  const btnOpen = document.getElementById('btnOpenNewModal');
+
+  function closeModal() {
+    if (modal) modal.classList.add('hidden');
+  }
+
+  function openModal() {
+    if (modal) modal.classList.remove('hidden');
+  }
+
+  if (btnClose) btnClose.addEventListener('click', closeModal);
+  if (btnCancel) btnCancel.addEventListener('click', closeModal);
+  if (btnSave) {
+    btnSave.addEventListener('click', () => {
+      btnSave.innerText = 'Salvando...';
+      setTimeout(() => {
+        btnSave.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span> Alterações Salvas!';
+        setTimeout(closeModal, 600);
+      }, 500);
+    });
+  }
+  if (btnOpen) btnOpen.addEventListener('click', openModal);
+</script></main></div></body></html>

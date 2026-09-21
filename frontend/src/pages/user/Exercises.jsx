@@ -4,8 +4,6 @@ import { useAuth } from '../../auth/AuthContext';
 import { swalDark } from '../../api/client';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
-import '../../css/exercicios.css';
-import '../../css/modalExercicios.css';
 
 const FILTROS = [
   { label: 'Biceps', value: 'Bíceps' },
@@ -81,16 +79,31 @@ export default function Exercises() {
 
   return (
     <>
-      <div id="filtro">
-        <button type="button" className={!filtroMusculo && !busca ? 'filtro-ativo' : undefined} onClick={() => { setFiltroMusculo(''); setBusca(''); }}>Todos</button>
-        {FILTROS.map((filtro) => (
-          <button key={filtro.value} type="button" className={filtroMusculo === filtro.value && !busca ? 'filtro-ativo' : undefined} onClick={() => { setFiltroMusculo(filtro.value); setBusca(''); }}>{filtro.label}</button>
-        ))}
-        <input type="text" id="busca" placeholder="Buscar" value={busca} onChange={(e) => setBusca(e.target.value)} />
+      <div className="uf-page-head">
+        <div>
+          <h1>Catálogo de exercícios</h1>
+          <p>Busque pelo nome ou filtre pelo músculo trabalhado.</p>
+        </div>
       </div>
 
-      <div className="card-container" id="card">
-        {visiveis.map((exercicio) => (
+      <div className="uf-toolbar">
+        <div className="uf-search">
+          <span className="material-symbols-outlined">search</span>
+          <input type="text" id="busca" className="uf-input" placeholder="Buscar" value={busca} onChange={(e) => setBusca(e.target.value)} />
+        </div>
+      </div>
+
+      <div className="uf-chips" id="filtro" style={{ marginBottom: 24 }}>
+        <button type="button" className={'uf-chip' + (!filtroMusculo && !busca ? ' ativo' : '')} onClick={() => { setFiltroMusculo(''); setBusca(''); }}>Todos</button>
+        {FILTROS.map((filtro) => (
+          <button key={filtro.value} type="button" className={'uf-chip' + (filtroMusculo === filtro.value && !busca ? ' ativo' : '')} onClick={() => { setFiltroMusculo(filtro.value); setBusca(''); }}>{filtro.label}</button>
+        ))}
+      </div>
+
+      <div className="uf-grid-cards" id="card">
+        {visiveis.length === 0 ? (
+          <p className="uf-empty uf-card">Nenhum exercício encontrado.</p>
+        ) : visiveis.map((exercicio) => (
           <ExerciseCard
             key={exercicio.idexercicio}
             exercicio={exercicio}
@@ -103,26 +116,24 @@ export default function Exercises() {
       <ExerciseModal exercicio={selecionado} onClose={() => setSelecionado(null)} />
 
       {listasModal && (
-        <div className="modal aberto">
-          <div className="modal-content">
-            <span className="close-button" onClick={() => setListasModal(null)}>&times;</span>
-            <h2>Listas de Exercícios</h2>
-            <table className="exercise-table">
-              <thead>
-                <tr>
-                  <th>Lista</th>
-                  <th>Tipo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {listas.map((lista) => (
-                  <tr key={lista.idlista} onClick={() => adicionarNaLista(lista)}>
-                    <td>{lista.nome}</td>
-                    <td>{lista.tipo}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="uf-modal" onClick={() => setListasModal(null)}>
+          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="uf-modal-close" onClick={() => setListasModal(null)}>&times;</button>
+            <div className="uf-modal-form">
+              <h2>Adicionar à lista</h2>
+              {listas.length === 0 ? (
+                <p className="uf-muted">Nenhuma lista pessoal encontrada.</p>
+              ) : (
+                <ul className="uf-pick-list">
+                  {listas.map((lista) => (
+                    <li key={lista.idlista} onClick={() => adicionarNaLista(lista)}>
+                      <strong>{lista.nome}</strong>
+                      <span className="uf-muted">{lista.tipo}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       )}

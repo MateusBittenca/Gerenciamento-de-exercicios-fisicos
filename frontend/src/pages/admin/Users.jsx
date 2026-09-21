@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
 import { swalDark } from '../../api/client';
-import '../../css/table.css';
-import '../../css/homepageAdm.css';
 
 export default function Users() {
   const { request } = useAuth();
@@ -97,68 +95,78 @@ export default function Users() {
   });
 
   return (
-    <div className="tabela">
-      <div className="cabeca">
-        <h1>Usuarios</h1>
+    <div>
+      <div className="uf-page-head">
+        <div>
+          <h1>Usuários</h1>
+          <p>Gerencie os alunos cadastrados na academia.</p>
+        </div>
       </div>
-      <br />
-      <input type="text" id="txtFiltro" placeholder="Filtro" value={filtro} onChange={(e) => setFiltro(e.target.value)} />
-      <br /><br />
-      <div className="tabela-scroll">
-      <table id="tblUsuarios">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Sexo</th>
-            <th>Altura</th>
-            <th>Peso</th>
-            <th>Excluir</th>
-            <th>Editar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {visiveis.map((usuario) => (
-            <tr key={usuario.UsuarioID}>
-              {editandoId === usuario.UsuarioID ? (
-                <>
-                  <td>{usuario.UsuarioID}</td>
-                  <td><input type="text" value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} /></td>
-                  <td><input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></td>
-                  <td>
-                    <select value={form.sexo} onChange={(e) => setForm({ ...form, sexo: e.target.value })}>
-                      <option value="" disabled>Sexo</option>
-                      <option value="Feminino">Feminino</option>
-                      <option value="Masculino">Masculino</option>
-                    </select>
-                  </td>
-                  <td><input type="text" value={form.altura} onChange={(e) => setForm({ ...form, altura: e.target.value })} /></td>
-                  <td><input type="text" value={form.peso} onChange={(e) => setForm({ ...form, peso: e.target.value })} /></td>
-                  <td colSpan="2">
-                    <button onClick={() => salvar(usuario.UsuarioID)}>Salvar</button>
-                  </td>
-                </>
-              ) : (
-                <>
-                  <td>{usuario.UsuarioID}</td>
-                  <td>{usuario.Nome}</td>
-                  <td>{usuario.Email}</td>
-                  <td>{usuario.Sexo || ''}</td>
-                  <td>{usuario.Altura || ''}</td>
-                  <td>{usuario.Peso || ''}</td>
-                  <td>
-                    <button className="btn-excluir" onClick={() => excluir(usuario.UsuarioID)}>Excluir</button>
-                  </td>
-                  <td>
-                    <button className="btn-editar" onClick={() => iniciarEdicao(usuario)}>Editar</button>
-                  </td>
-                </>
-              )}
+      <div className="uf-toolbar">
+        <div className="uf-search">
+          <span className="material-symbols-outlined">search</span>
+          <input type="text" id="txtFiltro" className="uf-input" placeholder="Filtro" value={filtro} onChange={(e) => setFiltro(e.target.value)} />
+        </div>
+      </div>
+      <div className="uf-card uf-table-wrap">
+        <table className="uf-table" id="tblUsuarios">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Sexo</th>
+              <th>Altura</th>
+              <th>Peso</th>
+              <th>Excluir</th>
+              <th>Editar</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {visiveis.length === 0 ? (
+              <tr>
+                <td colSpan="8" className="uf-empty">Nenhum usuário encontrado.</td>
+              </tr>
+            ) : visiveis.map((usuario) => (
+              <tr key={usuario.UsuarioID}>
+                {editandoId === usuario.UsuarioID ? (
+                  <>
+                    <td>{usuario.UsuarioID}</td>
+                    <td><input type="text" className="uf-input" value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} /></td>
+                    <td><input type="email" className="uf-input" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></td>
+                    <td>
+                      <select className="uf-select" value={form.sexo} onChange={(e) => setForm({ ...form, sexo: e.target.value })}>
+                        <option value="" disabled>Sexo</option>
+                        <option value="Feminino">Feminino</option>
+                        <option value="Masculino">Masculino</option>
+                      </select>
+                    </td>
+                    <td><input type="text" className="uf-input" value={form.altura} onChange={(e) => setForm({ ...form, altura: e.target.value })} /></td>
+                    <td><input type="text" className="uf-input" value={form.peso} onChange={(e) => setForm({ ...form, peso: e.target.value })} /></td>
+                    <td colSpan="2">
+                      <button type="button" className="uf-btn-primary" onClick={() => salvar(usuario.UsuarioID)}>Salvar</button>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td>{usuario.UsuarioID}</td>
+                    <td>{usuario.Nome}</td>
+                    <td>{usuario.Email}</td>
+                    <td>{usuario.Sexo || ''}</td>
+                    <td>{usuario.Altura || ''}</td>
+                    <td>{usuario.Peso || ''}</td>
+                    <td>
+                      <button type="button" className="uf-btn-danger btn-excluir" onClick={() => excluir(usuario.UsuarioID)}>Excluir</button>
+                    </td>
+                    <td>
+                      <button type="button" className="uf-btn-edit btn-editar" onClick={() => iniciarEdicao(usuario)}>Editar</button>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

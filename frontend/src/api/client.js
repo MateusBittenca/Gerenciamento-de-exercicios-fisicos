@@ -48,6 +48,8 @@ export function groupListsById(items) {
 export const MUSCULOS = ['Bíceps', 'Tríceps', 'Peito', 'Costas', 'Quadríceps', 'Ombro'];
 
 export const swalDark = {
-  color: 'white',
-  background: '#1f2021'
+  color: '#1F2021',
+  background: '#ffffff',
+  confirmButtonColor: '#C30505',
+  cancelButtonColor: '#E74C3C'
 };

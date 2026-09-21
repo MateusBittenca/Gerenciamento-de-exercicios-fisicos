@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error": "#ffffff", "primary-fixed-dim": "#ffb4a8", "surface-container-low": "#f5f3f4", "secondary-container": "#448ffd", "surface-bright": "#faf9fa", "inverse-primary": "#ffb4a8", "on-tertiary-fixed-variant": "#881d24", "on-surface": "#1b1c1d", "tertiary-fixed-dim": "#ffb3b0", "secondary": "#005cba", "outline-variant": "#e7bdb6", "error-container": "#ffdad6", "primary-container": "#c30505", "surface-dim": "#dbdadb", "tertiary-fixed": "#ffdad8", "surface-container-lowest": "#ffffff", "on-error-container": "#93000a", "surface-container": "#efedee", "background": "#faf9fa", "secondary-fixed": "#d7e3ff", "primary-fixed": "#ffdad5", "primary": "#970001", "error": "#ba1a1a", "on-primary-container": "#ffd1ca", "on-primary-fixed-variant": "#930001", "surface-tint": "#c00103", "on-tertiary-fixed": "#410006", "inverse-on-surface": "#f2f0f1", "on-secondary-container": "#002959", "surface-variant": "#e3e2e3", "secondary-fixed-dim": "#abc7ff", "on-background": "#1b1c1d", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#00458e", "tertiary": "#8b2026", "inverse-surface": "#303031", "on-primary": "#ffffff", "outline": "#926f69", "on-primary-fixed": "#410000", "on-surface-variant": "#5d3f3b", "on-tertiary-container": "#ffd1cf", "surface-container-high": "#e9e8e9", "on-secondary-fixed": "#001b3f", "tertiary-container": "#ab383b", "surface-container-highest": "#e3e2e3", "on-tertiary": "#ffffff", "surface": "#faf9fa" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-sm": "1rem", "margin-sm": "1rem", "space-xl": "2rem", "margin-lg": "3rem", "gutter-lg": "2rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-2xl": "3rem", "space-lg": "1.5rem", "margin": "1.5rem", "space-md": "1rem", "gutter": "1.5rem" }, fontFamily: { "headline-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "label-md": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }], "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-20 flex items-center px-margin gap-space-md"><img alt="UniFit Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VIYmGz3qPuk3DMVLnYt1DzL1VEqcpo0yWXFzpFNe2gF59gNktKpJ0QQJFGYOXbgJC9_7WSedVfIXzSWvm-ZqbiFWoi3qnswn55XRvvf_GYKAlyiBJb8dA7RUixoeG5-Kd5wmwhf33-sdISU-_k6CKabE5bC7OhkMbE3ku4NLA1a4BW4w3um2AejHWk5I9JNCbkm8m3DFafnFWsCafDT4KnKZ7NIGBYOGxKdgOg2L0glxJeR-El_mauw1Ar"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">UniFit</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Portal do Aluno</span></div></div><nav class="flex flex-col gap-space-xs px-margin-sm mt-space-md" data-active-classes="bg-primary-container text-on-primary font-label-lg rounded-xl shadow-[0_4px_12px_-2px_rgba(195,5,5,0.2)]"><a class="flex items-center px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="inicio" href="#">Início</a><a class="flex items-center px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="catalogo-de-exercicios" href="#">Catálogo de Exercícios</a><a class="flex items-center px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="listas-oficiais" href="#">Listas Oficiais</a><a class="flex items-center px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="minhas-listas" href="#">Minhas Listas</a><a aria-current="page" class="flex items-center px-space-md py-space-sm transition-all duration-200 bg-primary-container text-on-primary font-label-lg rounded-xl shadow-[0_4px_12px_-2px_rgba(195,5,5,0.2)]" data-path="perfil" href="#">Perfil</a></nav></div><div class="p-margin-sm"><div class="bg-surface-container-low rounded-xl p-space-md mb-space-sm flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary-container text-[20px]">timer</span><div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface-variant">Treino Ativo</span><span class="font-headline-sm text-headline-sm text-on-surface leading-none">00:45:12</span></div></div><span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse"></span></div><a class="flex items-center px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-error hover:bg-error-container hover:text-on-error-container transition-all duration-200" data-path="sair" href="#">Sair</a></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin-lg"><div class="flex items-center gap-space-sm"><span class="font-label-md text-label-md text-on-surface-variant">Painel</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">chevron_right</span><span class="font-label-md text-label-md text-on-surface-variant">Portal do Aluno</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">chevron_right</span><span class="font-label-md text-label-md text-on-surface font-semibold">Perfil</span></div><div class="flex items-center gap-gutter"><div class="relative flex items-center"><button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span></button><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary-container"></span></div><div class="flex items-center gap-space-md pl-space-sm"><div class="flex flex-col text-right"><span class="font-label-lg text-label-lg text-on-surface leading-tight">Mariana Souza</span><span class="font-label-sm text-label-sm text-on-surface-variant">Aluno UniFit</span></div><img alt="Foto de perfil de Mariana Souza" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1V6emmBV36bNgboONtr_Ec8ZxYMd-QomcqX09H6amQvxRq3A4xPlJS928C0fdpf6UpsMluXqncdqqSKnSY6Dg3KNb8mDp7kN7i-vkWV_OmQBIXxFUOM_UVOxEUfzxCCsyO2kEVLjyR7KmA-71cgzoyb9Aw0vLrqCbRkhEvTFWeA3Uk0BCQTDGhC_fF8u_rR-PSyiT3OjMz43McZNtjm5_GQXmmdyA_5nEg_Gk4K_tMt_BGKxq1U27gT5Z4"/></div></div></header><main class="relative pt-20 bg-surface min-h-screen w-full px-margin-lg py-space-xl"><div class="flex flex-col w-full">
+<!-- Toast Notification Simulation -->
+<div class="fixed top-24 right-8 z-50 transform translate-y-[-20px] opacity-0 pointer-events-none transition-all duration-300 ease-out flex items-center gap-space-sm bg-inverse-surface text-inverse-on-surface px-space-md py-space-sm rounded-xl shadow-xl" id="saveToast">
+<span class="material-symbols-outlined text-emerald-400 text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md text-inverse-on-surface">Alterações salvas com sucesso no UniFit Cloud!</span>
+</div>
+<!-- Profile Hero Header Module -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm relative overflow-hidden mb-space-xl">
+<div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-primary-container/5 blur-3xl pointer-events-none"></div>
+<div class="absolute -left-12 -bottom-12 w-64 h-64 rounded-full bg-secondary/5 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col xl:flex-row xl:items-center justify-between gap-space-lg">
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-space-lg">
+<!-- Avatar Wrapper with Upload Action -->
+<div class="relative group">
+<div class="w-28 h-28 rounded-full overflow-hidden shadow-md bg-surface-container-low p-1">
+<img alt="Foto oficial do perfil de Mariana Souza" class="w-full h-full rounded-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida/AEtjO1V6emmBV36bNgboONtr_Ec8ZxYMd-QomcqX09H6amQvxRq3A4xPlJS928C0fdpf6UpsMluXqncdqqSKnSY6Dg3KNb8mDp7kN7i-vkWV_OmQBIXxFUOM_UVOxEUfzxCCsyO2kEVLjyR7KmA-71cgzoyb9Aw0vLrqCbRkhEvTFWeA3Uk0BCQTDGhC_fF8u_rR-PSyiT3OjMz43McZNtjm5_GQXmmdyA_5nEg_Gk4K_tMt_BGKxq1U27gT5Z4"/>
+</div>
+<button class="absolute bottom-1 right-1 w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-md hover:bg-primary transition-colors duration-200" title="Alterar foto de perfil" type="button">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+</button>
+</div>
+<!-- Identity & Status Badges -->
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs mb-1">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Mariana Souza</h1>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Aluno Ativo
+            </span>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-primary-container font-label-sm text-label-sm">
+              Plano UniFit Black
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant flex flex-wrap items-center gap-x-space-md gap-y-1 mt-0.5">
+<span class="flex items-center gap-1 font-label-md text-label-md text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[16px]">badge</span>
+              Matrícula: <strong class="font-semibold">#UF-84920</strong>
+</span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 font-label-md text-label-md">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">event_available</span>
+              Membro desde Mar/2023
+            </span>
+<span class="text-outline-variant">•</span>
+<span class="flex items-center gap-1 font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+              Meta Semanal: 4x / semana
+            </span>
+</p>
+</div>
+</div>
+<!-- Quick Action Controls -->
+<div class="flex items-center gap-space-sm self-stretch sm:self-auto justify-end">
+<button class="flex-1 sm:flex-none px-space-md py-2.5 rounded-full font-label-lg text-label-lg text-on-surface-variant bg-surface-container-low hover:bg-surface-container-high transition-colors text-center" id="btnHeaderDiscard" type="button">
+          Descartar
+        </button>
+<button class="flex-1 sm:flex-none px-space-lg py-2.5 rounded-full font-label-lg text-label-lg text-on-primary bg-primary-container hover:bg-primary shadow-sm flex items-center justify-center gap-space-xs transition-all active:scale-[0.98]" id="btnHeaderSave" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span>Salvar Alterações</span>
+</button>
+</div>
+</div>
+</section>
+<!-- High-Level Biometric Summary Metrics (Bento Grid) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter mb-space-xl">
+<!-- Card 1: Peso Atual -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Peso Atual</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-display-lg text-display-lg text-on-surface leading-none" id="metricWeightVal">62,5</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant">kg</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">monitor_weight</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between bg-surface-container-low/50 px-space-sm py-1.5 rounded-lg">
+<div class="flex items-center gap-1 text-emerald-600 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+<span>-1,2 kg (30 dias)</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Hoje, 09:15</span>
+</div>
+</div>
+<!-- Card 2: Altura Registrada -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Estatura</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-display-lg text-display-lg text-on-surface leading-none" id="metricHeightVal">1,68</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant">m</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-secondary-fixed flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">height</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between bg-surface-container-low/50 px-space-sm py-1.5 rounded-lg">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Envergadura: 169 cm</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">168 cm</span>
+</div>
+</div>
+<!-- Card 3: IMC Calculado com Escala Visual -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">IMC Corporal</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-display-lg text-display-lg text-on-surface leading-none" id="metricImcVal">22.1</span>
+<span class="font-label-md text-label-md text-on-surface-variant">kg/m²</span>
+</div>
+</div>
+<span class="px-2 py-1 rounded-md bg-emerald-50 text-emerald-700 font-label-sm text-label-sm font-semibold">
+          Eutrofia
+        </span>
+</div>
+<!-- Barra de Escala Visual IMC -->
+<div class="mt-space-md flex flex-col gap-1">
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden relative flex">
+<div class="w-[30%] bg-blue-300 h-full" title="Abaixo do peso"></div>
+<div class="w-[45%] bg-emerald-500 h-full relative" title="Peso saudável">
+<!-- Marcador atual -->
+<span class="absolute top-0 right-1/4 w-1.5 h-full bg-white shadow-sm"></span>
+</div>
+<div class="w-[25%] bg-amber-400 h-full" title="Sobrepeso"></div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>18.5</span>
+<span class="text-emerald-600 font-semibold">Peso Saudável</span>
+<span>24.9</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Frequência & Assiduidade -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between group hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">Assiduidade Mensal</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-display-lg text-display-lg text-primary-container leading-none">94%</span>
+<span class="font-label-md text-label-md text-on-surface-variant">de presença</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">sports_score</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between bg-surface-container-low/50 px-space-sm py-1.5 rounded-lg">
+<span class="font-body-sm text-body-sm text-on-surface-variant">17 de 18 treinos previstos</span>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold">Consistente</span>
+</div>
+</div>
+</section>
+<!-- Interactive Form & Biometrics Management Area -->
+<form class="flex flex-col gap-space-xl" id="studentProfileForm" onsubmit="return false;">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Bloco 1: Dados Cadastrais e de Acesso (Left Column - 7 Cols) -->
+<section class="lg:col-span-7 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-md mb-space-lg bg-surface-container-low/40 p-space-md rounded-lg">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[24px]">account_box</span>
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Dados Cadastrais &amp; Acesso</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Informações oficiais de identificação e contato na rede UniFit</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              Verificado
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Nome Completo -->
+<div class="md:col-span-2 flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="inputFullName">
+                Nome Completo <span class="text-primary">*</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px] pointer-events-none">person</span>
+<input class="w-full h-11 pl-11 pr-4 bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface bg-surface-container-low/30 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container/20 transition-all" id="inputFullName" placeholder="Seu nome completo" required="" type="text" value="Mariana Souza"/>
+</div>
+</div>
+<!-- E-mail Institucional -->
+<div class="md:col-span-2 flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="inputEmail">
+                E-mail Institucional / Pessoal <span class="text-primary">*</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px] pointer-events-none">mail</span>
+<input class="w-full h-11 pl-11 pr-4 bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface bg-surface-container-low/30 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container/20 transition-all" id="inputEmail" placeholder="exemplo@email.com" required="" type="email" value="mariana.souza@unifit.com.br"/>
+</div>
+</div>
+<!-- Telefone / WhatsApp -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="inputPhone">
+                Telefone / WhatsApp
+              </label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px] pointer-events-none">call</span>
+<input class="w-full h-11 pl-11 pr-4 bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface bg-surface-container-low/30 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container/20 transition-all" id="inputPhone" type="tel" value="(11) 98721-4309"/>
+</div>
+</div>
+<!-- Data de Nascimento / Idade -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="inputBirthDate">
+                Data de Nascimento
+              </label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px] pointer-events-none">calendar_month</span>
+<input class="w-full h-11 pl-11 pr-4 bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface bg-surface-container-low/30 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container/20 transition-all" id="inputBirthDate" type="date" value="1999-05-14"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">26 anos de idade</span>
+</div>
+<!-- Matrícula e Unidade (Campos Protegidos) -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant">
+                ID da Matrícula
+              </label>
+<div class="h-11 px-4 bg-surface-container-low rounded-lg flex items-center justify-between text-on-surface font-label-md text-label-md">
+<span>#UF-84920</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">lock</span>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant">
+                Unidade Base
+              </label>
+<div class="h-11 px-4 bg-surface-container-low rounded-lg flex items-center justify-between text-on-surface font-label-md text-label-md">
+<span>UniFit Jardins - SP</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">domain</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Alerta de Segurança e Privacidade -->
+<div class="mt-space-lg p-space-sm bg-surface-container-low rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px] mt-0.5">verified_user</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+            Seus dados são protegidos sob a LGPD e compartilhados apenas com a equipe técnica de personal trainers responsáveis pela sua prescrição.
+          </span>
+</div>
+</section>
+<!-- Bloco 2: Dados Biométricos & Físicos (Right Column - 5 Cols) -->
+<section class="lg:col-span-5 bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-space-sm pb-space-md mb-space-lg bg-surface-container-low/40 p-space-md rounded-lg">
+<span class="material-symbols-outlined text-primary-container text-[24px]">vital_signs</span>
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Dados Biométricos &amp; Físicos</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Parâmetros corporais para calibração de cargas</span>
+</div>
+</div>
+<!-- Sexo Biológico (Chips Seletivos) -->
+<div class="flex flex-col gap-2 mb-space-md">
+<label class="font-label-md text-label-md text-on-surface">
+              Sexo Biológico
+            </label>
+<div class="grid grid-cols-3 gap-2" id="genderSelector">
+<button class="gender-pill py-2 px-3 rounded-lg font-label-md text-label-md text-center bg-primary-fixed text-primary-container font-semibold transition-all duration-150 flex items-center justify-center gap-1" data-gender="female" type="button">
+<span class="material-symbols-outlined text-[16px]">female</span>
+<span>Feminino</span>
+</button>
+<button class="gender-pill py-2 px-3 rounded-lg font-label-md text-label-md text-center bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all duration-150 flex items-center justify-center gap-1" data-gender="male" type="button">
+<span class="material-symbols-outlined text-[16px]">male</span>
+<span>Masculino</span>
+</button>
+<button class="gender-pill py-2 px-3 rounded-lg font-label-md text-label-md text-center bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all duration-150 flex items-center justify-center gap-1" data-gender="other" type="button">
+<span>Outro</span>
+</button>
+</div>
+</div>
+<!-- Altura e Peso Inputs -->
+<div class="grid grid-cols-2 gap-space-md mb-space-md">
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="inputHeight">
+                Altura
+              </label>
+<div class="relative flex items-center">
+<input class="w-full h-11 pl-4 pr-12 bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface bg-surface-container-low/30 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container/20 transition-all font-semibold" id="inputHeight" step="1" type="number" value="168"/>
+<span class="absolute right-3.5 font-label-sm text-label-sm text-on-surface-variant pointer-events-none">cm</span>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="inputWeight">
+                Peso Corporal
+              </label>
+<div class="relative flex items-center">
+<input class="w-full h-11 pl-4 pr-12 bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface bg-surface-container-low/30 focus:bg-surface-container-lowest focus:outline-none focus:ring-2 focus:ring-primary-container/20 transition-all font-semibold" id="inputWeight" step="0.1" type="number" value="62.5"/>
+<span class="absolute right-3.5 font-label-sm text-label-sm text-on-surface-variant pointer-events-none">kg</span>
+</div>
+</div>
+</div>
+<!-- Objetivo de Treino Principal -->
+<div class="flex flex-col gap-1.5 mb-space-md">
+<label class="font-label-md text-label-md text-on-surface" for="selectGoal">
+              Objetivo Principal
+            </label>
+<div class="relative flex items-center">
+<select class="w-full h-11 pl-3.5 pr-10 bg-surface-container-low/30 hover:bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary-container/20 appearance-none transition-all cursor-pointer" id="selectGoal">
+<option selected="" value="hypertrophy">Hipertrofia &amp; Definição Muscular</option>
+<option value="endurance">Resistência Cardiorrespiratória &amp; Condicionamento</option>
+<option value="weight_loss">Emagrecimento &amp; Saúde Metabólica</option>
+<option value="posture">Reabilitação Postural &amp; Flexibilidade</option>
+<option value="strength">Força Pura &amp; Performance Atlética</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 text-on-surface-variant text-[20px] pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+<!-- Destaque / Aviso Informativo de Integração -->
+<div class="p-space-md rounded-xl bg-primary-fixed/30 flex items-start gap-space-sm mt-space-md">
+<span class="material-symbols-outlined text-primary-container text-[20px] mt-0.5" style="font-variation-settings: 'FILL' 1;">sync</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-relaxed">
+              Os dados biométricos são sincronizados em tempo real com o cálculo de <strong>carga sugerida</strong> nos aparelhos conectados do salão e nas listas de treino prescritas pelo seu instrutor.
+            </p>
+</div>
+</div>
+</section>
+</div>
+<!-- Mini Seção: Histórico Rápido de Aferições Biométricas -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm mb-space-md pb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[24px]">history</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Histórico Recente de Aferições</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Medições corporais validadas pela coordenação técnica da academia</span>
+</div>
+</div>
+<button class="font-label-md text-label-md text-secondary hover:underline self-start sm:self-auto flex items-center gap-1" type="button">
+<span>Ver bioimpedância completa</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Tabela Operacional de Histórico -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="px-space-md py-3 rounded-l-lg">Data da Aferição</th>
+<th class="px-space-md py-3">Peso</th>
+<th class="px-space-md py-3">Estatura</th>
+<th class="px-space-md py-3">IMC</th>
+<th class="px-space-md py-3">Classificação</th>
+<th class="px-space-md py-3 rounded-r-lg">Responsável Técnico</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Linha 1: Hoje -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="px-space-md py-3.5 font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span>Hoje, 24 Fev 2025</span>
+</td>
+<td class="px-space-md py-3.5 font-label-md text-label-md text-on-surface font-semibold">62,5 kg</td>
+<td class="px-space-md py-3.5 font-body-md text-body-md text-on-surface">1,68 m</td>
+<td class="px-space-md py-3.5 font-label-md text-label-md text-on-surface">22,1 kg/m²</td>
+<td class="px-space-md py-3.5">
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-label-sm text-label-sm">Eutrófico</span>
+</td>
+<td class="px-space-md py-3.5 font-body-md text-body-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">fitness_center</span>
+<span>Prof. Lucas Mendes (CREF 089124-G/SP)</span>
+</td>
+</tr>
+<!-- Linha 2: 15 Jan -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="px-space-md py-3.5 font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-surface-container-high"></span>
+<span>15 Jan 2025</span>
+</td>
+<td class="px-space-md py-3.5 font-label-md text-label-md text-on-surface font-semibold">63,1 kg</td>
+<td class="px-space-md py-3.5 font-body-md text-body-md text-on-surface">1,68 m</td>
+<td class="px-space-md py-3.5 font-label-md text-label-md text-on-surface">22,3 kg/m²</td>
+<td class="px-space-md py-3.5">
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-label-sm text-label-sm">Eutrófico</span>
+</td>
+<td class="px-space-md py-3.5 font-body-md text-body-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">fitness_center</span>
+<span>Prof. Lucas Mendes (CREF 089124-G/SP)</span>
+</td>
+</tr>
+<!-- Linha 3: 01 Dez -->
+<tr class="hover:bg-surface-container-low/40 transition-colors">
+<td class="px-space-md py-3.5 font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-surface-container-high"></span>
+<span>01 Dez 2024</span>
+</td>
+<td class="px-space-md py-3.5 font-label-md text-label-md text-on-surface font-semibold">63,7 kg</td>
+<td class="px-space-md py-3.5 font-body-md text-body-md text-on-surface">1,68 m</td>
+<td class="px-space-md py-3.5 font-label-md text-label-md text-on-surface">22,5 kg/m²</td>
+<td class="px-space-md py-3.5">
+<span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-label-sm text-label-sm">Eutrófico</span>
+</td>
+<td class="px-space-md py-3.5 font-body-md text-body-md text-on-surface-variant flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">fitness_center</span>
+<span>Dra. Camila Ribeiro (Nutricionista)</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Barra de Ações do Rodapé (Sticky Action Bar) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-md shadow-md flex flex-col sm:flex-row items-center justify-between gap-space-md sticky bottom-6 z-30">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px]">info</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">
+          As atualizações serão refletidas imediatamente no aplicativo mobile e nas catracas de acesso.
+        </span>
+</div>
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-space-lg py-2.5 rounded-full font-label-lg text-label-lg text-on-surface-variant bg-surface-container-low hover:bg-surface-container-high transition-colors" id="btnBottomDiscard" type="button">
+          Descartar
+        </button>
+<button class="flex-1 sm:flex-none px-space-xl py-2.5 rounded-full font-label-lg text-label-lg text-on-primary bg-primary-container hover:bg-primary shadow-sm flex items-center justify-center gap-space-xs transition-all active:scale-[0.98]" id="btnBottomSave" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Salvar Alterações</span>
+</button>
+</div>
+</section>
+</form>
+</div>
+<script>
+  (function() {
+    // Referências de elementos interativos
+    const weightInput = document.getElementById('inputWeight');
+    const heightInput = document.getElementById('inputHeight');
+    const metricWeightVal = document.getElementById('metricWeightVal');
+    const metricHeightVal = document.getElementById('metricHeightVal');
+    const metricImcVal = document.getElementById('metricImcVal');
+    const saveToast = document.getElementById('saveToast');
+    const genderPills = document.querySelectorAll('.gender-pill');
+    
+    // Recalcular IMC dinamicamente
+    function updateMetrics() {
+      const weight = parseFloat(weightInput.value);
+      const heightCm = parseFloat(heightInput.value);
+      
+      if (!isNaN(weight)) {
+        metricWeightVal.textContent = weight.toFixed(1).replace('.', ',');
+      }
+      if (!isNaN(heightCm)) {
+        metricHeightVal.textContent = (heightCm / 100).toFixed(2).replace('.', ',');
+      }
+      if (!isNaN(weight) && !isNaN(heightCm) && heightCm > 0) {
+        const heightM = heightCm / 100;
+        const imc = (weight / (heightM * heightM)).toFixed(1);
+        metricImcVal.textContent = imc;
+      }
+    }
+
+    weightInput.addEventListener('input', updateMetrics);
+    heightInput.addEventListener('input', updateMetrics);
+
+    // Seletor de Sexo Biológico
+    genderPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        genderPills.forEach(p => {
+          p.classList.remove('bg-primary-fixed', 'text-primary-container', 'font-semibold');
+          p.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+        });
+        pill.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+        pill.classList.add('bg-primary-fixed', 'text-primary-container', 'font-semibold');
+      });
+    });
+
+    // Feedback de salvamento (Toast notification)
+    function triggerSaveToast() {
+      saveToast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+      saveToast.classList.add('opacity-100', 'translate-y-0');
+      
+      setTimeout(() => {
+        saveToast.classList.remove('opacity-100', 'translate-y-0');
+        saveToast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+      }, 3500);
+    }
+
+    document.getElementById('btnHeaderSave').addEventListener('click', triggerSaveToast);
+    document.getElementById('btnBottomSave').addEventListener('click', (e) => {
+      e.preventDefault();
+      triggerSaveToast();
+    });
+
+    // Descartar alterações (recarregar estado padrão)
+    function resetForm() {
+      document.getElementById('inputFullName').value = "Mariana Souza";
+      document.getElementById('inputEmail').value = "mariana.souza@unifit.com.br";
+      document.getElementById('inputPhone').value = "(11) 98721-4309";
+      document.getElementById('inputBirthDate').value = "1999-05-14";
+      weightInput.value = "62.5";
+      heightInput.value = "168";
+      document.getElementById('selectGoal').value = "hypertrophy";
+      
+      genderPills.forEach(pill => {
+        if (pill.getAttribute('data-gender') === 'female') {
+          pill.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+          pill.classList.add('bg-primary-fixed', 'text-primary-container', 'font-semibold');
+        } else {
+          pill.classList.remove('bg-primary-fixed', 'text-primary-container', 'font-semibold');
+          pill.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+        }
+      });
+      
+      updateMetrics();
+    }
+
+    document.getElementById('btnHeaderDiscard').addEventListener('click', resetForm);
+    document.getElementById('btnBottomDiscard').addEventListener('click', resetForm);
+  })();
+</script></main></div></body></html>

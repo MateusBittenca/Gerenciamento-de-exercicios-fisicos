@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "inverse-surface": "#303031", "error": "#ba1a1a", "surface-bright": "#faf9fa", "on-background": "#1b1c1d", "secondary-fixed-dim": "#abc7ff", "surface-tint": "#c00103", "primary-container": "#c30505", "outline": "#926f69", "inverse-primary": "#ffb4a8", "tertiary-container": "#ab383b", "surface-dim": "#dbdadb", "surface-container": "#efedee", "on-error": "#ffffff", "on-error-container": "#93000a", "primary-fixed-dim": "#ffb4a8", "tertiary-fixed": "#ffdad8", "surface-container-low": "#f5f3f4", "on-secondary": "#ffffff", "primary": "#970001", "surface-container-highest": "#e3e2e3", "on-secondary-container": "#002959", "tertiary-fixed-dim": "#ffb3b0", "background": "#faf9fa", "secondary-fixed": "#d7e3ff", "on-primary-container": "#ffd1ca", "secondary-container": "#448ffd", "tertiary": "#8b2026", "on-tertiary-fixed": "#410006", "on-surface-variant": "#5d3f3b", "surface": "#faf9fa", "on-primary-fixed": "#410000", "on-secondary-fixed": "#001b3f", "on-primary": "#ffffff", "error-container": "#ffdad6", "on-surface": "#1b1c1d", "primary-fixed": "#ffdad5", "on-tertiary": "#ffffff", "surface-container-high": "#e9e8e9", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#881d24", "inverse-on-surface": "#f2f0f1", "on-tertiary-container": "#ffd1cf", "secondary": "#005cba", "on-secondary-fixed-variant": "#00458e", "outline-variant": "#e7bdb6", "on-primary-fixed-variant": "#930001", "surface-variant": "#e3e2e3" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-xs": "0.25rem", "margin-lg": "3rem", "space-lg": "1.5rem", "margin": "1.5rem", "gutter-lg": "2rem", "space-sm": "0.5rem", "space-md": "1rem", "margin-sm": "1rem", "gutter": "1.5rem", "space-2xl": "3rem", "space-xl": "2rem", "gutter-sm": "1rem" }, fontFamily: { "label-lg": ["Plus Jakarta Sans"], "body-md": ["Inter"], "display-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "label-md": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "headline-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"] }, fontSize: { "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }], "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "700" }], "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "600" }], "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-20 flex items-center px-margin gap-space-md"><img alt="Brand logo. - Primary color: #c30505 - Font: plusJakartaSans - Mode: light - Roundness: rounded-md" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VIYmGz3qPuk3DMVLnYt1DzL1VEqcpo0yWXFzpFNe2gF59gNktKpJ0QQJFGYOXbgJC9_7WSedVfIXzSWvm-ZqbiFWoi3qnswn55XRvvf_GYKAlyiBJb8dA7RUixoeG5-Kd5wmwhf33-sdISU-_k6CKabE5bC7OhkMbE3ku4NLA1a4BW4w3um2AejHWk5I9JNCbkm8m3DFafnFWsCafDT4KnKZ7NIGBYOGxKdgOg2L0glxJeR-El_mauw1Ar"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">UniFit</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Portal do Aluno</span></div></div><nav class="flex flex-col gap-space-xs px-margin-sm mt-space-md" data-active-classes="bg-primary-container text-on-primary font-label-lg rounded-xl shadow-[0_4px_12px_-2px_rgba(195,5,5,0.2)]"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="inicio" href="#"><span class="material-symbols-outlined text-[22px]">home</span><span>Início</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="catalogo-de-exercicios" href="#"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span>Catálogo de Exercícios</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="listas-oficiais" href="#"><span class="material-symbols-outlined text-[22px]">verified</span><span>Listas Oficiais</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="minhas-listas" href="#"><span class="material-symbols-outlined text-[22px]">playlist_add_check</span><span>Minhas Listas</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="perfil" href="#"><span class="material-symbols-outlined text-[22px]">person</span><span>Perfil</span></a></nav></div><div class="p-margin-sm"><div class="bg-surface-container-low rounded-xl p-space-md mb-space-sm flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary-container text-[20px]">timer</span><div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface-variant">Treino Ativo</span><span class="font-headline-sm text-headline-sm text-on-surface leading-none">00:45:12</span></div></div><span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse"></span></div><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-error hover:bg-error-container hover:text-on-error-container transition-all duration-200" data-path="sair" href="#"><span class="material-symbols-outlined text-[22px]">logout</span><span>Sair</span></a></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin-lg"><div class="flex items-center gap-space-sm"><span class="font-label-md text-label-md text-on-surface-variant">Painel</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">chevron_right</span><span class="font-label-md text-label-md text-on-surface font-semibold">Treinamento Diário</span></div><div class="flex items-center gap-gutter"><div class="relative flex items-center"><button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span></button><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary-container"></span></div><div class="flex items-center gap-space-md pl-space-sm"><div class="flex flex-col text-right"><span class="font-label-lg text-label-lg text-on-surface leading-tight">Mariana Souza</span><span class="font-label-sm text-label-sm text-on-surface-variant">Aluno UniFit</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1V6emmBV36bNgboONtr_Ec8ZxYMd-QomcqX09H6amQvxRq3A4xPlJS928C0fdpf6UpsMluXqncdqqSKnSY6Dg3KNb8mDp7kN7i-vkWV_OmQBIXxFUOM_UVOxEUfzxCCsyO2kEVLjyR7KmA-71cgzoyb9Aw0vLrqCbRkhEvTFWeA3Uk0BCQTDGhC_fF8u_rR-PSyiT3OjMz43McZNtjm5_GQXmmdyA_5nEg_Gk4K_tMt_BGKxq1U27gT5Z4"/></div></div></header><main class="relative pt-20 bg-surface min-h-screen w-full px-margin-lg py-space-xl"><div class="flex flex-col w-full relative">
+<!-- BACKGROUND SCREEN: Catálogo de Exercícios (UniFit Light Mode) -->
+<div class="flex flex-col gap-space-lg select-none opacity-80 filter blur-[1px]">
+<!-- Top Filter & Search Bar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-lg text-headline-lg text-on-surface">Catálogo de Exercícios</span>
+<span class="bg-primary/10 text-primary px-2.5 py-0.5 rounded-full font-label-sm text-label-sm font-semibold">142 Disponíveis</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Explore a base biomecânica oficial da UniFit com guias em vídeo e parâmetros de execução.</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="relative w-72">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full h-11 pl-10 pr-4 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface outline-none" disabled="" type="text" value="Supino Reto"/>
+</div>
+<button class="h-11 px-space-md bg-surface-container-high text-on-surface rounded-lg font-label-lg text-label-lg flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Filtros</span>
+</button>
+</div>
+</div>
+<!-- Category Chips Bar -->
+<div class="flex items-center gap-space-sm overflow-x-auto pb-1">
+<span class="px-4 py-2 rounded-full font-label-md text-label-md bg-inverse-surface text-inverse-on-surface font-semibold">Todos (142)</span>
+<span class="px-4 py-2 rounded-full font-label-md text-label-md bg-primary-fixed text-primary font-semibold">Peitoral (24)</span>
+<span class="px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant">Costas &amp; Dorsal (28)</span>
+<span class="px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant">Membros Inferiores (36)</span>
+<span class="px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant">Ombros (18)</span>
+<span class="px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant">Braços (22)</span>
+<span class="px-4 py-2 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant">Core &amp; Abdômen (14)</span>
+</div>
+<!-- Exercise Grid Background Previews -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- Card 1 (Active target) -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-md flex flex-col gap-space-md relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary-container"></div>
+<div class="flex items-start gap-space-md">
+<img class="w-20 h-20 rounded-xl object-cover shadow-sm bg-surface-container-low" data-alt="Close-up of a muscular athlete performing a bench press with heavy Olympic barbell in a bright modern Technogym-style gym with high ceilings and crisp daylight illumination" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-Nzs78dNohLIBBxMelSqLyywu6ctV42VZKoqs-fikbOu8saZOdttGlneWsLkhZJSptzbCe82Qtk-1b1Sy8j5VJhGHbFACerSAn6H5GpCbTr_-0YPKdP_utruPOXvG073WCCSHpvGpna3pf_V-lRiuHHF6ehzkEJ7Uk6Q5klGsBAOb2ZKvoG30aKxT_trH3gh5oG_fNxsjwIsE57K9sAsDXfP0EwQ-Ee4Mp6Ixo49w98aUact4i7PRRw"/>
+<div class="flex flex-col flex-1 min-w-0">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold tracking-wider">Peitoral Maior</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate mt-0.5">Supino Reto com Barra</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Carga Livre • Barra Olímpica</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-primary">fitness_center</span> 4 Séries</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">repeat</span> 8 - 10 Reps</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">timer</span> 90s</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start gap-space-md">
+<img class="w-20 h-20 rounded-xl object-cover shadow-sm bg-surface-container-low" data-alt="Side angle shot of gym member doing incline dumbbell bench press on an adjustable red-accented workout bench in modern sports facility" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPkRZaZz8VEeSeAm38fphDPKCNR6Zc6FQDVYqpN_hpCKI1mpOcNNGxYuVpayLGGDTXc4YCBtTrOPOrpi9Cy-ioczG9Y_iQkoxFM6vHC0oOXr6IdjZExIpmi9eE9oBomECeeu7TLiJj7DRs0o1fKluqSaJOu2O1CFSjgX341EwZsnGdJNY4eJIV7ajZkuglKbVz6KTdfx3uuqOpADIe4_cCBiyagozBsGrI30vr0RlvLo6PxYwah9mMTA"/>
+<div class="flex flex-col flex-1 min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">Peitoral Superior</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate mt-0.5">Supino Inclinado Halteres</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Halteres Monobloco • Banco 30°</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">fitness_center</span> 3 Séries</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">repeat</span> 10 - 12 Reps</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">timer</span> 60s</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start gap-space-md">
+<img class="w-20 h-20 rounded-xl object-cover shadow-sm bg-surface-container-low" data-alt="Athletic woman executing cable crossover chest fly on dual pulley functional trainer machine with pristine lighting and clean gym background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF1Ob1gihtmljyQc6WMD1uPVi7fbwgJB1JkC81dMJ4Jf1KNZqylTBXsc2PnuKbQthXazkHaf_NoMHnewGsjTxdOduHl6jTt5sSS2Wd2hY8qJVqaW2r2QYQj9573PoMoElp6nPmIqdJOi3LSD5Y-ujmVUN0DOKq7130DnGfBAaFrtNEzL1KIk_FI9tjCj9_HyHN2JmoDDj0OZ4TmJLkbmVBvjrxQqAgd0uuwTZwPl52U_8btMino0Ggfw"/>
+<div class="flex flex-col flex-1 min-w-0">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-bold tracking-wider">Peitoral &amp; Estabilidade</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate mt-0.5">Crucifixo no Crossover</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-1">Polia Média • Cabos</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">fitness_center</span> 4 Séries</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">repeat</span> 12 - 15 Reps</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">timer</span> 45s</span>
+</div>
+</div>
+</div>
+</div>
+<!-- OVERLAY / MODAL BACKDROP (Light/Dark Scrim at 45% black with subtle blur) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md sm:p-space-lg bg-inverse-surface/45 backdrop-blur-[4px] transition-all duration-300" id="modal-container">
+<!-- MODAL CARD: "Adicionar à Lista de Treino" (Max-Width ~600px) -->
+<div aria-labelledby="modal-title" aria-modal="true" class="relative w-full max-w-[620px] bg-surface-container-lowest rounded-2xl shadow-[0_20px_50px_-12px_rgba(27,28,29,0.28),0_0_0_1px_rgba(230,232,234,0.9)] overflow-hidden flex flex-col max-h-[90vh]" role="dialog">
+<!-- 1. Cabeçalho do Modal -->
+<div class="p-space-lg bg-surface-container-lowest flex flex-col gap-space-md">
+<div class="flex items-start justify-between gap-space-md">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">playlist_add</span>
+              Gerenciador de Rotinas
+            </span>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-0.5" id="modal-title">Adicionar à Lista de Treino</h2>
+</div>
+<button aria-label="Fechar Modal" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" id="btn-close-modal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Miniatura e Sumário do Exercício Selecionado -->
+<div class="flex items-center gap-space-md p-space-sm bg-surface-container-low rounded-xl">
+<img class="w-12 h-12 rounded-lg object-cover shadow-sm" data-alt="Macro athletic photograph of an iron barbell racked above a bench in a minimalist luxury athletic performance center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrtxi3wkYN1E25KZmsFGrLU_eaA1_LdLI8AL9Z1-tWm72LXFVYqwr680LxvNGPRPcnNPivy22aeBtXgsnS0IDlMMz7Sf3ARCbStI6DM1qEJsvVJlwMA8crORH87jYx34B-IwcIJ5LtnPZQu6RymUe0SxuXnf7BN-kwa_9AOXZu_Ez9hJwDki1vGAbFOU9x_8SNa2j8JT92iC4bICf3lzoilpnQMCxPeu72thgaTwlpCfRdCG9SGGaZ7Q"/>
+<div class="flex flex-col flex-1 min-w-0">
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">Supino Reto com Barra</span>
+<div class="flex items-center gap-space-xs mt-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Peitoral Maior</span>
+<span class="w-1 h-1 rounded-full bg-on-surface-variant/40"></span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-primary-fixed text-primary font-semibold">Peito • Barra</span>
+</div>
+</div>
+<div class="hidden sm:flex flex-col text-right pr-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Aluno</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Mariana Souza</span>
+</div>
+</div>
+</div>
+<!-- 2. Campo de Pesquisa Rápida -->
+<div class="px-space-lg pb-space-sm">
+<div class="relative flex items-center w-full">
+<span class="material-symbols-outlined absolute left-3.5 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full h-11 pl-11 pr-4 bg-surface rounded-xl font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:bg-surface-container-lowest focus:outline-none transition-all shadow-[inset_0_0_0_1.5px_#e3e2e3] focus:shadow-[inset_0_0_0_2px_#c30505]" id="search-lists-input" placeholder="Buscar minhas listas de treino..." type="text"/>
+</div>
+</div>
+<!-- 3. Lista Interativa de Rotinas / Listas de Treino -->
+<div class="px-space-lg py-space-xs overflow-y-auto flex flex-col gap-space-sm max-h-[320px]" id="workout-lists-container">
+<!-- Item 1: Selecionado por padrão -->
+<label class="list-item-card relative flex items-center justify-between p-space-md bg-surface-container-lowest rounded-xl cursor-pointer transition-all duration-200 shadow-[0_2px_10px_rgba(195,5,5,0.08),inset_0_0_0_2px_#c30505]">
+<input checked="" class="sr-only" name="target-workout-list" type="radio" value="treino-a"/>
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">fitness_center</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Treino A — Peito, Tríceps &amp; Ombro</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant font-medium">Hipertrofia</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">8 exercícios cadastrados • Atualizada há 2 dias</span>
+</div>
+</div>
+<div class="status-indicator ml-space-md flex-shrink-0">
+<span class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</span>
+</div>
+</label>
+<!-- Item 2 -->
+<label class="list-item-card relative flex items-center justify-between p-space-md bg-surface-container-lowest rounded-xl cursor-pointer hover:bg-surface-container-low transition-all duration-200 shadow-[inset_0_0_0_1px_#e3e2e3]">
+<input class="sr-only" name="target-workout-list" type="radio" value="treino-b"/>
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">directions_run</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Treino B — Pernas Completo &amp; Panturrilha</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant font-medium">Força / Volume</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">7 exercícios cadastrados • Atualizada há 5 dias</span>
+</div>
+</div>
+<div class="status-indicator ml-space-md flex-shrink-0">
+<span class="w-7 h-7 rounded-full bg-surface-container-low text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</span>
+</div>
+</label>
+<!-- Item 3 -->
+<label class="list-item-card relative flex items-center justify-between p-space-md bg-surface-container-lowest rounded-xl cursor-pointer hover:bg-surface-container-low transition-all duration-200 shadow-[inset_0_0_0_1px_#e3e2e3]">
+<input class="sr-only" name="target-workout-list" type="radio" value="treino-c"/>
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">sports_gymnastics</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Treino C — Costas &amp; Bíceps</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant font-medium">Hipertrofia</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">8 exercícios cadastrados • Atualizada há 1 semana</span>
+</div>
+</div>
+<div class="status-indicator ml-space-md flex-shrink-0">
+<span class="w-7 h-7 rounded-full bg-surface-container-low text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</span>
+</div>
+</label>
+<!-- Item 4 -->
+<label class="list-item-card relative flex items-center justify-between p-space-md bg-surface-container-lowest rounded-xl cursor-pointer hover:bg-surface-container-low transition-all duration-200 shadow-[inset_0_0_0_1px_#e3e2e3]">
+<input class="sr-only" name="target-workout-list" type="radio" value="treino-rapido"/>
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface-variant flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-lg text-label-lg text-on-surface font-bold truncate">Treino Rápido — Foco Superior</span>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant font-medium">Condicionamento</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">5 exercícios cadastrados • Atualizada há 3 semanas</span>
+</div>
+</div>
+<div class="status-indicator ml-space-md flex-shrink-0">
+<span class="w-7 h-7 rounded-full bg-surface-container-low text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</span>
+</div>
+</label>
+</div>
+<!-- 4. Seção / Atalho para Criar Nova Lista -->
+<div class="px-space-lg pt-space-xs pb-space-sm">
+<button class="w-full py-3 px-space-md rounded-xl bg-surface-container-low hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 transition-colors" id="btn-create-new-list" type="button">
+<span class="material-symbols-outlined text-primary text-[20px]">add_circle</span>
+<span class="font-semibold text-primary">Criar nova lista de treino personalizada</span>
+</button>
+</div>
+<!-- 5. Rodapé do Modal com Ações -->
+<div class="p-space-lg bg-surface-container-low flex flex-col-reverse sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span class="font-body-sm text-body-sm">Você poderá ajustar cargas e repetições na lista.</span>
+</div>
+<div class="flex items-center gap-space-sm w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-space-md h-11 rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" id="btn-cancel" type="button">
+            Cancelar
+          </button>
+<button class="flex-1 sm:flex-none h-11 px-space-xl bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg rounded-full shadow-[0_4px_14px_rgba(195,5,5,0.3)] transition-all flex items-center justify-center gap-2 active:scale-95" id="btn-confirm-add" type="button">
+<span class="material-symbols-outlined text-[18px]">bookmark_add</span>
+<span id="save-button-label">Salvar na Lista (1 selecionada)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initUniFitModal() {
+    const listItems = document.querySelectorAll('.list-item-card');
+    const saveButtonLabel = document.getElementById('save-button-label');
+    const searchInput = document.getElementById('search-lists-input');
+    const closeBtn = document.getElementById('btn-close-modal');
+    const cancelBtn = document.getElementById('btn-cancel');
+    const modalContainer = document.getElementById('modal-container');
+    const confirmBtn = document.getElementById('btn-confirm-add');
+    const createNewListBtn = document.getElementById('btn-create-new-list');
+
+    function updateSelection(selectedLabel) {
+      listItems.forEach((label) => {
+        const radio = label.querySelector('input[type="radio"]');
+        const iconContainer = label.querySelector('.w-10');
+        const statusBox = label.querySelector('.status-indicator');
+
+        if (label === selectedLabel) {
+          radio.checked = true;
+          label.classList.remove('hover:bg-surface-container-low', 'shadow-[inset_0_0_0_1px_#e3e2e3]');
+          label.classList.add('shadow-[0_2px_10px_rgba(195,5,5,0.08),inset_0_0_0_2px_#c30505]');
+          
+          iconContainer.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+          iconContainer.classList.add('bg-primary-fixed', 'text-primary');
+
+          statusBox.innerHTML = `
+            <span class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-sm">
+              <span class="material-symbols-outlined text-[18px]">check</span>
+            </span>
+          `;
+        } else {
+          radio.checked = false;
+          label.classList.remove('shadow-[0_2px_10px_rgba(195,5,5,0.08),inset_0_0_0_2px_#c30505]');
+          label.classList.add('hover:bg-surface-container-low', 'shadow-[inset_0_0_0_1px_#e3e2e3]');
+
+          iconContainer.classList.remove('bg-primary-fixed', 'text-primary');
+          iconContainer.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+
+          statusBox.innerHTML = `
+            <span class="w-7 h-7 rounded-full bg-surface-container-low text-on-surface-variant flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">add</span>
+            </span>
+          `;
+        }
+      });
+      if (saveButtonLabel) {
+        saveButtonLabel.textContent = 'Salvar na Lista (1 selecionada)';
+      }
+    }
+
+    listItems.forEach((label) => {
+      label.addEventListener('click', () => {
+        updateSelection(label);
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        listItems.forEach((item) => {
+          const title = item.querySelector('.truncate').textContent.toLowerCase();
+          if (title.includes(query)) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    function closeModal() {
+      modalContainer.style.opacity = '0';
+      modalContainer.style.pointerEvents = 'none';
+      setTimeout(() => {
+        modalContainer.classList.add('hidden');
+      }, 250);
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', () => {
+        confirmBtn.innerHTML = `
+          <span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
+          <span>Salvando...</span>
+        `;
+        setTimeout(() => {
+          confirmBtn.classList.remove('bg-primary-container', 'hover:bg-primary');
+          confirmBtn.classList.add('bg-[#1f7e43]');
+          confirmBtn.innerHTML = `
+            <span class="material-symbols-outlined text-[18px]">check_circle</span>
+            <span>Adicionado com sucesso!</span>
+          `;
+          setTimeout(closeModal, 800);
+        }, 600);
+      });
+    }
+
+    if (createNewListBtn) {
+      createNewListBtn.addEventListener('click', () => {
+        const listName = prompt('Nome da nova lista de treino:', 'Treino D — Foco Ombros & Trapézio');
+        if (listName) {
+          alert('Nova lista criada com sucesso! Você já pode incluir o Supino Reto nela.');
+        }
+      });
+    }
+  })();
+</script></main></div></body></html>

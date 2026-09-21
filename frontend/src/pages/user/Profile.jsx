@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../auth/AuthContext';
-import '../../css/usuario.css';
 
 export default function Profile() {
   const { payload, request } = useAuth();
@@ -74,34 +73,46 @@ export default function Profile() {
   }
 
   return (
-    <div className="pagina-perfil">
-    <div className="model">
-      <h2>Dados do Usuario</h2>
-      <label htmlFor="nome">Nome:</label><br />
-      <input type="text" id="nome" placeholder="Nome" readOnly={!editando} value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} />
-
-      <label htmlFor="email">Email:</label><br />
-      <input type="email" id="email" placeholder="Email" readOnly={!editando} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-
-      <label htmlFor="altura">Altura:</label><br />
-      <input type="text" id="txtAltura" placeholder="Altura" readOnly={!editando} value={form.altura} onChange={(e) => setForm({ ...form, altura: e.target.value })} />
-
-      <label htmlFor="sexo">Sexo:</label><br />
-      <input type="text" id="sexo" placeholder="Sexo" readOnly={!editando} value={form.sexo} onChange={(e) => setForm({ ...form, sexo: e.target.value })} />
-
-      <label htmlFor="peso">Peso:</label><br />
-      <input type="number" id="peso" placeholder="Peso" step="0.1" readOnly={!editando} value={form.peso} onChange={(e) => setForm({ ...form, peso: e.target.value })} />
-      <br /><br />
-
-      {!editando ? (
-        <button id="btnEditar" onClick={() => setEditando(true)}>Editar</button>
-      ) : (
-        <>
-          <button className="btnSalvar" onClick={salvar}>Salvar</button>
-          <button className="btnDescartar" onClick={descartar}>Descartar</button>
-        </>
-      )}
-    </div>
+    <div>
+      <div className="uf-page-head">
+        <div>
+          <h1>Perfil</h1>
+          <p>Seus dados cadastrais na academia.</p>
+        </div>
+      </div>
+      <div className="uf-card uf-profile" style={{ padding: 28 }}>
+        <h2 style={{ marginBottom: 16 }}>Dados do usuário</h2>
+        <div className="uf-field">
+          <label htmlFor="nome">Nome</label>
+          <input type="text" id="nome" className="uf-input" placeholder="Nome" readOnly={!editando} value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} />
+        </div>
+        <div className="uf-field">
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" className="uf-input" placeholder="Email" readOnly={!editando} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+        </div>
+        <div className="uf-field">
+          <label htmlFor="txtAltura">Altura</label>
+          <input type="text" id="txtAltura" className="uf-input" placeholder="Altura" readOnly={!editando} value={form.altura} onChange={(e) => setForm({ ...form, altura: e.target.value })} />
+        </div>
+        <div className="uf-field">
+          <label htmlFor="sexo">Sexo</label>
+          <input type="text" id="sexo" className="uf-input" placeholder="Sexo" readOnly={!editando} value={form.sexo} onChange={(e) => setForm({ ...form, sexo: e.target.value })} />
+        </div>
+        <div className="uf-field">
+          <label htmlFor="peso">Peso</label>
+          <input type="number" id="peso" className="uf-input" placeholder="Peso" step="0.1" readOnly={!editando} value={form.peso} onChange={(e) => setForm({ ...form, peso: e.target.value })} />
+        </div>
+        <div className="uf-actions" style={{ marginTop: 8 }}>
+          {!editando ? (
+            <button id="btnEditar" className="uf-btn-edit" onClick={() => setEditando(true)}>Editar</button>
+          ) : (
+            <>
+              <button className="uf-btn-primary btnSalvar" onClick={salvar}>Salvar</button>
+              <button className="uf-btn-ghost btnDescartar" onClick={descartar}>Descartar</button>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

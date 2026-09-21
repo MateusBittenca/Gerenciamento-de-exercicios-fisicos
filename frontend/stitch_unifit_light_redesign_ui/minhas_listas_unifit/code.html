@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error": "#ffffff", "primary-fixed-dim": "#ffb4a8", "surface-container-low": "#f5f3f4", "secondary-container": "#448ffd", "surface-bright": "#faf9fa", "inverse-primary": "#ffb4a8", "on-tertiary-fixed-variant": "#881d24", "on-surface": "#1b1c1d", "tertiary-fixed-dim": "#ffb3b0", "secondary": "#005cba", "outline-variant": "#e7bdb6", "error-container": "#ffdad6", "primary-container": "#c30505", "surface-dim": "#dbdadb", "tertiary-fixed": "#ffdad8", "surface-container-lowest": "#ffffff", "on-error-container": "#93000a", "surface-container": "#efedee", "background": "#faf9fa", "secondary-fixed": "#d7e3ff", "primary-fixed": "#ffdad5", "primary": "#970001", "error": "#ba1a1a", "on-primary-container": "#ffd1ca", "on-primary-fixed-variant": "#930001", "surface-tint": "#c00103", "on-tertiary-fixed": "#410006", "inverse-on-surface": "#f2f0f1", "on-secondary-container": "#002959", "surface-variant": "#e3e2e3", "secondary-fixed-dim": "#abc7ff", "on-background": "#1b1c1d", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#00458e", "tertiary": "#8b2026", "inverse-surface": "#303031", "on-primary": "#ffffff", "outline": "#926f69", "on-primary-fixed": "#410000", "on-surface-variant": "#5d3f3b", "on-tertiary-container": "#ffd1cf", "surface-container-high": "#e9e8e9", "on-secondary-fixed": "#001b3f", "tertiary-container": "#ab383b", "surface-container-highest": "#e3e2e3", "on-tertiary": "#ffffff", "surface": "#faf9fa" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-sm": "1rem", "margin-sm": "1rem", "space-xl": "2rem", "margin-lg": "3rem", "gutter-lg": "2rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-2xl": "3rem", "space-lg": "1.5rem", "margin": "1.5rem", "space-md": "1rem", "gutter": "1.5rem" }, fontFamily: { "headline-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "label-md": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }], "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-20 flex items-center px-margin gap-space-md"><img alt="Brand logo. - Primary color: #c30505 - Font: plusJakartaSans - Mode: light - Roundness: rounded-md" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VIYmGz3qPuk3DMVLnYt1DzL1VEqcpo0yWXFzpFNe2gF59gNktKpJ0QQJFGYOXbgJC9_7WSedVfIXzSWvm-ZqbiFWoi3qnswn55XRvvf_GYKAlyiBJb8dA7RUixoeG5-Kd5wmwhf33-sdISU-_k6CKabE5bC7OhkMbE3ku4NLA1a4BW4w3um2AejHWk5I9JNCbkm8m3DFafnFWsCafDT4KnKZ7NIGBYOGxKdgOg2L0glxJeR-El_mauw1Ar"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">UniFit</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Portal do Aluno</span></div></div><nav class="flex flex-col gap-space-xs px-margin-sm mt-space-md" data-active-classes="bg-primary-container text-on-primary font-label-lg rounded-xl shadow-[0_4px_12px_-2px_rgba(195,5,5,0.2)]"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="home-do-aluno" href="#"><span class="material-symbols-outlined text-[22px]">home</span><span>Início</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="catalogo-de-exercicios" href="#"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span>Catálogo de Exercícios</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="listas-oficiais" href="#"><span class="material-symbols-outlined text-[22px]">verified</span><span>Listas Oficiais</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="minhas-listas" href="#"><span class="material-symbols-outlined text-[22px]">playlist_add_check</span><span>Minhas Listas</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="perfil" href="#"><span class="material-symbols-outlined text-[22px]">person</span><span>Perfil</span></a></nav></div><div class="p-margin-sm"><div class="bg-surface-container-low rounded-xl p-space-md mb-space-sm flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary-container text-[20px]">timer</span><div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface-variant">Treino Ativo</span><span class="font-headline-sm text-headline-sm text-on-surface leading-none">00:45:12</span></div></div><span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse"></span></div><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-error hover:bg-error-container hover:text-on-error-container transition-all duration-200" data-path="sair" href="#"><span class="material-symbols-outlined text-[22px]">logout</span><span>Sair</span></a></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin-lg"><div class="flex items-center gap-space-sm"><span class="font-label-md text-label-md text-on-surface-variant">Painel</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">chevron_right</span><span class="font-label-md text-label-md text-on-surface font-semibold">Portal do Aluno</span></div><div class="flex items-center gap-gutter"><div class="relative flex items-center"><button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span></button><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary-container"></span></div><div class="flex items-center gap-space-md pl-space-sm"><div class="flex flex-col text-right"><span class="font-label-lg text-label-lg text-on-surface leading-tight">Mariana Souza</span><span class="font-label-sm text-label-sm text-on-surface-variant">Aluno UniFit</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1V6emmBV36bNgboONtr_Ec8ZxYMd-QomcqX09H6amQvxRq3A4xPlJS928C0fdpf6UpsMluXqncdqqSKnSY6Dg3KNb8mDp7kN7i-vkWV_OmQBIXxFUOM_UVOxEUfzxCCsyO2kEVLjyR7KmA-71cgzoyb9Aw0vLrqCbRkhEvTFWeA3Uk0BCQTDGhC_fF8u_rR-PSyiT3OjMz43McZNtjm5_GQXmmdyA_5nEg_Gk4K_tMt_BGKxq1U27gT5Z4"/></div></div></header><main class="relative pt-20 bg-surface min-h-screen w-full px-margin-lg py-space-xl"><div class="flex flex-col w-full">
+<div class="flex flex-col gap-space-lg w-full max-w-[1440px] mx-auto pb-space-2xl">
+<!-- Top Breadcrumb & Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pt-space-xs">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant">
+<span class="hover:text-on-surface cursor-pointer transition-colors">Painel</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-on-surface cursor-pointer transition-colors">Treinamento Diário</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-semibold">Minhas Listas</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Minhas Listas de Treino</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Gerencie suas rotinas personalizadas, adicione novos exercícios e acompanhe seus planos semanais com métricas de carga em tempo real.
+        </p>
+</div>
+<div class="flex items-center gap-space-md">
+<button class="inline-flex items-center justify-center gap-space-xs px-space-lg h-12 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-[0_4px_16px_rgba(195,5,5,0.22)] hover:bg-[#a60404] active:scale-[0.98] transition-all" id="toggle-create-btn" onclick="toggleCreatePanel()">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>+ Criar Nova Lista</span>
+</button>
+</div>
+</div>
+<!-- Quick Stats Bar (Fitness Metric Ribbon) -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md w-full">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-11 h-11 rounded-xl bg-[#FEECEB] text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">folder_special</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Listas Montadas</span>
+<span class="font-headline-md text-headline-md text-on-surface">3 Rotinas Ativas</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-semibold">Sincronizado</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-11 h-11 rounded-xl bg-surface-container text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">event_repeat</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Próxima Sessão</span>
+<span class="font-headline-md text-headline-md text-on-surface">Treino B • Hoje</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm px-2.5 py-1 rounded-full bg-[#E8F8EE] text-[#1B7F45] font-semibold">
+<span class="w-2 h-2 rounded-full bg-[#27AE60] animate-pulse"></span> Pronto
+        </span>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-11 h-11 rounded-xl bg-[#FEECEB] text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">exercise</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Volume Semanal</span>
+<span class="font-headline-md text-headline-md text-on-surface">19 Exercícios</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary-container font-semibold">92% da Meta</span>
+</div>
+</div>
+<!-- Inline Expandable Creation Panel -->
+<section class="transition-all duration-300 overflow-hidden bg-surface-container-lowest rounded-xl shadow-md p-space-lg" id="create-panel">
+<div class="flex items-center justify-between pb-space-md mb-space-md bg-surface-container-low/50 -mx-space-lg -mt-space-lg px-space-lg pt-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Painel de Criação Rápida de Rotina</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Configure o nome da ficha, objetivo biomecânico e a distribuição semanal.</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" onclick="toggleCreatePanel()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<form class="flex flex-col gap-space-lg" onsubmit="event.preventDefault(); addNewListToast();">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Nome da Lista / Ficha</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-[18px]">edit_note</span>
+<input class="w-full h-11 pl-10 pr-3 rounded-lg bg-surface-container-low text-body-md text-on-surface focus:bg-surface-container-lowest focus:shadow-[0_0_0_2px_#c30505] transition-all outline-none" id="new-list-name" placeholder="ex: Treino D — Braços e Abdômen" required="" type="text"/>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sugestão: adicione o agrupamento principal.</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Tipo de Treinamento</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-[18px]">track_changes</span>
+<select class="w-full h-11 pl-10 pr-8 rounded-lg bg-surface-container-low text-body-md text-on-surface focus:bg-surface-container-lowest focus:shadow-[0_0_0_2px_#c30505] transition-all outline-none appearance-none cursor-pointer">
+<option value="Hipertrofia">Hipertrofia Muscular</option>
+<option value="Forca">Força / Volume Máximo</option>
+<option value="Adaptacao">Adaptação / Reabilitação</option>
+<option value="Funcional">Funcional &amp; Potência</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 text-on-surface-variant text-[20px] pointer-events-none">arrow_drop_down</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Define repetições e tempos de descanso padrão.</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface font-semibold">Dias Sugeridos na Semana</label>
+<div class="flex items-center gap-1.5 pt-1">
+<button class="w-9 h-9 rounded-lg font-label-md text-label-md bg-surface-container text-on-surface-variant hover:bg-primary-container hover:text-on-primary transition-colors focus:bg-primary-container focus:text-on-primary" type="button">S</button>
+<button class="w-9 h-9 rounded-lg font-label-md text-label-md bg-primary-container text-on-primary" type="button">T</button>
+<button class="w-9 h-9 rounded-lg font-label-md text-label-md bg-surface-container text-on-surface-variant hover:bg-primary-container hover:text-on-primary transition-colors focus:bg-primary-container focus:text-on-primary" type="button">Q</button>
+<button class="w-9 h-9 rounded-lg font-label-md text-label-md bg-primary-container text-on-primary" type="button">Q</button>
+<button class="w-9 h-9 rounded-lg font-label-md text-label-md bg-surface-container text-on-surface-variant hover:bg-primary-container hover:text-on-primary transition-colors focus:bg-primary-container focus:text-on-primary" type="button">S</button>
+<button class="w-9 h-9 rounded-lg font-label-md text-label-md bg-surface-container text-on-surface-variant hover:bg-primary-container hover:text-on-primary transition-colors focus:bg-primary-container focus:text-on-primary" type="button">S</button>
+<button class="w-9 h-9 rounded-lg font-label-md text-label-md bg-surface-container text-on-surface-variant hover:bg-primary-container hover:text-on-primary transition-colors focus:bg-primary-container focus:text-on-primary" type="button">D</button>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Selecione os dias ideais no calendário UniFit.</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="h-10 px-space-lg rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" onclick="toggleCreatePanel()" type="button">
+            Cancelar
+          </button>
+<button class="h-10 px-space-xl rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-sm hover:bg-[#a60404] active:scale-[0.98] transition-all flex items-center gap-space-xs" type="submit">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span>Salvar Nova Lista</span>
+</button>
+</div>
+</form>
+</section>
+<!-- Workout Lists Container -->
+<div class="flex flex-col gap-space-xl w-full">
+<!-- LIST 1: Treino A (Superior & Ombros) -->
+<article class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg transition-all hover:shadow-md" id="workout-list-a">
+<!-- List Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-md mb-space-md">
+<div class="flex items-start md:items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-[#FEECEB] text-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px]">sports_gymnastics</span>
+</div>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Treino A — Superior &amp; Ombros</h2>
+<span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-[#FEECEB] text-primary-container font-semibold">Frequência A</span>
+<span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant">Hipertrofia</span>
+</div>
+<div class="flex items-center gap-space-sm font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">format_list_bulleted</span> 6 exercícios</span>
+<span>•</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">update</span> Atualizada há 2 dias</span>
+<span>•</span>
+<span class="text-secondary font-medium">Tempo estimado: ~50 min</span>
+</div>
+</div>
+</div>
+<!-- Top Actions -->
+<div class="flex items-center gap-space-xs self-end md:self-center">
+<button class="h-9 px-3 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1.5 font-label-md text-label-md" title="Editar nome da lista">
+<span class="material-symbols-outlined text-[18px] text-secondary">edit</span>
+<span class="hidden sm:inline">Renomear</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-error-container/40 text-error hover:bg-error hover:text-on-error transition-colors flex items-center gap-1.5 font-label-md text-label-md" onclick="confirmDeleteList('workout-list-a', 'Treino A — Superior &amp; Ombros')" title="Excluir lista inteira">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+<span class="hidden sm:inline">Excluir</span>
+</button>
+</div>
+</div>
+<!-- Exercises Data Table -->
+<div class="overflow-x-auto rounded-xl bg-surface-container-low/40 p-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-4 rounded-l-lg font-semibold w-12 text-center">#</th>
+<th class="py-3 px-4 font-semibold">Exercício</th>
+<th class="py-3 px-4 font-semibold">Agrupamento</th>
+<th class="py-3 px-4 font-semibold">Prescrição (Séries × Reps)</th>
+<th class="py-3 px-4 font-semibold">Carga Atual</th>
+<th class="py-3 px-4 text-right rounded-r-lg font-semibold">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container/60 font-body-md text-body-md text-on-surface" id="table-body-a">
+<!-- Item 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">1</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Supino Reto com Barra</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-[#FEECEB] text-primary-container font-semibold">Peito</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  4 séries × 8-10 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(90s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">32 kg / lado</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Supino Reto com Barra', 'Peito', 'Posicione as escápulas aduzidas, desça a barra na linha dos mamilos e empurre com controle.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">2</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Supino Inclinado c/ Halteres</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-[#FEECEB] text-primary-container font-semibold">Peito</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  3 séries × 10 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(60s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">18 kg halter</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Supino Inclinado c/ Halteres', 'Peitoral Superior', 'Banco a 30-45 graus. Mantenha os cotovelos a 45 graus do tronco.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">3</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Crucifixo Máquina (Peck Deck)</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-[#FEECEB] text-primary-container font-semibold">Peito</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  3 séries × 12 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(45s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">45 kg bloco</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Crucifixo Máquina (Peck Deck)', 'Peito / Isolamento', 'Controle o retorno elástico, apertando o peitoral no ponto concêntrico.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">4</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Desenvolvimento c/ Halteres</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed-variant font-semibold">Ombro</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  3 séries × 10 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(60s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">12 kg halter</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Desenvolvimento c/ Halteres', 'Deltoide Anterior e Lateral', 'Coluna firme apoiada no encosto, evite hiperestender a lombar.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 5 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">5</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Elevação Lateral</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed-variant font-semibold">Ombro</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  4 séries × 15 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(45s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">7 kg halter</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Elevação Lateral', 'Deltoide Lateral', 'Ligeira flexão de cotovelos, eleve sem balançar o tronco.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 6 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">6</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Tríceps Corda no Pulley</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed-variant font-semibold">Tríceps</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  3 séries × 12 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(45s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">25 kg placa</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Tríceps Corda no Pulley', 'Tríceps Braquial', 'Abra as pontas da corda na fase final da extensão para máxima contração.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- List Footer Actions -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-lg">
+<button class="inline-flex items-center justify-center gap-space-xs px-space-lg h-11 rounded-full bg-surface-container-low text-primary-container font-label-lg text-label-lg hover:bg-[#FEECEB] transition-colors" onclick="openCatalogNotice()">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>+ Adicionar Exercício a este Treino</span>
+</button>
+<button class="inline-flex items-center justify-center gap-space-xs px-space-xl h-11 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-[0_4px_14px_rgba(195,5,5,0.2)] hover:bg-[#a60404] active:scale-[0.98] transition-all" onclick="startRoutine('Treino A — Superior &amp; Ombros')">
+<span class="material-symbols-outlined text-[20px]">play_arrow</span>
+<span>Iniciar Treino Agora</span>
+</button>
+</div>
+</article>
+<!-- LIST 2: Treino B (Pernas & Glúteo) - HIGHLIGHTED AS TODAY'S WORKOUT -->
+<article class="relative bg-surface-container-lowest rounded-xl shadow-md p-space-lg overflow-hidden transition-all hover:shadow-xl" id="workout-list-b">
+<!-- Visual Accent for Active Today -->
+<div class="absolute left-0 top-0 bottom-0 w-2 bg-primary-container"></div>
+<!-- List Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-md mb-space-md pl-space-xs">
+<div class="flex items-start md:items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shrink-0 shadow-[0_4px_12px_rgba(195,5,5,0.25)]">
+<span class="material-symbols-outlined text-[28px]">directions_run</span>
+</div>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Treino B — Pernas &amp; Glúteo</h2>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-primary-container text-on-primary font-bold shadow-sm animate-pulse">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Treino de Hoje
+                </span>
+<span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed font-semibold">Força Pura</span>
+</div>
+<div class="flex items-center gap-space-sm font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">format_list_bulleted</span> 8 exercícios</span>
+<span>•</span>
+<span class="flex items-center gap-1 text-[#27AE60] font-medium"><span class="material-symbols-outlined text-[14px]">schedule</span> Programado para 18:30</span>
+<span>•</span>
+<span class="text-on-surface-variant">Tempo estimado: ~65 min</span>
+</div>
+</div>
+</div>
+<!-- Top Actions -->
+<div class="flex items-center gap-space-xs self-end md:self-center">
+<button class="h-9 px-3 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1.5 font-label-md text-label-md" title="Editar nome da lista">
+<span class="material-symbols-outlined text-[18px] text-secondary">edit</span>
+<span class="hidden sm:inline">Renomear</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-error-container/40 text-error hover:bg-error hover:text-on-error transition-colors flex items-center gap-1.5 font-label-md text-label-md" onclick="confirmDeleteList('workout-list-b', 'Treino B — Pernas &amp; Glúteo')" title="Excluir lista inteira">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+<span class="hidden sm:inline">Excluir</span>
+</button>
+</div>
+</div>
+<!-- Exercises Data Table -->
+<div class="overflow-x-auto rounded-xl bg-surface-container-low/40 p-1 pl-space-xs">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-4 rounded-l-lg font-semibold w-12 text-center">#</th>
+<th class="py-3 px-4 font-semibold">Exercício</th>
+<th class="py-3 px-4 font-semibold">Agrupamento</th>
+<th class="py-3 px-4 font-semibold">Prescrição (Séries × Reps)</th>
+<th class="py-3 px-4 font-semibold">Carga Alvo</th>
+<th class="py-3 px-4 text-right rounded-r-lg font-semibold">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container/60 font-body-md text-body-md text-on-surface">
+<!-- Item 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-primary-container font-bold">1</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface font-semibold">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">award_star</span>
+<span>Agachamento Livre com Barra</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-[#FEECEB] text-primary-container font-semibold">Quadríceps / Glúteo</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  4 séries × 6-8 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(120s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-primary-container font-bold">60 kg total</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Agachamento Livre', 'Membros Inferiores', 'Mantenha os pés afastados na largura dos ombros, peito aberto e desça quebrando o paralelo.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">2</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Agachamento Búlgaro c/ Halteres</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-[#FEECEB] text-primary-container font-semibold">Glúteo / Unilateral</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  3 séries × 10 reps / perna <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(60s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">14 kg halter</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Agachamento Búlgaro', 'Glúteo e Coxa', 'Apoie o peito do pé no banco, joelho da frente sem ultrapassar excessivamente a ponta do pé.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">3</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Leg Press 45°</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-[#FEECEB] text-primary-container font-semibold">Quadríceps</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  4 séries × 12 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(90s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">180 kg trenó</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Leg Press 45°', 'Quadríceps', 'Posição firme da lombar no encosto. Nunca estenda os joelhos até o travamento total.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 4 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">4</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Cadeira Extensora</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-[#FEECEB] text-primary-container font-semibold">Quadríceps</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  3 séries × 12-15 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(45s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">40 kg</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Cadeira Extensora', 'Quadríceps Isolado', 'Segure 1 segundo de pico de contração no topo de cada repetição.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Item 5 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-3.5 px-4 font-label-md text-label-md text-center text-on-surface-variant font-semibold">5</td>
+<td class="py-3.5 px-4 font-label-lg text-label-lg text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px]">fitness_center</span>
+<span>Mesa Flexora Deitada</span>
+</div>
+</td>
+<td class="py-3.5 px-4">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-secondary-fixed text-on-secondary-fixed font-semibold">Isquiotibiais</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface font-semibold">
+                  4 séries × 10 reps <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">(60s pausa)</span>
+</td>
+<td class="py-3.5 px-4 font-label-md text-label-md text-on-surface-variant">35 kg</td>
+<td class="py-3.5 px-4 text-right">
+<div class="flex items-center justify-end gap-1">
+<button class="h-8 px-2.5 rounded-lg text-secondary hover:bg-secondary-fixed/40 font-label-md text-label-md transition-colors flex items-center gap-1" onclick="showExerciseModal('Mesa Flexora Deitada', 'Isquiotibiais', 'Evite arquear o quadril na subida da almofada de tração.')">
+<span class="material-symbols-outlined text-[16px]">info</span> Ver detalhes
+                    </button>
+<button class="w-8 h-8 rounded-lg text-error hover:bg-error-container hover:text-on-error-container transition-colors flex items-center justify-center" onclick="removeExerciseRow(this)" title="Remover do Treino">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- List Footer Actions -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-lg pl-space-xs">
+<div class="flex items-center gap-space-sm">
+<button class="inline-flex items-center justify-center gap-space-xs px-space-lg h-11 rounded-full bg-surface-container-low text-primary-container font-label-lg text-label-lg hover:bg-[#FEECEB] transition-colors" onclick="openCatalogNotice()">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>+ Adicionar Exercício a este Treino</span>
+</button>
+<span class="font-body-sm text-body-sm text-on-surface-variant hidden lg:inline">+3 exercícios complementares inclusos</span>
+</div>
+<button class="inline-flex items-center justify-center gap-space-xs px-space-xl h-12 rounded-full bg-primary-container text-on-primary font-label-lg text-label-lg shadow-[0_6px_20px_rgba(195,5,5,0.3)] hover:bg-[#a60404] active:scale-[0.98] transition-all scale-105" onclick="startRoutine('Treino B — Pernas &amp; Glúteo')">
+<span class="material-symbols-outlined text-[24px]">play_circle</span>
+<span>Iniciar Treino de Hoje</span>
+</button>
+</div>
+</article>
+<!-- LIST 3: Treino Rápido (Foco Superior Compacto) -->
+<article class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg transition-all hover:shadow-md" id="workout-list-c">
+<!-- List Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-sm mb-space-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container text-on-surface flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px]">flash_on</span>
+</div>
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Treino Rápido — Foco Superior</h2>
+<span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-semibold">Condicionamento</span>
+<span class="px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant">5 Exercícios</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Rotina express para dias de agenda cheia • Duração: ~30 min • Alta densidade
+              </p>
+</div>
+</div>
+<!-- Compact Action Controls -->
+<div class="flex items-center gap-space-xs">
+<button class="h-9 px-3 rounded-lg bg-surface-container-low text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1.5 font-label-md text-label-md" onclick="toggleCompactView('compact-exercises-c', this)">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+<span>Ver Exercícios</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-error-container/40 text-error hover:bg-error hover:text-on-error transition-colors flex items-center gap-1.5 font-label-md text-label-md" onclick="confirmDeleteList('workout-list-c', 'Treino Rápido — Foco Superior')" title="Excluir lista inteira">
+<span class="material-symbols-outlined text-[18px]">delete_forever</span>
+<span class="hidden sm:inline">Excluir</span>
+</button>
+<button class="h-9 px-space-md rounded-full bg-primary-container text-on-primary font-label-md text-label-md hover:bg-[#a60404] transition-all flex items-center gap-1" onclick="startRoutine('Treino Rápido — Foco Superior')">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Iniciar</span>
+</button>
+</div>
+</div>
+<!-- Collapsible Content for List C -->
+<div class="hidden pt-space-md mt-space-sm bg-surface-container-low/30 rounded-xl p-space-md" id="compact-exercises-c">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-lowest flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant font-bold">1</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface">Puxada Frontal Aberta</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Costas • 4x 12 reps</div>
+</div>
+</div>
+<button class="text-error hover:bg-error-container p-1 rounded" onclick="removeExerciseRow(this.closest('.shadow-xs'))"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-lowest flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant font-bold">2</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface">Remada Baixa Triângulo</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Dorsais • 3x 10 reps</div>
+</div>
+</div>
+<button class="text-error hover:bg-error-container p-1 rounded" onclick="removeExerciseRow(this.closest('.shadow-xs'))"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-lowest flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant font-bold">3</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface">Flexão de Braços no Solo</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Peito / Core • 3x até a falha</div>
+</div>
+</div>
+<button class="text-error hover:bg-error-container p-1 rounded" onclick="removeExerciseRow(this.closest('.shadow-xs'))"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-lowest flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md text-on-surface-variant font-bold">4</span>
+<div>
+<div class="font-label-lg text-label-lg text-on-surface">Rosca Martelo c/ Halteres</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Bíceps • 3x 12 reps</div>
+</div>
+</div>
+<button class="text-error hover:bg-error-container p-1 rounded" onclick="removeExerciseRow(this.closest('.shadow-xs'))"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</div>
+</div>
+<div class="pt-space-md flex justify-end">
+<button class="text-primary-container font-label-md text-label-md hover:underline inline-flex items-center gap-1" onclick="openCatalogNotice()">
+<span class="material-symbols-outlined text-[16px]">add</span> Adicionar mais exercícios a este treino
+            </button>
+</div>
+</div>
+</article>
+</div>
+<!-- Catalog Integration / Empty State Helper Banner -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col md:flex-row items-center justify-between gap-space-lg mt-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-14 h-14 rounded-2xl bg-[#FEECEB] text-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[32px]">menu_book</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Quer enriquecer suas rotinas?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl">
+            Navegue pelo nosso <strong class="text-on-surface font-semibold">Catálogo de Exercícios UniFit</strong> com mais de 350 variações em vídeo biomecânico e adicione diretamente a qualquer uma de suas listas com apenas 1 clique.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm shrink-0 w-full md:w-auto">
+<button class="w-full md:w-auto h-11 px-space-lg rounded-full bg-surface-container text-on-surface font-label-lg text-label-lg hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2" onclick="location.hash='#catalogo-de-exercicios'">
+<span class="material-symbols-outlined text-[20px]">search</span>
+<span>Explorar Catálogo</span>
+</button>
+</div>
+</section>
+<!-- Visual Gym Feature Callout / Inspiration Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mt-space-xs">
+<div class="relative overflow-hidden rounded-xl h-44 bg-surface-container-low p-space-lg flex flex-col justify-between">
+<img class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-25" data-alt="Female athlete adjusting gym equipment plates in a bright modern high-end gym with clean lighting and red crimson accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa_sYe50hsrTbmUaEzGx9XHj7fU8qHwNEI0rzXTrVjCxFq1QJu9mPtsfoEUuUGKg4LhdY6HdDDFO_V95bmQ1jXiEAWRWDfkeuyXI_6n6hzJPB_fltun3dlUhBW8j-F7wzT2J3mYYv62rKjLJIOdggtyfOToiN68Z4bcfHfM91oKv8i2EhROaTmdEjmWj-bJbChkT9c9tQz7UlLVLKAydhlf1xSjAEiU-ZM0_Ju9VYvLrbheakL_zMFOw"/>
+<div class="relative z-10">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary-container font-bold">Dica do Treinador</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mt-1">Progressão de Sobrecarga Contínua</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm mt-1">Anote o peso em cada série para permitir que o sistema calcule sua carga ótima de hipertrofia semanal.</p>
+</div>
+<div class="relative z-10 flex items-center gap-1 font-label-sm text-label-sm text-primary-container font-semibold">
+<span>Ver relatório de força</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+<div class="relative overflow-hidden rounded-xl h-44 bg-surface-container-low p-space-lg flex flex-col justify-between">
+<img class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-25" data-alt="Close up shot of athletic weights and dumbbells in a luxury fitness club with minimalist architecture and sharp focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJfZ1tpEeHWPcY2ymzpqfz6WPVikP4wOp1DyAdFhl4sVBTo8NtGKkHiy00Je1GXkqBwpdMfVWxqldalic4iZHc97yhS652_VLQfZy--Sl3N0jYRaj6PEi43OaKQ_MuqXF-siB1o3vhh8iwtP8eAuXdOmCsN_s0M9cJ1_W89PEYd1uPzJD0ncwhO3sgDseiU15jIlH4kTpgcvGttalM-8-sCbW2-O8qVUQarKfrlDnEkBrKsUHZXrK7NA"/>
+<div class="relative z-10">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">Listas Oficiais UniFit</span>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mt-1">Periodização Semestral Pronta</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm mt-1">Copie templates validados por mestres em biomecânica para seu perfil pessoal com apenas um toque.</p>
+</div>
+<div class="relative z-10 flex items-center gap-1 font-label-sm text-label-sm text-secondary font-semibold">
+<span>Acessar Listas Oficiais</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Modal: Exercise Detail Preview -->
+<div class="fixed inset-0 z-50 hidden flex items-center justify-center bg-[#1F2021]/50 backdrop-blur-sm p-4 transition-all" id="exercise-modal">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+<div class="p-space-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-xl bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">fitness_center</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm uppercase text-primary-container font-bold" id="modal-group">Agrupamento</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface" id="modal-title">Nome do Exercício</h3>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-on-surface" onclick="closeExerciseModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-semibold mb-1">Instruções de Execução</h4>
+<p class="font-body-md text-body-md text-on-surface-variant" id="modal-desc">Descrição biomecânica do movimento.</p>
+</div>
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Descanso Sugerido</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5">60 — 90 seg</span>
+</div>
+<div class="p-space-sm rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Cadência Alvo</span>
+<span class="font-headline-sm text-headline-sm text-on-surface mt-0.5">3-0-1-0</span>
+</div>
+</div>
+</div>
+<div class="p-space-md bg-surface-container-low/50 flex justify-end">
+<button class="px-space-lg h-10 rounded-full bg-primary-container text-on-primary font-label-md text-label-md hover:bg-[#a60404]" onclick="closeExerciseModal()">
+          Entendido
+        </button>
+</div>
+</div>
+</div>
+<!-- Toast Notification Template -->
+<div class="fixed bottom-6 right-6 z-50 hidden bg-[#1F2021] text-[#FFFFFF] px-space-lg py-space-md rounded-xl shadow-xl flex items-center gap-space-sm text-body-md animate-bounce" id="toast-message">
+<span class="material-symbols-outlined text-[#27AE60] text-[22px]">check_circle</span>
+<span id="toast-text">Ação realizada com sucesso!</span>
+</div>
+</div>
+<script>
+  function toggleCreatePanel() {
+    const panel = document.getElementById('create-panel');
+    panel.classList.toggle('hidden');
+    if (!panel.classList.contains('hidden')) {
+      document.getElementById('new-list-name').focus();
+    }
+  }
+
+  function toggleCompactView(contentId, btn) {
+    const content = document.getElementById(contentId);
+    if (content.classList.contains('hidden')) {
+      content.classList.remove('hidden');
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">expand_less</span><span>Ocultar</span>';
+    } else {
+      content.classList.add('hidden');
+      btn.innerHTML = '<span class="material-symbols-outlined text-[18px]">expand_more</span><span>Ver Exercícios</span>';
+    }
+  }
+
+  function showExerciseModal(title, group, desc) {
+    document.getElementById('modal-title').innerText = title;
+    document.getElementById('modal-group').innerText = group;
+    document.getElementById('modal-desc').innerText = desc;
+    document.getElementById('exercise-modal').classList.remove('hidden');
+  }
+
+  function closeExerciseModal() {
+    document.getElementById('exercise-modal').classList.add('hidden');
+  }
+
+  function removeExerciseRow(button) {
+    const row = button.closest('tr') || button.closest('.shadow-xs');
+    if (confirm('Deseja realmente remover este exercício da sua lista?')) {
+      row.style.opacity = '0';
+      row.style.transform = 'translateX(20px)';
+      row.style.transition = 'all 0.25s ease';
+      setTimeout(() => {
+        row.remove();
+        showToast('Exercício removido da lista.');
+      }, 250);
+    }
+  }
+
+  function confirmDeleteList(listId, listName) {
+    if (confirm(`Atenção: Deseja excluir permanentemente a lista "${listName}"?`)) {
+      const el = document.getElementById(listId);
+      el.style.opacity = '0';
+      el.style.transform = 'scale(0.95)';
+      el.style.transition = 'all 0.3s ease';
+      setTimeout(() => {
+        el.remove();
+        showToast(`Lista "${listName}" excluída.`);
+      }, 300);
+    }
+  }
+
+  function startRoutine(name) {
+    showToast(`Iniciando ${name}... Bom treino, Mariana!`);
+  }
+
+  function addNewListToast() {
+    const val = document.getElementById('new-list-name').value;
+    showToast(`Nova lista "${val}" criada com sucesso!`);
+    toggleCreatePanel();
+    document.getElementById('new-list-name').value = '';
+  }
+
+  function openCatalogNotice() {
+    showToast('Abra a aba "Catálogo de Exercícios" para adicionar movimentos a esta rotina.');
+  }
+
+  function showToast(text) {
+    const toast = document.getElementById('toast-message');
+    const toastText = document.getElementById('toast-text');
+    toastText.innerText = text;
+    toast.classList.remove('hidden');
+    setTimeout(() => {
+      toast.classList.add('hidden');
+    }, 3200);
+  }
+</script></main></div></body></html>
