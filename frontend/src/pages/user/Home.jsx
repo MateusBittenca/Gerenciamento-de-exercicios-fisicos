@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { exerciciosDaLista, groupListsById, listaProgramadaHoje, OBJETIVOS, swalDark } from '../../api/client';
+import { useFeedback } from '../../auth/FeedbackContext';
+import { groupListsById, listaProgramadaHoje } from '../../api/client';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
+import ListaCard from '../../components/ListaCard';
 
 export default function Home() {
-  const { payload, request, refreshSessao } = useAuth();
+  const { payload, request, refreshSessao, sessaoAtiva } = useAuth();
+  const { toast } = useFeedback();
   const navigate = useNavigate();
   const [exercicios, setExercicios] = useState([]);
   const [oficiais, setOficiais] = useState([]);
@@ -55,7 +57,7 @@ export default function Home() {
       await refreshSessao();
       navigate('/app/treino/' + obj.dados.sessao.id);
     } else {
-      Swal.fire({ ...swalDark, title: 'Erro!', text: obj.msg || 'Não foi possível iniciar.', icon: 'error' });
+      toast('erro', obj.msg || 'Não foi possível iniciar o treino.');
     }
   }
 
@@ -65,18 +67,18 @@ export default function Home() {
       body: JSON.stringify({ idLista })
     });
     if (obj.status === true) {
-      Swal.fire({ ...swalDark, title: 'Salva!', text: 'Lista adicionada à sua rotina.', icon: 'success' });
+      toast('ok', 'Lista salva na sua rotina.');
       navigate('/app/minhas-listas');
     } else {
-      Swal.fire({ ...swalDark, title: 'Atenção', text: obj.msg || 'Não foi possível salvar.', icon: 'info' });
+      toast('info', obj.msg || 'Essa lista já está na sua rotina.');
     }
   }
 
   const minhasAgrupadas = groupListsById(minhas);
   const oficiaisAgrupadas = groupListsById(oficiais);
   const sugestoes = exercicios.slice(0, 4);
-  const labelObjetivo = (valor) => (OBJETIVOS.find((item) => item.value === valor) || {}).label || valor || 'Lista';
   const idsMinhas = Object.keys(minhasAgrupadas);
+  const sessao = sessaoAtiva && sessaoAtiva.sessao;
 
   return (
     <div>
@@ -84,9 +86,17 @@ export default function Home() {
         <div>
           <p className="uf-kicker">Portal do aluno</p>
           <h1>Olá, {payload?.nome}</h1>
-          <p>Continue de onde parou: listas oficiais, as suas e sugestões do catálogo.</p>
+          <p>Escolha uma lista e treine. O restante fica salvo no seu perfil.</p>
         </div>
       </div>
+
+      {sessao && sessao.status === 'em_andamento' && (
+        <button type="button" className="uf-banner" onClick={() => navigate('/app/treino/' + sessao.id)}>
+          <span className="material-symbols-outlined">timer</span>
+          <span><strong>Treino em andamento</strong> — {sessao.nome_lista || 'Continuar'}</span>
+          <span className="uf-banner-go">Continuar</span>
+        </button>
+      )}
 
       <section className="uf-home-metrics">
         <article className="uf-card uf-metric">
@@ -94,7 +104,7 @@ export default function Home() {
           <strong>{treinosMes}</strong>
         </article>
         <article className="uf-card uf-metric">
-          <span className="uf-muted">Listas ativas</span>
+          <span className="uf-muted">Minhas listas</span>
           <strong>{idsMinhas.length}</strong>
         </article>
         <article className="uf-card uf-metric">
@@ -103,75 +113,59 @@ export default function Home() {
         </article>
       </section>
 
-      <div className="uf-home-grid">
-        <section>
-          <div className="uf-page-head">
-            <h2>Minhas listas</h2>
-          </div>
-          {idsMinhas.length === 0 ? (
-            <p className="uf-empty uf-card">Nenhuma lista personalizada</p>
-          ) : (
-            <div className="uf-grid-lists">
-              {idsMinhas.map((idLista) => {
-                const lista = minhasAgrupadas[idLista];
-                const meta = lista[0];
-                const itens = exerciciosDaLista(lista);
-                const hoje = listaProgramadaHoje(meta);
-                return (
-                  <article className={'uf-card uf-list-card' + (hoje ? ' uf-hoje' : '')} key={idLista}>
-                    {hoje && <span className="uf-chip ativo" style={{ cursor: 'default' }}>Programado hoje</span>}
-                    <h3>{meta.nome_lista}</h3>
-                    <p className="uf-muted">{labelObjetivo(meta.objetivo)} · Frequência {meta.tipo_lista}</p>
-                    <ul>
-                      {itens.length === 0 ? (
-                        <li className="uf-muted">Nenhum exercício ainda</li>
-                      ) : itens.slice(0, 4).map((exercicio) => (
-                        <li key={exercicio.id_exercicio}>{exercicio.nome_exercicio}</li>
-                      ))}
-                    </ul>
-                    <button type="button" className="uf-btn-primary" onClick={() => iniciar(meta.id_lista)} disabled={itens.length === 0}>
-                      Iniciar Treino
-                    </button>
-                  </article>
-                );
-              })}
-            </div>
-          )}
-        </section>
-
-        <div>
-          <section className="uf-card uf-list-card" style={{ marginBottom: 20 }}>
-            <div className="uf-page-head" style={{ marginBottom: 8 }}>
-              <h3>Listas oficiais</h3>
-            </div>
-            {Object.keys(oficiaisAgrupadas).length === 0 ? (
-              <p className="uf-muted">Nenhuma lista recomendada</p>
-            ) : Object.keys(oficiaisAgrupadas).slice(0, 3).map((idLista) => {
-              const lista = oficiaisAgrupadas[idLista];
-              const meta = lista[0];
-              const itens = exerciciosDaLista(lista);
-              return (
-                <div key={idLista} style={{ padding: '10px 0', borderBottom: '1px solid var(--uf-border)' }}>
-                  <strong>{meta.nome_lista}</strong>
-                  <p className="uf-muted">{labelObjetivo(meta.objetivo)} · {itens.length} exercícios</p>
-                  <div className="uf-actions" style={{ marginTop: 8 }}>
-                    <button type="button" className="uf-btn-outline" onClick={() => salvarOficial(meta.id_lista)}>Salvar Lista</button>
-                    <button type="button" className="uf-btn-ghost" onClick={() => iniciar(meta.id_lista)} disabled={itens.length === 0}>Iniciar</button>
-                  </div>
-                </div>
-              );
-            })}
-          </section>
+      <section>
+        <div className="uf-page-head">
+          <h2>Minhas listas</h2>
         </div>
-      </div>
+        {idsMinhas.length === 0 ? (
+          <div className="uf-empty uf-card">
+            <p>Crie uma lista ou salve uma oficial para começar.</p>
+            <div className="uf-actions" style={{ justifyContent: 'center' }}>
+              <button type="button" className="uf-btn-primary" onClick={() => navigate('/app/minhas-listas')}>Criar lista</button>
+              <button type="button" className="uf-btn-outline" onClick={() => navigate('/app/listas')}>Ver oficiais</button>
+            </div>
+          </div>
+        ) : (
+          <div className="uf-grid-lists">
+            {idsMinhas.map((idLista) => (
+              <ListaCard
+                key={idLista}
+                lista={minhasAgrupadas[idLista]}
+                destaqueHoje={listaProgramadaHoje(minhasAgrupadas[idLista][0])}
+                onIniciar={() => iniciar(minhasAgrupadas[idLista][0].id_lista)}
+              />
+            ))}
+          </div>
+        )}
+      </section>
 
       <section style={{ marginTop: 28 }}>
         <div className="uf-page-head">
-          <h2>Sugestões do catálogo</h2>
+          <h2>Oficiais para salvar</h2>
+        </div>
+        {Object.keys(oficiaisAgrupadas).length === 0 ? (
+          <p className="uf-empty uf-card">Nenhuma lista oficial.</p>
+        ) : (
+          <div className="uf-grid-lists">
+            {Object.keys(oficiaisAgrupadas).slice(0, 3).map((idLista) => (
+              <ListaCard
+                key={idLista}
+                lista={oficiaisAgrupadas[idLista]}
+                onSalvar={() => salvarOficial(oficiaisAgrupadas[idLista][0].id_lista)}
+                onIniciar={() => iniciar(oficiaisAgrupadas[idLista][0].id_lista)}
+              />
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section style={{ marginTop: 28 }}>
+        <div className="uf-page-head">
+          <h2>Do catálogo</h2>
         </div>
         <div className="uf-grid-cards">
           {sugestoes.length === 0 ? (
-            <p className="uf-empty uf-card">Nenhum exercício encontrado.</p>
+            <p className="uf-empty uf-card">Nenhum exercício no catálogo.</p>
           ) : sugestoes.map((exercicio) => (
             <ExerciseCard
               key={exercicio.idexercicio}

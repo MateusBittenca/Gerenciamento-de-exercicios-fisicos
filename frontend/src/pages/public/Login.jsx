@@ -39,8 +39,6 @@ export default function Login() {
       navigate(papel === 'admin' ? '/admin/usuarios' : '/app');
     } else {
       setErro(true);
-      setEmail('');
-      setSenha('');
     }
   }
 
@@ -64,6 +62,7 @@ export default function Login() {
             Administrador
           </button>
         </div>
+        {erro && <p className="uf-form-erro">E-mail ou senha incorretos.</p>}
         <form onSubmit={onclick_btnLogin}>
           <div className="uf-field">
             <label htmlFor="email">E-mail</label>
@@ -102,14 +101,6 @@ export default function Login() {
           </p>
         )}
       </div>
-      {erro && (
-        <div className="uf-modal" onClick={() => setErro(false)}>
-          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
-            <button type="button" className="uf-modal-close" onClick={() => setErro(false)}>&times;</button>
-            <h2>Email ou senha incorretas!</h2>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { formatCronometro, segundosDesde, swalDark } from '../../api/client';
+import { useFeedback } from '../../auth/FeedbackContext';
+import { formatCronometro, segundosDesde } from '../../api/client';
 
 function agrupar(series) {
   const grupos = [];
@@ -28,6 +28,7 @@ function agrupar(series) {
 export default function WorkoutSession() {
   const { sessaoId } = useParams();
   const { request, refreshSessao } = useAuth();
+  const { toast, confirmar } = useFeedback();
   const navigate = useNavigate();
   const [sessao, setSessao] = useState(null);
   const [grupos, setGrupos] = useState([]);
@@ -41,7 +42,7 @@ export default function WorkoutSession() {
       setSessao(obj.dados.sessao);
       setGrupos(agrupar(obj.dados.series));
     } else {
-      Swal.fire({ ...swalDark, title: 'Erro!', text: obj.msg || 'Treino não encontrado.', icon: 'error' });
+      toast('erro', obj.msg || 'Treino não encontrado.');
       navigate('/app');
     }
   }
@@ -104,15 +105,13 @@ export default function WorkoutSession() {
   }
 
   async function encerrar(tipo) {
-    const confirm = await Swal.fire({
-      ...swalDark,
-      title: tipo === 'concluir' ? 'Concluir treino?' : 'Cancelar treino?',
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Sim',
-      cancelButtonText: 'Voltar'
+    const ok = await confirmar({
+      titulo: tipo === 'concluir' ? 'Encerrar treino?' : 'Cancelar este treino?',
+      texto: tipo === 'concluir' ? 'As séries marcadas ficam no histórico.' : 'A sessão será descartada.',
+      confirma: tipo === 'concluir' ? 'Concluir' : 'Cancelar treino',
+      perigo: tipo !== 'concluir'
     });
-    if (!confirm.isConfirmed) {
+    if (!ok) {
       return;
     }
     const obj = await request('/treino/' + sessaoId + '/' + tipo, {
@@ -121,14 +120,10 @@ export default function WorkoutSession() {
     });
     if (obj.status === true) {
       await refreshSessao();
-      Swal.fire({
-        ...swalDark,
-        title: tipo === 'concluir' ? 'Treino concluído!' : 'Treino cancelado.',
-        icon: tipo === 'concluir' ? 'success' : 'info'
-      });
+      toast(tipo === 'concluir' ? 'ok' : 'info', tipo === 'concluir' ? 'Treino concluído.' : 'Treino cancelado.');
       navigate('/app');
     } else {
-      Swal.fire({ ...swalDark, title: 'Erro!', text: obj.msg || 'Não foi possível encerrar.', icon: 'error' });
+      toast('erro', obj.msg || 'Não foi possível encerrar.');
     }
   }
 

@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useFeedback } from '../../auth/FeedbackContext';
 import { api } from '../../api/client';
 
 export default function Register() {
   const navigate = useNavigate();
+  const { toast } = useFeedback();
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -12,15 +14,17 @@ export default function Register() {
   const [altura, setAltura] = useState('');
   const [peso, setPeso] = useState('');
   const [termos, setTermos] = useState(false);
+  const [erro, setErro] = useState('');
 
   async function onclick_btnCadastrar(e) {
     e.preventDefault();
+    setErro('');
     if (senha !== confirmar) {
-      alert('As senhas não coincidem.');
+      setErro('As senhas não coincidem.');
       return;
     }
     if (!termos) {
-      alert('Aceite os termos para continuar.');
+      setErro('Aceite os termos para continuar.');
       return;
     }
     const obj = await api('/usuario/cadastrar', {
@@ -29,10 +33,10 @@ export default function Register() {
     });
 
     if (obj.status === true) {
-      alert('cadastro feito com sucesso');
+      toast('ok', 'Conta criada. Entre com e-mail e senha.');
       navigate('/login');
     } else {
-      alert('Nâo foi possivel cadastrar esse usuario!');
+      setErro(obj.msg || 'Não foi possível cadastrar este e-mail.');
     }
   }
 
@@ -47,6 +51,7 @@ export default function Register() {
             <h1 style={{ fontSize: 28, lineHeight: '36px' }}>Crie sua conta no UniFit</h1>
             <p className="uf-muted">Preencha seus dados para conectar seu perfil às listas oficiais da sua academia.</p>
             <form onSubmit={onclick_btnCadastrar}>
+              {erro && <p className="uf-form-erro">{erro}</p>}
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span className="uf-chip" style={{ cursor: 'default', width: 24, height: 24, padding: 0, justifyContent: 'center' }}>1</span>
                 <strong>Dados de Acesso</strong>

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useAuth } from '../../auth/AuthContext';
+import { useFeedback } from '../../auth/FeedbackContext';
 import {
   alturaCm,
   alturaMetros,
@@ -30,11 +31,11 @@ function markerImc(imc) {
 
 export default function Profile() {
   const { payload, request, patchPayload } = useAuth();
+  const { toast } = useFeedback();
   const fotoRef = useRef(null);
   const [usuario, setUsuario] = useState(null);
   const [afericoes, setAfericoes] = useState([]);
   const [treinosMes, setTreinosMes] = useState(0);
-  const [toast, setToast] = useState(false);
   const [form, setForm] = useState({
     nome: '',
     email: '',
@@ -73,7 +74,7 @@ export default function Profile() {
         patchPayload({ foto: dados.Foto, nome: dados.Nome });
       }
     } else {
-      alert('login invalido');
+      toast('erro', obj.msg || 'Não foi possível carregar o perfil.');
     }
     const hist = await request('/usuario/' + payload.usuarioId + '/afericoes', { method: 'get' });
     if (hist.status === true) {
@@ -141,11 +142,10 @@ export default function Profile() {
         objetivo: form.objetivo,
         metaSemanal: form.metaSemanal
       });
-      setToast(true);
-      setTimeout(() => setToast(false), 2800);
+      toast('ok', 'Perfil atualizado.');
       carregar();
     } else {
-      alert('Login Inválido!');
+      toast('erro', obj.msg || 'Não foi possível salvar.');
     }
   }
 
@@ -168,6 +168,9 @@ export default function Profile() {
       if (obj.status === true && obj.dados && obj.dados.foto) {
         setForm((atual) => ({ ...atual, foto: obj.dados.foto }));
         patchPayload({ foto: obj.dados.foto });
+        toast('ok', 'Foto atualizada.');
+      } else {
+        toast('erro', obj.msg || 'Não foi possível atualizar a foto.');
       }
     };
     reader.readAsDataURL(arquivo);
@@ -178,13 +181,6 @@ export default function Profile() {
 
   return (
     <div className="uf-profile-page">
-      {toast && (
-        <div className="uf-toast">
-          <span className="material-symbols-outlined">check_circle</span>
-          Alterações salvas com sucesso.
-        </div>
-      )}
-
       <section className="uf-card uf-profile-hero">
         <div className="uf-profile-hero-main">
           <div className="uf-profile-avatar-wrap">
@@ -212,13 +208,6 @@ export default function Profile() {
               <span><span className="material-symbols-outlined">bolt</span> Meta semanal: {meta}x</span>
             </p>
           </div>
-        </div>
-        <div className="uf-actions">
-          <button type="button" className="uf-btn-ghost" onClick={descartar}>Descartar</button>
-          <button type="button" className="uf-btn-primary" onClick={salvar}>
-            <span className="material-symbols-outlined">check</span>
-            Salvar Alterações
-          </button>
         </div>
       </section>
 

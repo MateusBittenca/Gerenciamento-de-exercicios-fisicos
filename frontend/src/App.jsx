@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
+import { FeedbackProvider } from './auth/FeedbackContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import UserLayout from './layouts/UserLayout';
 import AdminLayout from './layouts/AdminLayout';
@@ -22,6 +23,7 @@ import AddExerciseToList from './pages/admin/AddExerciseToList';
 export default function App() {
   return (
     <AuthProvider>
+      <FeedbackProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -53,6 +55,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
+      </FeedbackProvider>
     </AuthProvider>
   );
 }

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { swalDark } from '../../api/client';
+import { useFeedback } from '../../auth/FeedbackContext';
 
 export default function Admins() {
   const { request } = useAuth();
+  const { toast, confirmar } = useFeedback();
   const [admins, setAdmins] = useState([]);
   const [filtro, setFiltro] = useState('');
   const [editandoId, setEditandoId] = useState(null);
@@ -17,7 +17,7 @@ export default function Admins() {
     if (obj.status === true) {
       setAdmins(obj.dados || []);
     } else {
-      alert('login invalido');
+      toast('erro', obj.msg || 'Não foi possível carregar os administradores.');
     }
   }
 
@@ -33,44 +33,29 @@ export default function Admins() {
     setCriarAberto(false);
     setNovo({ nome: '', email: '', senha: '' });
     if (obj.status === true) {
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Usuario criado com sucesso!',
-        icon: 'success'
-      });
+      toast('ok', 'Administrador criado.');
       carregar();
     } else {
-      alert('login invalido!');
+      toast('erro', obj.msg || 'Não foi possível criar.');
     }
   }
 
   async function excluir(id) {
-    const result = await Swal.fire({
-      title: 'Você tem certeza?',
-      text: 'Você não poderá reverter a sua escolha!',
-      icon: 'warning',
-      showCancelButton: true,
-      ...swalDark,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancelar!',
-      confirmButtonText: 'Sim!'
+    const ok = await confirmar({
+      titulo: 'Excluir este administrador?',
+      texto: 'Essa ação não pode ser desfeita.',
+      confirma: 'Excluir',
+      perigo: true
     });
-    if (!result.isConfirmed) {
+    if (!ok) {
       return;
     }
     const obj = await request('/admin/' + id, { method: 'delete' });
     if (obj.status === true) {
-      Swal.fire({
-        title: 'Excluido!',
-        ...swalDark,
-        text: 'Usuario excluido!.',
-        icon: 'success'
-      });
+      toast('ok', 'Administrador excluído.');
       carregar();
     } else {
-      alert('Login invalido');
+      toast('erro', obj.msg || 'Não foi possível excluir.');
     }
   }
 
@@ -86,15 +71,10 @@ export default function Admins() {
     });
     if (obj.status === true) {
       setEditandoId(null);
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Usuario modificado com sucesso!',
-        icon: 'success'
-      });
+      toast('ok', 'Dados atualizados.');
       carregar();
     } else {
-      alert('Login invalido!');
+      toast('erro', obj.msg || 'Não foi possível salvar.');
     }
   }
 
@@ -147,7 +127,10 @@ export default function Admins() {
                     <td><input type="text" className="uf-input" value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} /></td>
                     <td><input type="email" className="uf-input" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></td>
                     <td colSpan="2">
-                      <button type="button" className="uf-btn-primary" onClick={() => salvar(admin.AdministradorID)}>Salvar</button>
+                      <div className="uf-actions">
+                        <button type="button" className="uf-btn-ghost" onClick={() => setEditandoId(null)}>Cancelar</button>
+                        <button type="button" className="uf-btn-primary" onClick={() => salvar(admin.AdministradorID)}>Salvar</button>
+                      </div>
                     </td>
                   </>
                 ) : (

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { MUSCULOS, swalDark } from '../../api/client';
+import { useFeedback } from '../../auth/FeedbackContext';
+import { MUSCULOS } from '../../api/client';
 
 const DIFICULDADES = ['Iniciante', 'Intermediário', 'Iniciante a intermediário'];
 const CAMINHO_IMAGEM = '../ExerciciosGif/';
 
 export default function AdminExercises() {
   const { request } = useAuth();
+  const { toast, confirmar } = useFeedback();
   const [exercicios, setExercicios] = useState([]);
   const [filtro, setFiltro] = useState('');
   const [editandoId, setEditandoId] = useState(null);
@@ -31,7 +32,7 @@ export default function AdminExercises() {
     if (obj.status === true) {
       setExercicios(obj.dados || []);
     } else {
-      alert('Login invalido!');
+      toast('erro', obj.msg || 'Não foi possível carregar os exercícios.');
     }
   }
 
@@ -54,15 +55,10 @@ export default function AdminExercises() {
     });
     setCriarAberto(false);
     if (obj.status === true) {
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Exercicio criado com sucesso!',
-        icon: 'success'
-      });
+      toast('ok', 'Exercício criado.');
       carregar();
     } else {
-      alert('login invalido');
+      toast('erro', obj.msg || 'Não foi possível criar.');
     }
   }
 
@@ -75,44 +71,29 @@ export default function AdminExercises() {
       setEditandoId(null);
       setInstrucaoModal(null);
       setEditandoInstrucao(false);
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Exercicio editado com sucesso!',
-        icon: 'success'
-      });
+      toast('ok', 'Exercício atualizado.');
       carregar();
     } else {
-      alert('login Invalido!');
+      toast('erro', obj.msg || 'Não foi possível salvar.');
     }
   }
 
   async function excluir(id) {
-    const result = await Swal.fire({
-      title: 'Você tem certeza?',
-      text: 'Você não poderá reverter a sua escolha!',
-      icon: 'warning',
-      showCancelButton: true,
-      ...swalDark,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancelar!',
-      confirmButtonText: 'Sim!'
+    const ok = await confirmar({
+      titulo: 'Excluir este exercício?',
+      texto: 'Ele sai do catálogo. Essa ação não pode ser desfeita.',
+      confirma: 'Excluir',
+      perigo: true
     });
-    if (!result.isConfirmed) {
+    if (!ok) {
       return;
     }
     const obj = await request('/exercicios/' + id, { method: 'delete' });
     if (obj.status === true) {
-      Swal.fire({
-        ...swalDark,
-        title: 'Excluido!',
-        text: 'Exercicio excluido!.',
-        icon: 'success'
-      });
+      toast('ok', 'Exercício excluído.');
       carregar();
     } else {
-      alert('Login invalido');
+      toast('erro', obj.msg || 'Não foi possível excluir.');
     }
   }
 
@@ -215,7 +196,10 @@ export default function AdminExercises() {
                     <td><input type="text" className="uf-input" value={form.tipo} onChange={(e) => setForm({ ...form, tipo: e.target.value })} /></td>
                     <td><input type="file" onChange={(e) => setForm({ ...form, arquivo: e.target.files[0] })} /></td>
                     <td colSpan="2">
-                      <button type="button" className="uf-btn-primary" onClick={() => salvarLinha(exercicio)}>Salvar</button>
+                      <div className="uf-actions">
+                        <button type="button" className="uf-btn-ghost" onClick={() => setEditandoId(null)}>Cancelar</button>
+                        <button type="button" className="uf-btn-primary" onClick={() => salvarLinha(exercicio)}>Salvar</button>
+                      </div>
                     </td>
                   </>
                 ) : (

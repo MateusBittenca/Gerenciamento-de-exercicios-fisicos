@@ -57,7 +57,7 @@ export function formatPrescricao(item) {
     return '';
   }
   const carga = item.carga_atual || item.carga_kg;
-  const partes = [item.series + ' séries × ' + (item.reps || '10') + ' reps'];
+  const partes = [item.series + '×' + (item.reps || '10')];
   if (carga) {
     partes.push(carga + ' kg');
   }
@@ -229,10 +229,3 @@ export function isoDate(valor) {
 }
 
 export const MUSCULOS = ['Bíceps', 'Tríceps', 'Peito', 'Costas', 'Quadríceps', 'Ombro'];
-
-export const swalDark = {
-  color: '#1F2021',
-  background: '#ffffff',
-  confirmButtonColor: '#C30505',
-  cancelButtonColor: '#E74C3C'
-};

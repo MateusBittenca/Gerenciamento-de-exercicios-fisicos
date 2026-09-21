@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import { defaultPrescricao, swalDark } from '../../api/client';
+import { useFeedback } from '../../auth/FeedbackContext';
+import { defaultPrescricao } from '../../api/client';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
 import PrescriptionFields from '../../components/PrescriptionFields';
@@ -17,6 +18,8 @@ const FILTROS = [
 
 export default function Exercises() {
   const { payload, request } = useAuth();
+  const { toast } = useFeedback();
+  const navigate = useNavigate();
   const [exercicios, setExercicios] = useState([]);
   const [filtroMusculo, setFiltroMusculo] = useState('');
   const [busca, setBusca] = useState('');
@@ -62,7 +65,7 @@ export default function Exercises() {
       setListasModal(exercicio);
       setPresc(defaultPrescricao('hipertrofia'));
     } else {
-      alert('Erro ao buscar as listas.');
+      toast('erro', obj.msg || 'Não foi possível carregar suas listas.');
     }
   }
 
@@ -80,10 +83,10 @@ export default function Exercises() {
       })
     });
     if (obj.status === true) {
-      Swal.fire({ ...swalDark, title: 'Sucesso!', text: 'Exercicio adionado a lista!', icon: 'success' });
+      toast('ok', 'Adicionado em ' + lista.nome + '.');
       setListasModal(null);
     } else {
-      Swal.fire({ ...swalDark, title: 'Erro!', text: obj.msg || 'Erro ao adicionar exercicio na lista!', icon: 'error' });
+      toast('erro', obj.msg || 'Esse exercício já está na lista.');
     }
   }
 
@@ -104,7 +107,7 @@ export default function Exercises() {
       <div className="uf-page-head">
         <div>
           <h1>Catálogo de exercícios</h1>
-          <p>Busque pelo nome ou filtre pelo músculo trabalhado.</p>
+          <p>Toque no + para colocar o exercício numa lista sua. O coração marca favorito.</p>
         </div>
       </div>
 
@@ -153,7 +156,10 @@ export default function Exercises() {
               <h2>Adicionar à lista</h2>
               <PrescriptionFields value={presc} onChange={setPresc} />
               {listas.length === 0 ? (
-                <p className="uf-muted">Nenhuma lista pessoal encontrada.</p>
+                <div className="uf-empty">
+                  <p>Crie uma lista pessoal primeiro.</p>
+                  <button type="button" className="uf-btn-primary" onClick={() => { setListasModal(null); navigate('/app/minhas-listas'); }}>Ir para minhas listas</button>
+                </div>
               ) : (
                 <ul className="uf-pick-list">
                   {listas.map((lista) => (

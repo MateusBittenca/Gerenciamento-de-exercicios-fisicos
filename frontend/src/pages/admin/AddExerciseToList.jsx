@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { defaultPrescricao, swalDark } from '../../api/client';
+import { useFeedback } from '../../auth/FeedbackContext';
+import { defaultPrescricao } from '../../api/client';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
 import PrescriptionFields from '../../components/PrescriptionFields';
@@ -18,6 +18,7 @@ const FILTROS = [
 
 export default function AddExerciseToList() {
   const { request } = useAuth();
+  const { toast } = useFeedback();
   const navigate = useNavigate();
   const [exercicios, setExercicios] = useState([]);
   const [filtroMusculo, setFiltroMusculo] = useState('');
@@ -44,7 +45,7 @@ export default function AddExerciseToList() {
       setListasModal(exercicio);
       setPresc(defaultPrescricao('hipertrofia'));
     } else {
-      alert('Erro ao buscar as listas.');
+      toast('erro', obj.msg || 'Não foi possível carregar as listas.');
     }
   }
 
@@ -62,20 +63,10 @@ export default function AddExerciseToList() {
       })
     });
     if (obj.status === true) {
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Exercicio adionado a lista!',
-        icon: 'success'
-      });
+      toast('ok', 'Exercício adicionado à lista.');
       setListasModal(null);
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Erro!',
-        text: obj.msg || 'Erro ao adicionar exercicio na lista!',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Não foi possível adicionar.');
     }
   }
 
