@@ -2,7 +2,6 @@ const Usuario = require("../model/Usuario");
 const JWT = require("../model/JWT");
 
 module.exports = function(request, response, banco) {
-    console.log("POST:/usuario");
 
     const p_nome = request.body.nome;
     const p_email = request.body.email;
@@ -10,6 +9,9 @@ module.exports = function(request, response, banco) {
     const p_sexo = request.body.sexo;
     const p_altura = request.body.altura;
     const p_peso = request.body.peso;
+
+    const p_telefone = request.body.telefone || null;
+    const p_dataNascimento = request.body.dataNascimento || request.body.dataNasc || null;
 
     if (p_nome == '' || p_email == '' || p_senha == '' || p_sexo == '' || p_altura == '' || p_peso =='' ) {
         const resposta = {
@@ -36,6 +38,8 @@ module.exports = function(request, response, banco) {
         usuario.sexo = p_sexo;
         usuario.altura = parseFloat(p_altura);
         usuario.peso = parseFloat(p_peso);
+        usuario.telefone = p_telefone;
+        usuario.dataNasc = p_dataNascimento;
         
 
         usuario.create().then(respostaPromisse => {

@@ -1,10 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
 
 export default function UserLayout() {
   const [menuAberto, setMenuAberto] = useState(false);
+  const { refreshSessao, sessaoAtiva } = useAuth();
+
+  useEffect(() => {
+    refreshSessao();
+  }, [refreshSessao]);
+
+  useEffect(() => {
+    if (!sessaoAtiva || !sessaoAtiva.sessao) {
+      return undefined;
+    }
+    const id = setInterval(() => refreshSessao(), 4000);
+    return () => clearInterval(id);
+  }, [sessaoAtiva, refreshSessao]);
 
   return (
     <div className={'app-shell' + (menuAberto ? ' menu-aberto' : '')}>

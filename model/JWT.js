@@ -45,5 +45,12 @@ module.exports = class JWT{
         token = token.replace(">","");    
         return token;
     }
+    dados(validou){
+        let p = validou && validou.payload;
+        while (p && p.payload && p.usuarioId == null && p.adminID == null) {
+            p = p.payload;
+        }
+        return p || {};
+    }
     
 }

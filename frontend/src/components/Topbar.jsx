@@ -17,10 +17,13 @@ const CRUMBS = {
 export default function Topbar({ onMenu }) {
   const { payload, role } = useAuth();
   const { pathname } = useLocation();
-  const crumbs = CRUMBS[pathname] || ['UniFit'];
+  const crumbs = pathname.startsWith('/app/treino/')
+    ? ['Início', 'Treino']
+    : (CRUMBS[pathname] || ['UniFit']);
   const nome = payload?.nome || 'Usuário';
   const inicial = nome.trim().charAt(0).toUpperCase();
-  const papel = role === 'admin' ? 'Administrador' : 'Aluno';
+  const papel = role === 'admin' ? 'Administrador' : 'Aluno UniFit';
+  const foto = payload?.foto;
 
   return (
     <header className="uf-topbar">
@@ -42,7 +45,11 @@ export default function Topbar({ onMenu }) {
           <strong>{nome}</strong>
           <span>{papel}</span>
         </div>
-        <div className="uf-avatar">{inicial}</div>
+        {foto ? (
+          <img className="uf-avatar" src={foto} alt={nome} />
+        ) : (
+          <div className="uf-avatar">{inicial}</div>
+        )}
       </div>
     </header>
   );

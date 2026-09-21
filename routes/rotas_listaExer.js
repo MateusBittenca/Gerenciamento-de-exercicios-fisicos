@@ -4,11 +4,16 @@ const listaExer_read = require("../controller/listaExer_read");
 const listaExerAll = require("../controller/listaExer_readAll")
 const listaExer_delete = require("../controller/listaExer_delete")
 const listaExer_deleteAll = require("../controller/listaExer_deleteAll");
+const listaExer_update = require("../controller/listaExer_update");
 
 module.exports = function(app,banco){
 
     app.post("/lista/exercicios/create",(request,response)=>{
         listaExer_create(request,response,banco);
+    });
+
+    app.put("/lista/exercicios/update",(request,response)=>{
+        listaExer_update(request,response,banco);
     });
 
     app.get("/lista/exercicios/:usuario_UsuarioID",(request,response) =>{

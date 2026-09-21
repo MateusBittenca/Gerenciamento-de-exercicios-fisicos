@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { groupListsById, swalDark } from '../../api/client';
+import { defaultPrescricao, exerciciosDaLista, formatDias, formatPrescricao, groupListsById, OBJETIVOS, swalDark } from '../../api/client';
 import ExerciseModal from '../../components/ExerciseModal';
+import PrescriptionFields from '../../components/PrescriptionFields';
+import WeekdayToggles from '../../components/WeekdayToggles';
 
 export default function AdminLists() {
   const { request } = useAuth();
@@ -12,7 +14,10 @@ export default function AdminLists() {
   const [criarAberto, setCriarAberto] = useState(false);
   const [detalheLista, setDetalheLista] = useState(null);
   const [nomeLista, setNomeLista] = useState('');
-  const [tipoLista, setTipoLista] = useState('');
+  const [tipoLista, setTipoLista] = useState('A');
+  const [objetivoLista, setObjetivoLista] = useState('hipertrofia');
+  const [dias, setDias] = useState([]);
+  const [editando, setEditando] = useState(null);
 
   async function carregar() {
     const obj = await request('/listas/read', { method: 'get' });
@@ -32,27 +37,21 @@ export default function AdminLists() {
       method: 'post',
       body: JSON.stringify({
         nome: nomeLista,
-        tipo: tipoLista
+        tipo: tipoLista,
+        objetivo: objetivoLista,
+        dias_semana: formatDias(dias)
       })
     });
     setCriarAberto(false);
     setNomeLista('');
-    setTipoLista('');
+    setTipoLista('A');
+    setObjetivoLista('hipertrofia');
+    setDias([]);
     if (obj.status === true) {
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Lista criada com sucesso!',
-        icon: 'success'
-      });
+      Swal.fire({ ...swalDark, title: 'Sucesso!', text: 'Lista criada com sucesso!', icon: 'success' });
       carregar();
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Erro!',
-        text: 'Erro ao criar a lista!',
-        icon: 'error'
-      });
+      Swal.fire({ ...swalDark, title: 'Erro!', text: 'Erro ao criar a lista!', icon: 'error' });
     }
   }
 
@@ -74,12 +73,7 @@ export default function AdminLists() {
     await request('/lista/exercicios/deleteAll/' + idLista, { method: 'delete' });
     await request('/lista/delete/' + idLista, { method: 'delete' });
     setDetalheLista(null);
-    Swal.fire({
-      ...swalDark,
-      title: 'Excluida!',
-      text: 'Sua lista de exercicio foi excluida.',
-      icon: 'success'
-    });
+    Swal.fire({ ...swalDark, title: 'Excluida!', text: 'Sua lista de exercicio foi excluida.', icon: 'success' });
     carregar();
   }
 
@@ -91,7 +85,25 @@ export default function AdminLists() {
     carregar();
   }
 
+  async function salvarPrescricao() {
+    const obj = await request('/lista/exercicios/update', {
+      method: 'put',
+      body: JSON.stringify({
+        id: editando.id_lista_exercicio,
+        series: editando.series,
+        reps: editando.reps,
+        carga_kg: editando.carga_kg || null,
+        descanso_seg: editando.descanso_seg
+      })
+    });
+    if (obj.status === true) {
+      setEditando(null);
+      carregar();
+    }
+  }
+
   const agrupadas = groupListsById(listaExer);
+  const labelObjetivo = (valor) => (OBJETIVOS.find((item) => item.value === valor) || {}).label || valor;
 
   return (
     <div>
@@ -109,19 +121,28 @@ export default function AdminLists() {
         </div>
       </div>
 
-      {listaExer.length === 0 ? (
+      {Object.keys(agrupadas).length === 0 ? (
         <p className="uf-empty uf-card">Nenhuma lista encontrada!</p>
       ) : (
         <div className="uf-grid-lists" id="tabelaExercicios">
           {Object.keys(agrupadas).map((idLista) => {
             const lista = agrupadas[idLista];
+            const meta = lista[0];
+            const itens = exerciciosDaLista(lista);
             return (
               <article className="uf-card uf-list-card" key={idLista}>
-                <h3 style={{ cursor: 'pointer' }} onClick={() => setDetalheLista(lista)}>{lista[0].nome_lista}</h3>
+                <div className="uf-chips" style={{ marginBottom: 8 }}>
+                  <span className="uf-chip" style={{ cursor: 'default' }}>{labelObjetivo(meta.objetivo)}</span>
+                  <span className="uf-chip" style={{ cursor: 'default' }}>Frequência {meta.tipo_lista}</span>
+                </div>
+                <h3 style={{ cursor: 'pointer' }} onClick={() => setDetalheLista(lista)}>{meta.nome_lista}</h3>
                 <ul>
-                  {lista.map((exercicio) => (
+                  {itens.length === 0 ? (
+                    <li className="uf-muted">Nenhum exercício ainda</li>
+                  ) : itens.map((exercicio) => (
                     <li key={exercicio.id_exercicio} onClick={() => setSelecionado(exercicio)}>
                       {exercicio.nome_exercicio}
+                      <small className="uf-muted"> · {formatPrescricao(exercicio)}</small>
                     </li>
                   ))}
                 </ul>
@@ -140,12 +161,15 @@ export default function AdminLists() {
             <div className="uf-modal-form">
               <h2>Criar lista</h2>
               <input className="uf-input" placeholder="Nome da Lista" value={nomeLista} onChange={(e) => setNomeLista(e.target.value)} />
+              <select className="uf-select" value={objetivoLista} onChange={(e) => setObjetivoLista(e.target.value)}>
+                {OBJETIVOS.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
+              </select>
               <select id="txtTipo" className="uf-select" required value={tipoLista} onChange={(e) => setTipoLista(e.target.value)}>
-                <option value="" disabled>Tipo</option>
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
               </select>
+              <WeekdayToggles value={dias} onChange={setDias} />
               <button type="submit" className="uf-btn-primary" onClick={criarLista}>Criar</button>
             </div>
           </div>
@@ -165,26 +189,38 @@ export default function AdminLists() {
                 <thead>
                   <tr>
                     <th>Nome do Exercício</th>
-                    <th>Músculo Trabalhado</th>
-                    <th>Equipamento</th>
-                    <th>Dificuldade</th>
+                    <th>Prescrição</th>
                     <th>Ação</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {detalheLista.map((exercicio) => (
+                  {exerciciosDaLista(detalheLista).map((exercicio) => (
                     <tr key={exercicio.id_exercicio}>
                       <td>{exercicio.nome_exercicio}</td>
-                      <td>{exercicio.musculo_trabalhado}</td>
-                      <td>{exercicio.equipamento}</td>
-                      <td>{exercicio.dificuldade}</td>
+                      <td>{formatPrescricao(exercicio)}</td>
                       <td>
-                        <button type="button" className="uf-btn-danger" onClick={() => removerExercicio(exercicio)}>Remover</button>
+                        <div className="uf-actions">
+                          <button type="button" className="uf-btn-edit" onClick={() => setEditando({ ...defaultPrescricao(detalheLista[0].objetivo), ...exercicio })}>Editar</button>
+                          <button type="button" className="uf-btn-danger" onClick={() => removerExercicio(exercicio)}>Remover</button>
+                        </div>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {editando && (
+        <div className="uf-modal" onClick={() => setEditando(null)}>
+          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="uf-modal-close" onClick={() => setEditando(null)}>&times;</button>
+            <div className="uf-modal-form">
+              <h2>Editar prescrição</h2>
+              <PrescriptionFields value={editando} onChange={setEditando} />
+              <button type="button" className="uf-btn-primary" onClick={salvarPrescricao}>Salvar</button>
             </div>
           </div>
         </div>

@@ -1,25 +1,42 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { api } from '../../api/client';
 
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const papel = searchParams.get('papel') === 'admin' ? 'admin' : 'aluno';
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState(false);
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+
+  useEffect(() => {
+    setErro(false);
+    setSenha('');
+  }, [papel]);
+
+  function escolherPapel(novo) {
+    if (novo === 'admin') {
+      setSearchParams({ papel: 'admin' });
+    } else {
+      setSearchParams({});
+    }
+  }
 
   async function onclick_btnLogin(e) {
     e.preventDefault();
-    const obj = await api('/usuario/login', {
+    const caminho = papel === 'admin' ? '/admin/login' : '/usuario/login';
+    const obj = await api(caminho, {
       method: 'post',
       body: JSON.stringify({ email, senha })
     });
 
     if (obj.status === true) {
       login(obj.token, obj.dados);
-      navigate('/app');
+      navigate(papel === 'admin' ? '/admin/usuarios' : '/app');
     } else {
       setErro(true);
       setEmail('');
@@ -27,27 +44,63 @@ export default function Login() {
     }
   }
 
+  const ehAdmin = papel === 'admin';
+
   return (
     <div className="uf-auth">
       <div className="uf-card uf-auth-card">
         <img src="/image/logo.png" alt="UniFit" />
-        <span className="uf-chip uf-chip-ativo" style={{ margin: '16px auto 8px', cursor: 'default' }}>Portal do Aluno</span>
         <h1>Entrar</h1>
-        <p className="uf-muted">Acesse sua conta para usar o catálogo e as listas.</p>
+        <p className="uf-muted">
+          {ehAdmin
+            ? 'Acesse o painel para gerenciar usuários, exercícios e listas.'
+            : 'Entre com e-mail e senha para acessar seus treinos e listas.'}
+        </p>
+        <div className="uf-role-switch" role="tablist" aria-label="Tipo de acesso">
+          <button type="button" role="tab" aria-selected={!ehAdmin} className={!ehAdmin ? 'ativo' : ''} onClick={() => escolherPapel('aluno')}>
+            Aluno
+          </button>
+          <button type="button" role="tab" aria-selected={ehAdmin} className={ehAdmin ? 'ativo' : ''} onClick={() => escolherPapel('admin')}>
+            Administrador
+          </button>
+        </div>
         <form onSubmit={onclick_btnLogin}>
           <div className="uf-field">
-            <label htmlFor="email">Email</label>
-            <input id="email" type="email" className="uf-input" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <label htmlFor="email">E-mail</label>
+            <div className="uf-input-icon">
+              <span className="material-symbols-outlined">{ehAdmin ? 'admin_panel_settings' : 'mail'}</span>
+              <input id="email" type="email" className="uf-input" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
           </div>
           <div className="uf-field">
             <label htmlFor="senha">Senha</label>
-            <input id="senha" type="password" className="uf-input" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
+            <div className="uf-input-icon">
+              <span className="material-symbols-outlined">lock</span>
+              <input id="senha" type={mostrarSenha ? 'text' : 'password'} className="uf-input" placeholder="••••••••••••" value={senha} onChange={(e) => setSenha(e.target.value)} required />
+              <button type="button" className="uf-eye" onClick={() => setMostrarSenha((atual) => !atual)} aria-label="Alternar senha">
+                <span className="material-symbols-outlined">{mostrarSenha ? 'visibility_off' : 'visibility'}</span>
+              </button>
+            </div>
           </div>
-          <button type="submit" id="btnLogin" className="uf-btn-primary">Entrar</button>
+          <button type="submit" id="btnLogin" className="uf-btn-primary">
+            Entrar
+            <span className="material-symbols-outlined">arrow_forward</span>
+          </button>
         </form>
-        <p className="uf-muted" style={{ marginTop: 16 }}>
-          Ainda não possui uma conta? <Link to="/cadastro" style={{ color: '#C30505', fontWeight: 600 }}>Clique aqui!</Link>
-        </p>
+        {!ehAdmin && (
+          <>
+            <div className="uf-auth-divider">Novo por aqui?</div>
+            <Link to="/cadastro" className="uf-btn-ghost" style={{ width: '100%', color: '#C30505' }}>
+              <span className="material-symbols-outlined">person_add</span>
+              Criar meu cadastro de aluno
+            </Link>
+          </>
+        )}
+        {ehAdmin && (
+          <p className="uf-muted" style={{ marginTop: 16 }}>
+            <Link to="/" style={{ color: '#C30505', fontWeight: 600 }}>Voltar para o início</Link>
+          </p>
+        )}
       </div>
       {erro && (
         <div className="uf-modal" onClick={() => setErro(false)}>

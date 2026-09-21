@@ -8,15 +8,19 @@ module.exports = function (request, response, banco) {
 
     if (validou.status == true) {
 
-        const p_idlista = request.params.idlista;
+        const p_idlista = request.body.idlista || request.body.idLista || request.params.idlista;
         const p_nome = request.body.nome;
         const p_tipo = request.body.tipo;
+        const p_objetivo = request.body.objetivo;
+        const p_dias = request.body.dias_semana || request.body.diasSemana;
 
         const lista = new Lista(banco);
 
         lista.idLista = p_idlista;
         lista.nome = p_nome;
         lista.tipo = p_tipo;
+        lista.objetivo = p_objetivo;
+        lista.diasSemana = p_dias;
 
         lista.update().then(respostaPromise => {
             const resposta = {
@@ -26,9 +30,11 @@ module.exports = function (request, response, banco) {
                 dados: {
                     idlista: p_idlista,
                     nome: p_nome,
-                    tipo: p_tipo
+                    tipo: p_tipo,
+                    objetivo: p_objetivo,
+                    dias_semana: p_dias
                 },
-                token:jwt.gerar(validou.payload)
+                token:jwt.gerar(jwt.dados(validou))
             }
             response.status(200).send(resposta)
         }).catch(erro => {

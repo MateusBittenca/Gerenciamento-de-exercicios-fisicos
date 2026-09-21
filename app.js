@@ -6,9 +6,11 @@ const rotas_exercicios = require('./routes/rotas_exercicios');
 const rotas_admin = require("./routes/rotas_admin");
 const rotas_lista = require("./routes/rotas_lista");
 const rotas_listaExer = require("./routes/rotas_listaExer");
+const rotas_exerfav = require("./routes/rotas_exerfav");
+const rotas_treino = require("./routes/rotas_treino");
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: '8mb' }));
 app.use(express.static('js'));
 app.use('/',express.static(__dirname+'/view'));
 
@@ -30,6 +32,8 @@ rotas_exercicios(app,banco);
 rotas_admin(app,banco);
 rotas_lista(app,banco);
 rotas_listaExer(app,banco);
+rotas_exerfav(app,banco);
+rotas_treino(app,banco);
 
 app.listen(porta,function(){
     console.log("Servidor rodando:"+porta);

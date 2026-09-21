@@ -156,6 +156,48 @@
   font-family: var(--uf-font-title);
   font-weight: 700;
   font-size: 13px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.uf-treino-ativo {
+  width: 100%;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 0;
+  border-radius: var(--uf-radius);
+  background: var(--uf-surface-low);
+  color: var(--uf-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.uf-treino-ativo small {
+  display: block;
+  color: var(--uf-text-2);
+  font-family: var(--uf-font-title);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.uf-treino-ativo strong {
+  display: block;
+  font-family: var(--uf-font-title);
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.uf-treino-ativo i {
+  width: 8px;
+  height: 8px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: var(--uf-primary);
 }
 
 .uf-menu-btn {

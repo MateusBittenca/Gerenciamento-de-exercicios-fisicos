@@ -1,116 +1,162 @@
-module.exports = class Lista_exercicios { // Define e exporta uma classe chamada Lista_exercicios
+module.exports = class Lista_exercicios {
 
-    constructor(banco) { // Construtor que recebe uma conexão com o banco de dados
-        this._banco = banco; // Armazena a conexão com o banco
-        this._idLista = { // Inicializa o objeto _idLista com os atributos idlista e usuario_UsuarioID
+    constructor(banco) {
+        this._banco = banco;
+        this._idLista = {
             idlista: null,
             usuario_UsuarioID: null
         };
-        this._idexercicio = null; // Inicializa o _idexercicio com null
-
+        this._idexercicio = null;
+        this._idLinha = null;
+        this._ordem = 1;
+        this._series = 3;
+        this._reps = '10';
+        this._cargaKg = null;
+        this._descansoSeg = 60;
+        this._observacao = null;
     }
 
-    async create() { // Método assíncrono para criar uma nova entrada na tabela lista_exercicios
-        const operacao = new Promise((resolve, reject) => { // Retorna uma nova Promise para operação assíncrona
+    async create() {
+        const operacao = new Promise((resolve, reject) => {
+            const idLista = this._idLista;
+            const idexercicio = this._idexercicio;
+            const ordem = this._ordem || 1;
+            const series = this._series || 3;
+            const reps = this._reps || '10';
+            const cargaKg = this._cargaKg;
+            const descansoSeg = this._descansoSeg || 60;
+            const observacao = this._observacao;
 
-            const idLista = this._idLista; // Captura o valor de _idLista
-            const idexercicio = this._idexercicio; // Captura o valor de _idexercicio
+            const parametros = [idLista, idexercicio, ordem, series, reps, cargaKg, descansoSeg, observacao];
 
-            const parametros = [idLista, idexercicio]; // Cria um array com os parâmetros para o SQL
-
-            const sql = "INSERT INTO lista_exercicios (lista_idlista,exercicios_idexercicio) VALUES (?,?);"; // Query SQL para inserir dados na tabela lista_exercicios
-            this._banco.query(sql, parametros, function (erro, resultados) { // Executa a query SQL com os parâmetros
-                if (erro) { // Se ocorrer erro, rejeita a Promise
-                    console.log(erro); // Log do erro
-                    reject(erro); // Rejeita a Promise
+            const sql = "INSERT INTO lista_exercicios (lista_idlista,exercicios_idexercicio,ordem,series,reps,carga_kg,descanso_seg,observacao) VALUES (?,?,?,?,?,?,?,?);";
+            this._banco.query(sql, parametros, function (erro, resultados) {
+                if (erro) {
+                    console.log(erro);
+                    reject(erro);
                 } else {
-                    resolve(resultados); // Se sucesso, resolve a Promise com os resultados
+                    resolve(resultados);
                 }
             });
         });
-        return operacao; // Retorna a Promise
+        return operacao;
     }
 
-    async read() { // Método assíncrono para buscar dados de listas e exercícios de um usuário específico
-        const operacao = new Promise((resolve, reject) => { // Retorna uma nova Promise
+    async update() {
+        const operacao = new Promise((resolve, reject) => {
+            const idLinha = this._idLinha;
+            const ordem = this._ordem;
+            const series = this._series;
+            const reps = this._reps;
+            const cargaKg = this._cargaKg;
+            const descansoSeg = this._descansoSeg;
+            const observacao = this._observacao;
 
-            const usuarioId = this._idLista.usuario_UsuarioID; // Captura o id do usuário da lista
-            const parametros = [usuarioId]; // Define os parâmetros para o SQL
+            const parametros = [ordem, series, reps, cargaKg, descansoSeg, observacao, idLinha];
+            const sql = "UPDATE lista_exercicios SET ordem = ?, series = ?, reps = ?, carga_kg = ?, descanso_seg = ?, observacao = ? WHERE id = ?;";
+            this._banco.query(sql, parametros, function (erro, resultados) {
+                if (erro) {
+                    reject(erro);
+                } else {
+                    resolve(resultados);
+                }
+            });
+        });
+        return operacao;
+    }
 
-            const sql = "SELECT l.idlista AS id_lista, l.nome AS nome_lista, l.tipo AS tipo_lista, e.idexercicio AS id_exercicio,e.nome AS nome_exercicio, e.musculo AS musculo_trabalhado, e.equipamento, e.dificuldade, e.instrucao, e.tipo AS tipo_exercicio, e.imagem FROM lista l JOIN lista_exercicios le ON l.idlista = le.lista_idlista JOIN exercicios e ON le.exercicios_idexercicio = e.idexercicio WHERE l.usuario_UsuarioID = ?;"; // SQL para buscar listas e exercícios de um usuário
+    async readByListaId() {
+        const operacao = new Promise((resolve, reject) => {
+            const idLista = typeof this._idLista === 'object' ? this._idLista.idlista : this._idLista;
+            const parametros = [idLista];
+            const sql = "SELECT le.id AS id_lista_exercicio, le.lista_idlista AS id_lista, le.ordem, le.series, le.reps, le.carga_kg, le.descanso_seg, le.observacao, e.idexercicio AS id_exercicio, e.nome AS nome_exercicio, e.musculo AS musculo_trabalhado, e.equipamento, e.dificuldade, e.instrucao, e.tipo AS tipo_exercicio, e.imagem FROM lista_exercicios le JOIN exercicios e ON le.exercicios_idexercicio = e.idexercicio WHERE le.lista_idlista = ? ORDER BY le.ordem, le.id;";
+            this._banco.query(sql, parametros, function (erro, resultados) {
+                if (erro) {
+                    reject(erro);
+                } else {
+                    resolve(resultados);
+                }
+            });
+        });
+        return operacao;
+    }
+
+    async read() {
+        const operacao = new Promise((resolve, reject) => {
+            const usuarioId = this._idLista.usuario_UsuarioID;
+            const parametros = [usuarioId];
+
+            const sql = "SELECT l.idlista AS id_lista, l.nome AS nome_lista, l.tipo AS tipo_lista, l.objetivo, l.dias_semana, l.lista_origem_id, le.id AS id_lista_exercicio, le.ordem, le.series, le.reps, le.carga_kg, le.descanso_seg, le.observacao, e.idexercicio AS id_exercicio,e.nome AS nome_exercicio, e.musculo AS musculo_trabalhado, e.equipamento, e.dificuldade, e.instrucao, e.tipo AS tipo_exercicio, e.imagem, (SELECT ts.carga_kg FROM treino_serie ts JOIN treino_sessao s ON s.id = ts.sessao_id WHERE s.usuario_id = l.usuario_UsuarioID AND ts.exercicio_id = e.idexercicio AND ts.concluida = 1 AND ts.carga_kg IS NOT NULL ORDER BY ts.concluida_em DESC LIMIT 1) AS carga_atual FROM lista l LEFT JOIN lista_exercicios le ON l.idlista = le.lista_idlista LEFT JOIN exercicios e ON le.exercicios_idexercicio = e.idexercicio WHERE l.usuario_UsuarioID = ? ORDER BY l.idlista, le.ordem, le.id;";
            
-            this._banco.query(sql, parametros, function (erro, resultados) { // Executa a query com os parâmetros
-                if (erro) { // Se erro, rejeita a Promise
-                    console.log(erro); // Log do erro
-                    reject(erro); // Rejeita a Promise
+            this._banco.query(sql, parametros, function (erro, resultados) {
+                if (erro) {
+                    console.log(erro);
+                    reject(erro);
                 } else {
-                    resolve(resultados); // Se sucesso, resolve a Promise com os resultados
-                };
-            });
-        });
-        return operacao; // Retorna a Promise
-    }
-
-    async readAll() { // Método assíncrono para buscar todas as listas e exercícios sem usuário específico
-        const operacao = new Promise((resolve, reject) => { // Retorna uma nova Promise
-
-            const parametros = []; // Não precisa de parâmetros
-            const sql = "SELECT l.idlista AS id_lista, l.nome AS nome_lista, l.tipo AS tipo_lista, e.idexercicio AS id_exercicio,e.nome AS nome_exercicio, e.musculo AS musculo_trabalhado, e.equipamento, e.dificuldade, e.instrucao, e.tipo AS tipo_exercicio, e.imagem FROM lista l JOIN lista_exercicios le ON l.idlista = le.lista_idlista JOIN exercicios e ON le.exercicios_idexercicio = e.idexercicio WHERE l.usuario_UsuarioID IS NULL ;"; // SQL para buscar todas as listas sem usuário específico
-            
-            this._banco.query(sql, parametros, function (erro, resultados) { // Executa a query
-                if (erro) { // Se erro, rejeita a Promise
-                    console.log(erro); // Log do erro
-                    reject(erro); // Rejeita a Promise
-                } else {
-                    resolve(resultados); // Se sucesso, resolve a Promise
+                    resolve(resultados);
                 }
             });
         });
-        return operacao; // Retorna a Promise
+        return operacao;
     }
 
-    async delete() { // Método assíncrono para deletar uma relação específica entre lista e exercício
-        const operacao = new Promise((resolve, reject) => { // Retorna uma nova Promise
-            const idlista = this._idLista // Captura o id da lista
-            const idExercicio = this._idexercicio // Captura o id do exercício
-
-            const parametros = [idlista, idExercicio]; // Define os parâmetros para o SQL
-            const sql = "DELETE FROM lista_exercicios WHERE lista_idlista = ? AND exercicios_idexercicio = ?; "; // SQL para deletar uma entrada específica
+    async readAll() {
+        const operacao = new Promise((resolve, reject) => {
+            const parametros = [];
+            const sql = "SELECT l.idlista AS id_lista, l.nome AS nome_lista, l.tipo AS tipo_lista, l.objetivo, l.dias_semana, l.lista_origem_id, le.id AS id_lista_exercicio, le.ordem, le.series, le.reps, le.carga_kg, le.descanso_seg, le.observacao, e.idexercicio AS id_exercicio,e.nome AS nome_exercicio, e.musculo AS musculo_trabalhado, e.equipamento, e.dificuldade, e.instrucao, e.tipo AS tipo_exercicio, e.imagem FROM lista l LEFT JOIN lista_exercicios le ON l.idlista = le.lista_idlista LEFT JOIN exercicios e ON le.exercicios_idexercicio = e.idexercicio WHERE l.usuario_UsuarioID IS NULL ORDER BY l.idlista, le.ordem, le.id;";
             
-            this._banco.query(sql, parametros, function (erro, resultados) { // Executa a query
-                if (erro) { // Se erro, rejeita a Promise
-                    console.log(erro); // Log do erro
-                    reject(erro); // Rejeita a Promise
+            this._banco.query(sql, parametros, function (erro, resultados) {
+                if (erro) {
+                    console.log(erro);
+                    reject(erro);
                 } else {
-                    resolve(resultados); // Se sucesso, resolve a Promise
+                    resolve(resultados);
                 }
             });
         });
-        return operacao; // Retorna a Promise
+        return operacao;
     }
 
-    async deleteAll() { // Método assíncrono para deletar todas as relações de uma lista
-        const operacao = new Promise((resolve, reject) => { // Retorna uma nova Promise
-            const idlista = this._idLista // Captura o id da lista
+    async delete() {
+        const operacao = new Promise((resolve, reject) => {
+            const idlista = this._idLista
+            const idExercicio = this._idexercicio
 
-            const parametros = [idlista]; // Define os parâmetros para o SQL
-
-            const sql = "DELETE FROM lista_exercicios WHERE lista_idlista = ?; "; // SQL para deletar todas as entradas da lista
+            const parametros = [idlista, idExercicio];
+            const sql = "DELETE FROM lista_exercicios WHERE lista_idlista = ? AND exercicios_idexercicio = ?; ";
             
-            this._banco.query(sql, parametros, function (erro, resultados) { // Executa a query
-                if (erro) { // Se erro, rejeita a Promise
-                    console.log(erro); // Log do erro
-                    reject(erro); // Rejeita a Promise
+            this._banco.query(sql, parametros, function (erro, resultados) {
+                if (erro) {
+                    console.log(erro);
+                    reject(erro);
                 } else {
-                    resolve(resultados); // Se sucesso, resolve a Promise
+                    resolve(resultados);
+                }
+            });
+        });
+        return operacao;
+    }
+
+    async deleteAll() {
+        const operacao = new Promise((resolve, reject) => {
+            const idlista = this._idLista
+
+            const parametros = [idlista];
+
+            const sql = "DELETE FROM lista_exercicios WHERE lista_idlista = ?; ";
+            
+            this._banco.query(sql, parametros, function (erro, resultados) {
+                if (erro) {
+                    console.log(erro);
+                    reject(erro);
+                } else {
+                    resolve(resultados);
                 }
             });
 
         });
-        return operacao; // Retorna a Promise
+        return operacao;
     }
-
-    // Métodos getters e setters para encapsular e acessar as propriedades da classe
 
     set banco(valor) {
         this._banco = valor;
@@ -142,6 +188,55 @@ module.exports = class Lista_exercicios { // Define e exporta uma classe chamada
 
     get usuario_UsuarioID() {
         return this._idLista.usuario_UsuarioID;
+    }
+
+    set idLinha(idLinha) {
+        this._idLinha = idLinha;
+    }
+    get idLinha() {
+        return this._idLinha;
+    }
+
+    set ordem(ordem) {
+        this._ordem = ordem;
+    }
+    get ordem() {
+        return this._ordem;
+    }
+
+    set series(series) {
+        this._series = series;
+    }
+    get series() {
+        return this._series;
+    }
+
+    set reps(reps) {
+        this._reps = reps;
+    }
+    get reps() {
+        return this._reps;
+    }
+
+    set cargaKg(cargaKg) {
+        this._cargaKg = cargaKg;
+    }
+    get cargaKg() {
+        return this._cargaKg;
+    }
+
+    set descansoSeg(descansoSeg) {
+        this._descansoSeg = descansoSeg;
+    }
+    get descansoSeg() {
+        return this._descansoSeg;
+    }
+
+    set observacao(observacao) {
+        this._observacao = observacao;
+    }
+    get observacao() {
+        return this._observacao;
     }
 
 }

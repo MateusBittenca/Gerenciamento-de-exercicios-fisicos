@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { swalDark } from '../../api/client';
+import { defaultPrescricao, swalDark } from '../../api/client';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
+import PrescriptionFields from '../../components/PrescriptionFields';
 
 const FILTROS = [
   { label: 'Biceps', value: 'Bíceps' },
@@ -24,6 +25,7 @@ export default function AddExerciseToList() {
   const [selecionado, setSelecionado] = useState(null);
   const [listasModal, setListasModal] = useState(null);
   const [listas, setListas] = useState([]);
+  const [presc, setPresc] = useState(defaultPrescricao('hipertrofia'));
 
   useEffect(() => {
     async function carregar() {
@@ -40,17 +42,23 @@ export default function AddExerciseToList() {
     if (obj.status === true) {
       setListas(obj.dados || []);
       setListasModal(exercicio);
+      setPresc(defaultPrescricao('hipertrofia'));
     } else {
       alert('Erro ao buscar as listas.');
     }
   }
 
   async function adicionarNaLista(lista) {
+    const def = defaultPrescricao(lista.objetivo);
     const obj = await request('/lista/exercicios/create', {
       method: 'post',
       body: JSON.stringify({
         idListaExer: lista.idlista,
-        idExercicios: listasModal.idexercicio
+        idExercicios: listasModal.idexercicio,
+        series: presc.series || def.series,
+        reps: presc.reps || def.reps,
+        carga_kg: presc.carga_kg || null,
+        descanso_seg: presc.descanso_seg || def.descanso_seg
       })
     });
     if (obj.status === true) {
@@ -60,11 +68,12 @@ export default function AddExerciseToList() {
         text: 'Exercicio adionado a lista!',
         icon: 'success'
       });
+      setListasModal(null);
     } else {
       Swal.fire({
         ...swalDark,
         title: 'Erro!',
-        text: 'Erro ao adicionar exercicio na lista!',
+        text: obj.msg || 'Erro ao adicionar exercicio na lista!',
         icon: 'error'
       });
     }
@@ -76,7 +85,7 @@ export default function AddExerciseToList() {
     : exercicios;
 
   if (textoBusca) {
-    visiveis = exercicios.filter((exercicio) => exercicio.nome.toLowerCase().includes(textoBusca));
+    visiveis = visiveis.filter((exercicio) => exercicio.nome.toLowerCase().includes(textoBusca));
   }
 
   return (
@@ -129,6 +138,7 @@ export default function AddExerciseToList() {
             <button type="button" className="uf-modal-close" onClick={() => setListasModal(null)}>&times;</button>
             <div className="uf-modal-form">
               <h2>Adicionar à lista</h2>
+              <PrescriptionFields value={presc} onChange={setPresc} />
               {listas.length === 0 ? (
                 <p className="uf-muted">Nenhuma lista oficial encontrada.</p>
               ) : (
@@ -136,7 +146,7 @@ export default function AddExerciseToList() {
                   {listas.map((lista) => (
                     <li key={lista.idlista} onClick={() => adicionarNaLista(lista)}>
                       <strong>{lista.nome}</strong>
-                      <span className="uf-muted">{lista.tipo}</span>
+                      <span className="uf-muted">{lista.tipo} · {lista.objetivo || 'hipertrofia'}</span>
                     </li>
                   ))}
                 </ul>

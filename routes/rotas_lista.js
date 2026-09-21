@@ -3,10 +3,15 @@ const lista_read = require("../controller/lista_read");
 const lista_delete = require('../controller/lista_delete');
 const lista_update = require("../controller/lista_update");
 const lista_readAll = require("../controller/listaAll_read");
+const lista_salvar_oficial = require("../controller/lista_salvar_oficial");
 module.exports = function(app,banco){
 
     app.post("/lista/create",(request,response)=>{
         lista_create(request,response,banco);
+    });
+
+    app.post("/lista/salvar-oficial",(request,response)=>{
+        lista_salvar_oficial(request,response,banco);
     });
 
     app.get("/lista/:usuarioId",(request,response)=>{

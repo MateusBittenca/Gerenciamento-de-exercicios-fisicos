@@ -1,6 +1,6 @@
 import { exerciseImageSrc } from '../api/client';
 
-export default function ExerciseModal({ exercicio, onClose }) {
+export default function ExerciseModal({ exercicio, onClose, favorito, onFav }) {
   if (!exercicio) {
     return null;
   }
@@ -14,7 +14,14 @@ export default function ExerciseModal({ exercicio, onClose }) {
     <div className="uf-modal" onClick={onClose}>
       <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
         <button type="button" className="uf-modal-close" onClick={onClose}>&times;</button>
-        <h2>{nome}</h2>
+        <div className="uf-page-head" style={{ marginBottom: 8 }}>
+          <h2>{nome}</h2>
+          {onFav && (
+            <button type="button" className={'uf-fav' + (favorito ? ' ativo' : '')} onClick={() => onFav(exercicio)}>
+              <span className="material-symbols-outlined" style={favorito ? { fontVariationSettings: "'FILL' 1" } : undefined}>favorite</span>
+            </button>
+          )}
+        </div>
         {imagem && (
           <img className="uf-gif" src={exerciseImageSrc(imagem)} alt={nome} style={{ marginTop: 16 }} />
         )}

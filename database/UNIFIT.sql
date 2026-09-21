@@ -87,6 +87,9 @@ CREATE TABLE `lista` (
   `nome` varchar(45) NOT NULL,
   `tipo` varchar(45) NOT NULL,
   `usuario_UsuarioID` int(11) DEFAULT NULL,
+  `objetivo` varchar(45) DEFAULT 'hipertrofia',
+  `dias_semana` varchar(32) DEFAULT NULL,
+  `lista_origem_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`idlista`),
   KEY `fk_usuario_lista` (`usuario_UsuarioID`),
   CONSTRAINT `fk_usuario_lista` FOREIGN KEY (`usuario_UsuarioID`) REFERENCES `usuarios` (`UsuarioID`)
@@ -111,8 +114,17 @@ DROP TABLE IF EXISTS `lista_exercicios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `lista_exercicios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `lista_idlista` int(11) NOT NULL,
   `exercicios_idexercicio` int(11) NOT NULL,
+  `ordem` int(11) DEFAULT 1,
+  `series` int(11) DEFAULT 3,
+  `reps` varchar(20) DEFAULT '10',
+  `carga_kg` decimal(6,2) DEFAULT NULL,
+  `descanso_seg` int(11) DEFAULT 60,
+  `observacao` text DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_lista_exercicio` (`lista_idlista`,`exercicios_idexercicio`),
   KEY `lista_idlista` (`lista_idlista`),
   KEY `exercicios_idexercicio` (`exercicios_idexercicio`),
   CONSTRAINT `lista_exercicios_ibfk_1` FOREIGN KEY (`lista_idlista`) REFERENCES `lista` (`idlista`),
@@ -145,6 +157,12 @@ CREATE TABLE `usuarios` (
   `Sexo` varchar(45) DEFAULT NULL,
   `Altura` decimal(5,2) DEFAULT NULL,
   `Peso` decimal(5,2) DEFAULT NULL,
+  `Telefone` varchar(20) DEFAULT NULL,
+  `DataNascimento` date DEFAULT NULL,
+  `Foto` varchar(255) DEFAULT NULL,
+  `Objetivo` varchar(50) DEFAULT NULL,
+  `MetaSemanal` int(11) DEFAULT 4,
+  `createdAt` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`UsuarioID`),
   UNIQUE KEY `Email` (`Email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
