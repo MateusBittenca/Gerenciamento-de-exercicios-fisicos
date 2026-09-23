@@ -5,354 +5,326 @@ export default function Landing() {
   const navigate = useNavigate();
 
   return (
-    <div className="uf-landing">
+    <div className="uf-landing" id="inicio">
+      <a className="uf-lp-skip" href="#conteudo">Ir para o conteúdo</a>
+
       <header className="uf-lp-header">
         <div className="uf-lp-header-inner">
-          <div className="uf-lp-header-left">
-            <a href="#inicio" className="uf-brand">
-              <img src="/image/logo.png" alt="UniFit" />
-              UniFit
-            </a>
-            <nav className="uf-lp-nav">
-              <a href="#sobre">Sobre</a>
-              <a href="#funcionalidades">Funcionalidades</a>
-              <a href="#unidades">Para Academias</a>
-              <a href="#unidades">Unidades</a>
-            </nav>
-          </div>
-          <div className="uf-lp-header-right">
-            <Link to="/login" className="uf-lp-link-quiet">Já sou aluno / Entrar</Link>
-            <Link to="/login?papel=admin" className="uf-lp-link-admin">Acesso Admin</Link>
-            <button type="button" className="uf-lp-cta" onClick={() => navigate('/cadastro')}>Começar Agora</button>
-            <Link to="/login" className="uf-lp-person" aria-label="Entrar">
-              <span className="material-symbols-outlined" style={{ fontSize: 18 }}>person</span>
-            </Link>
+          <a href="#inicio" className="uf-lp-brand">
+            <img src="/image/logo.png" alt="UniFit" />
+          </a>
+          <nav className="uf-lp-nav" aria-label="Seções da página">
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#recursos">Recursos</a>
+            <a href="#academias">Para academias</a>
+          </nav>
+          <div className="uf-lp-header-actions">
+            <Link to="/login" className="uf-lp-entrar">Entrar</Link>
+            <Link to="/cadastro" className="uf-lp-btn compacto">Criar conta</Link>
           </div>
         </div>
       </header>
 
-      <main id="inicio">
-        <div className="uf-lp-hero-wrap">
-          <div className="uf-lp-glow a" />
-          <div className="uf-lp-glow b" />
-
-          <section className="uf-lp-section">
-            <div className="uf-lp-hero">
-              <h1>O gerenciador de treinos oficial da sua academia</h1>
-              <p>Catálogo completo com animações de execução, listas prescritas por instrutores e controle pessoal de cargas e biomecânica.</p>
-              <div className="uf-lp-hero-actions">
-                <button type="button" className="uf-lp-cta lg" onClick={() => navigate('/cadastro')}>
-                  Cadastrar como aluno
-                  <span className="material-symbols-outlined">arrow_forward</span>
-                </button>
-                <button type="button" className="uf-lp-cta ghost lg" onClick={() => navigate('/login')}>
-                  Entrar na minha conta
-                </button>
-              </div>
-              <p className="uf-hero-note">
-                <Link to="/login?papel=admin">
-                  <span className="material-symbols-outlined" style={{ fontSize: 16 }}>corporate_fare</span>
-                  Acesso de administrador da academia
-                </Link>
-              </p>
-            </div>
-
-            <div className="uf-lp-mock">
-              <div className="uf-lp-mock-glow" />
-              <div className="uf-lp-mock-card">
-                <div className="uf-lp-mock-bar">
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <div className="uf-lp-traffic">
-                      <span className="r" />
-                      <span className="y" />
-                      <span className="g" />
-                    </div>
-                    <small>Painel do Aluno • Unidade Jardins Central</small>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span className="uf-lp-live">
-                      <span className="uf-lp-dot" style={{ width: 6, height: 6 }} />
-                      Sessão em Andamento
-                    </span>
-                    <small style={{ color: '#1b1c1d' }}>Ficha A: Peitoral &amp; Tríceps</small>
-                  </div>
-                </div>
-
-                <div className="uf-lp-mock-body">
-                  <div className="uf-lp-gif-wrap">
-                    <img src="/ExerciciosGif/Supino-reto-barra.gif" alt="Supino reto com barra" />
-                    <div className="uf-lp-gif-cap">
-                      <div>
-                        <span>Biomecânica Validada</span>
-                        <h3>Supino Reto com Barra Olímpica</h3>
-                      </div>
-                      <div className="uf-lp-gif-icon">
-                        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>fitness_center</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="uf-lp-chips">
-                      <span className="uf-lp-chip red">Peitoral Maior (Foco Primário)</span>
-                      <span className="uf-lp-chip">Tríceps Braquial • Sinergista</span>
-                      <span className="uf-lp-chip">Deltoide Anterior</span>
-                    </div>
-                    <div className="uf-lp-metrics" style={{ marginTop: 16 }}>
-                      <div>
-                        <span>Séries</span>
-                        <strong>4</strong>
-                        <em>8 - 10 Reps</em>
-                      </div>
-                      <div>
-                        <span>Carga Sugerida</span>
-                        <strong className="red">76 <em style={{ fontSize: 12, color: '#c30505' }}>kg</em></strong>
-                        <em>+2.5kg vs última sem.</em>
-                      </div>
-                      <div>
-                        <span>Descanso</span>
-                        <strong>90s</strong>
-                        <em>Intervalo estrito</em>
-                      </div>
-                    </div>
-                    <div className="uf-lp-sets" style={{ marginTop: 12 }}>
-                      <div className="uf-lp-set">
-                        <div className="uf-lp-set-left">
-                          <div className="uf-lp-set-n done"><span className="material-symbols-outlined" style={{ fontSize: 16 }}>check</span></div>
-                          Série 1 • Aquecimento
-                        </div>
-                        <small>10 reps • 60 kg</small>
-                      </div>
-                      <div className="uf-lp-set active">
-                        <div className="uf-lp-set-left">
-                          <div className="uf-lp-set-n now">2</div>
-                          Série 2 • Carga Principal
-                        </div>
-                        <small style={{ color: '#c30505', fontWeight: 700 }}>8 reps • 76 kg</small>
-                      </div>
-                      <div className="uf-lp-set dim">
-                        <div className="uf-lp-set-left">
-                          <div className="uf-lp-set-n">3</div>
-                          Série 3 • Hipertrofia
-                        </div>
-                        <small>8 reps • 76 kg</small>
-                      </div>
-                    </div>
-                    <button type="button" className="uf-lp-cta" style={{ width: '100%', marginTop: 12, height: 44 }} onClick={() => navigate('/cadastro')}>
-                      <span className="material-symbols-outlined" style={{ fontSize: 18 }}>timer</span>
-                      Concluir Série &amp; Iniciar Descanso (90s)
-                    </button>
-                  </div>
-                </div>
-
-                <div className="uf-lp-mock-foot">
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                    <span className="material-symbols-outlined" style={{ color: '#005cba', fontSize: 18 }}>sync_alt</span>
-                    Sincronizado em tempo real com instrutor: Prof. André Silva (CREF 08921-G/SP)
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontFamily: 'var(--uf-font-title)', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', fontSize: 11 }}>
-                    Volume Total: 2.140 kg
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#e9e8e9' }} />
-                    RPE Médio: 8.5
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="uf-lp-stats">
-              <div className="uf-lp-stat">
-                <div className="uf-lp-stat-icon"><span className="material-symbols-outlined">group</span></div>
-                <div>
-                  <strong>+150.000</strong>
-                  <span>Alunos ativos no app</span>
-                </div>
-              </div>
-              <div className="uf-lp-vr" />
-              <div className="uf-lp-stat">
-                <div className="uf-lp-stat-icon blue"><span className="material-symbols-outlined">apartment</span></div>
-                <div>
-                  <strong>450+</strong>
-                  <span>Academias credenciadas</span>
-                </div>
-              </div>
-              <div className="uf-lp-vr" />
-              <div className="uf-lp-stat">
-                <div className="uf-lp-stat-icon"><span className="material-symbols-outlined">verified</span></div>
-                <div>
-                  <strong>99.4%</strong>
-                  <span>Assertividade biomecânica</span>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        <section className="uf-lp-section" id="funcionalidades">
-          <div className="uf-lp-center">
-            <div className="uf-lp-kicker">
-              <span className="material-symbols-outlined" style={{ fontSize: 16 }}>tune</span>
-              Tecnologia &amp; Engenharia de Performance
-            </div>
-            <h2>Engenharia pensada para o aluno moderno e o treinador exigente</h2>
-            <p>Uma ponte digital sem atritos entre a sala de musculação, a supervisão técnica e seus resultados diários.</p>
-          </div>
-          <div className="uf-lp-cols">
-            <article className="uf-lp-feature">
-              <div>
-                <div className="uf-lp-ico"><span className="material-symbols-outlined" style={{ fontSize: 28 }}>vital_signs</span></div>
-                <span className="uf-lp-chip">+350 Variações</span>
-                <h3>Catálogo Técnico de Exercícios</h3>
-                <p>Mais de 350 variações biomecânicas com demonstração visual, ativação muscular primária e sinergistas em alta definição.</p>
-                <div className="uf-lp-checks">
-                  <div><span className="material-symbols-outlined">check_circle</span> Visualização 3D de vetores de força</div>
-                  <div><span className="material-symbols-outlined">check_circle</span> Filtro por aparelhos e pesos livres</div>
-                  <div><span className="material-symbols-outlined">check_circle</span> Dicas posturais para prevenção de lesões</div>
-                </div>
-              </div>
-              <div className="uf-lp-thumb">
-                <img src={'/ExerciciosGif/' + encodeURIComponent('Flexão.gif')} alt="Catálogo de exercícios" />
-                <span>Biblioteca Técnica Atualizada 2026</span>
-              </div>
-            </article>
-            <article className="uf-lp-feature">
-              <div>
-                <div className="uf-lp-ico blue"><span className="material-symbols-outlined" style={{ fontSize: 28 }}>assignment_turned_in</span></div>
-                <span className="uf-lp-chip" style={{ background: 'rgba(0,92,186,0.1)', color: '#005cba' }}>Homologado por Instrutores</span>
-                <h3>Listas Oficiais e Periodização</h3>
-                <p>Treinos montados e homologados pelos instrutores da sua unidade. Divisões inteligentes ABC, hipertrofia, força e recomposição corporal.</p>
-                <div className="uf-lp-checks">
-                  <div><span className="material-symbols-outlined blue">check_circle</span> Sincronização imediata no celular</div>
-                  <div><span className="material-symbols-outlined blue">check_circle</span> Períodos de deload e progressão contínua</div>
-                  <div><span className="material-symbols-outlined blue">check_circle</span> Ajustes rápidos em tempo real</div>
-                </div>
-              </div>
-              <div className="uf-lp-thumb">
-                <img src="/image/academiaTCC.jpg" alt="Listas oficiais" />
-                <span>Prescrição Conectada &amp; Inteligente</span>
-              </div>
-            </article>
-            <article className="uf-lp-feature">
-              <div>
-                <div className="uf-lp-ico"><span className="material-symbols-outlined" style={{ fontSize: 28 }}>monitoring</span></div>
-                <span className="uf-lp-chip">Controle Pessoal</span>
-                <h3>Autonomia com Métricas Reais</h3>
-                <p>Monte suas próprias rotinas personalizadas, acompanhe o histórico analítico de sobrecargas e a evolução biométrica com peso e IMC.</p>
-                <div className="uf-lp-checks">
-                  <div><span className="material-symbols-outlined">check_circle</span> Gráficos de 1RM e tonelagem semanal</div>
-                  <div><span className="material-symbols-outlined">check_circle</span> Feedbacks de RPE e esforço percebido</div>
-                  <div><span className="material-symbols-outlined">check_circle</span> Exportação de relatórios para o seu personal</div>
-                </div>
-              </div>
-              <div className="uf-lp-chart" style={{ marginTop: 24 }}>
-                <div className="uf-lp-chart-top">
-                  <span>Evolução Carga (kg)</span>
-                  <b>+18.4% no mês</b>
-                </div>
-                <svg viewBox="0 0 200 60" preserveAspectRatio="none" style={{ width: '100%', height: 64, color: '#c30505' }}>
-                  <path d="M0 50 Q 30 45, 60 38 T 120 25 T 160 18 T 200 8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-                  <path d="M0 50 Q 30 45, 60 38 T 120 25 T 160 18 T 200 8 L 200 60 L 0 60 Z" fill="currentColor" fillOpacity="0.08" />
-                  <circle cx="200" cy="8" r="4" fill="currentColor" />
-                </svg>
-                <div className="uf-lp-chart-axis">
-                  <span>Semana 1</span>
-                  <span>Semana 2</span>
-                  <span>Semana 3</span>
-                  <span>Hoje</span>
-                </div>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section className="uf-lp-section" id="sobre">
-          <div className="uf-lp-how">
-            <div className="uf-lp-center">
-              <span className="uf-lp-kicker">Fluxo Simples • Zero Burocracia</span>
-              <h2>Como Funciona na Prática</h2>
-              <p>Três passos diretos para conectar sua matrícula física à melhor experiência de treino.</p>
-            </div>
-            <div className="uf-lp-cols">
-              <div>
-                <div className="uf-lp-step-n one">1</div>
-                <span className="uf-lp-kicker">Início Imediato</span>
-                <h3>Cadastre-se na sua unidade</h3>
-                <p>Selecione sua academia credenciada UniFit pelo nome ou código da recepção. Seu perfil é vinculado instantaneamente com seu plano.</p>
-              </div>
-              <div>
-                <div className="uf-lp-step-n">2</div>
-                <span className="uf-lp-kicker" style={{ color: '#005cba' }}>Prescrição Técnica</span>
-                <h3>Acesse as fichas dos seus instrutores</h3>
-                <p>Visualize as rotinas prescritas para seu objetivo, com intervalos de recuperação, vídeos de biomecânica e ordem ideal de exercícios.</p>
-              </div>
-              <div>
-                <div className="uf-lp-step-n">3</div>
-                <span className="uf-lp-kicker">Evolução Real</span>
-                <h3>Acompanhe a execução e supere suas marcas</h3>
-                <p>Registre cada série concluída, anote suas cargas e visualize seu progresso semanal em gráficos objetivos de tonelagem e força.</p>
-              </div>
-            </div>
-            <div className="uf-lp-strip">
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <div className="uf-lp-stat-icon" style={{ width: 32, height: 32 }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 20 }}>bolt</span>
-                </div>
-                <p><strong>Sem planilhas de papel.</strong> 100% digital, compatível com iOS, Android e terminais touch no salão da academia.</p>
-              </div>
-              <button type="button" className="uf-lp-kicker" style={{ border: 0, background: 'none', cursor: 'pointer' }} onClick={() => navigate('/cadastro')}>
-                Ver demonstração guiada
-                <span className="material-symbols-outlined" style={{ fontSize: 16 }}>chevron_right</span>
+      <main id="conteudo">
+        <section className="uf-lp-hero">
+          <div className="uf-lp-hero-texto">
+            <p className="uf-lp-overline">Gerenciador de treinos da sua academia</p>
+            <h1>
+              Seu treino não termina na <em>ficha.</em>
+            </h1>
+            <p className="uf-lp-hero-sub">
+              O UniFit coloca a ficha da academia no seu bolso: consulte cada exercício
+              com demonstração, registre série por série e acompanhe a carga subir
+              semana após semana.
+            </p>
+            <div className="uf-lp-hero-acoes">
+              <button type="button" className="uf-lp-btn" onClick={() => navigate('/cadastro')}>
+                Criar conta de aluno
+              </button>
+              <button type="button" className="uf-lp-btn contorno" onClick={() => navigate('/login')}>
+                Já tenho conta
               </button>
             </div>
+            <p className="uf-lp-hero-adm">
+              Administra uma academia? <Link to="/login?papel=admin">Acesso administrativo</Link>
+            </p>
+          </div>
+
+          <aside className="uf-lp-ficha" aria-label="Exemplo de sessão de treino no UniFit">
+            <div className="uf-lp-ficha-head">
+              <span className="uf-lp-ficha-tag">Ficha A</span>
+              <span className="uf-lp-ficha-nome">Peito e tríceps</span>
+              <span className="uf-lp-ficha-live"><i aria-hidden="true" />Em andamento</span>
+            </div>
+            <figure className="uf-lp-ficha-media">
+              <img src="/ExerciciosGif/Supino-reto-barra.gif" alt="Demonstração animada do supino reto com barra" />
+              <figcaption>
+                <strong>Supino reto com barra</strong>
+                <span>1º de 6 exercícios</span>
+              </figcaption>
+            </figure>
+            <dl className="uf-lp-ficha-dados">
+              <div>
+                <dt>Séries</dt>
+                <dd>4</dd>
+              </div>
+              <div>
+                <dt>Reps</dt>
+                <dd>8–10</dd>
+              </div>
+              <div>
+                <dt>Carga</dt>
+                <dd>40<small>kg</small></dd>
+              </div>
+              <div>
+                <dt>Descanso</dt>
+                <dd>90<small>s</small></dd>
+              </div>
+            </dl>
+            <ol className="uf-lp-ficha-series">
+              <li className="feita">
+                <span className="material-symbols-outlined" aria-hidden="true">check</span>
+                <span className="uf-lp-serie-nome">Série 1</span>
+                <b>10 × 36 kg</b>
+              </li>
+              <li className="atual">
+                <span className="uf-lp-serie-agora" aria-hidden="true" />
+                <span className="uf-lp-serie-nome">Série 2</span>
+                <b>8 × 40 kg</b>
+              </li>
+              <li>
+                <span className="uf-lp-serie-vazio" aria-hidden="true" />
+                <span className="uf-lp-serie-nome">Série 3</span>
+                <b>— × 40 kg</b>
+              </li>
+            </ol>
+            <p className="uf-lp-ficha-nota">Sessão de exemplo. Os números aqui são os seus.</p>
+          </aside>
+        </section>
+
+        <section className="uf-lp-secao" id="como-funciona">
+          <header className="uf-lp-secao-head">
+            <p className="uf-lp-overline">Como funciona</p>
+            <h2>Da recepção ao rack, um caminho só.</h2>
+          </header>
+          <ol className="uf-lp-fluxo">
+            <li>
+              <span className="uf-lp-fluxo-n">01</span>
+              <h3>A academia monta</h3>
+              <p>A equipe da unidade cadastra o catálogo de exercícios e publica as fichas oficiais de treino.</p>
+            </li>
+            <li>
+              <span className="uf-lp-fluxo-n">02</span>
+              <h3>Você organiza</h3>
+              <p>Salve uma ficha oficial na sua rotina ou monte listas pessoais com objetivo e dias da semana.</p>
+            </li>
+            <li>
+              <span className="uf-lp-fluxo-n">03</span>
+              <h3>O treino fica registrado</h3>
+              <p>Inicie a sessão, marque cada série concluída, ajuste a carga e respeite o descanso.</p>
+            </li>
+          </ol>
+        </section>
+
+        <section className="uf-lp-sessao" aria-label="O produto em ação">
+          <div className="uf-lp-sessao-inner">
+            <div className="uf-lp-sessao-texto">
+              <p className="uf-lp-overline clara">Produto em ação</p>
+              <h2>Aperte iniciar e a ficha vira sessão.</h2>
+              <p>
+                Durante o treino, o UniFit cronometra a sessão, acompanha o descanso
+                entre séries e guarda as cargas que você levantou. Na próxima vez,
+                o exercício já abre com a sua última carga.
+              </p>
+            </div>
+            <div className="uf-lp-sessao-painel">
+              <div className="uf-lp-sessao-topo">
+                <div>
+                  <span className="uf-lp-rotulo">Tempo de sessão</span>
+                  <strong className="uf-lp-timer">42:17</strong>
+                </div>
+                <div className="uf-lp-sessao-descanso">
+                  <span className="uf-lp-rotulo">Descanso</span>
+                  <strong>90 s</strong>
+                </div>
+              </div>
+              <p className="uf-lp-sessao-ex">Agachamento livre — série 3 de 4</p>
+              <ul className="uf-lp-sessao-series">
+                <li className="feita">
+                  <span className="material-symbols-outlined" aria-hidden="true">check</span>
+                  Série 1
+                  <b>10 × 60 kg</b>
+                </li>
+                <li className="feita">
+                  <span className="material-symbols-outlined" aria-hidden="true">check</span>
+                  Série 2
+                  <b>10 × 60 kg</b>
+                </li>
+                <li className="atual">
+                  <span className="uf-lp-serie-agora" aria-hidden="true" />
+                  Série 3
+                  <b>8 × 65 kg</b>
+                </li>
+                <li>
+                  <span className="uf-lp-serie-vazio" aria-hidden="true" />
+                  Série 4
+                  <b>— × 65 kg</b>
+                </li>
+              </ul>
+              <div className="uf-lp-historico">
+                <span className="uf-lp-rotulo">Últimas cargas registradas</span>
+                <div className="uf-lp-barras" role="img" aria-label="Histórico de carga do agachamento livre: 56, 60, 60, 62 e 65 quilos">
+                  <span className="c1"><i /><em>56</em></span>
+                  <span className="c2"><i /><em>60</em></span>
+                  <span className="c3"><i /><em>60</em></span>
+                  <span className="c4"><i /><em>62</em></span>
+                  <span className="c5"><i /><em>65</em></span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section className="uf-lp-section" id="unidades">
-          <div className="uf-lp-final">
-            <div className="uf-lp-final-row">
-              <div>
-                <h2>Pronto para transformar sua rotina de treinos?</h2>
-                <p>Seja você um aluno buscando quebrar seus recordes ou um gestor que deseja modernizar a sala de musculação da sua academia, comece agora mesmo.</p>
-                <div className="uf-lp-final-checks">
-                  <div><span className="material-symbols-outlined" style={{ color: '#c30505', fontSize: 18 }}>done_all</span> Sem fidelidade obrigatória</div>
-                  <div><span className="material-symbols-outlined" style={{ color: '#c30505', fontSize: 18 }}>done_all</span> Configuração em menos de 2 minutos</div>
-                  <div><span className="material-symbols-outlined" style={{ color: '#c30505', fontSize: 18 }}>done_all</span> Suporte técnico especializado</div>
-                </div>
-              </div>
-              <div className="uf-lp-final-actions">
-                <button type="button" className="uf-lp-cta lg" onClick={() => navigate('/cadastro')}>
-                  <span className="material-symbols-outlined">person_add</span>
-                  Criar Conta de Aluno
-                </button>
-                <button type="button" className="uf-lp-cta soft lg" onClick={() => navigate('/login?papel=admin')}>
-                  <span className="material-symbols-outlined">support_agent</span>
-                  Entrar como administrador
-                </button>
-              </div>
+        <section className="uf-lp-secao" id="recursos">
+          <header className="uf-lp-secao-head">
+            <p className="uf-lp-overline">Recursos</p>
+            <h2>O que você encontra dentro do UniFit.</h2>
+          </header>
+
+          <article className="uf-lp-rec">
+            <div className="uf-lp-rec-texto">
+              <span className="uf-lp-rec-n">01</span>
+              <h3>Catálogo visual de exercícios</h3>
+              <p>
+                Cada exercício tem demonstração animada, grupo muscular e equipamento.
+                Busque pelo nome, filtre por músculo e favorite os que entram na sua rotina.
+              </p>
             </div>
+            <figure className="uf-lp-rec-media">
+              <img src={'/ExerciciosGif/' + encodeURIComponent('Puxada-Alta-na-Polia-_Lat-Pulldown_.gif')} alt="Demonstração animada da puxada alta na polia" />
+              <figcaption>Puxada alta na polia — costas</figcaption>
+            </figure>
+          </article>
+
+          <article className="uf-lp-rec invertido">
+            <div className="uf-lp-rec-texto">
+              <span className="uf-lp-rec-n">02</span>
+              <h3>Fichas oficiais da academia</h3>
+              <p>
+                As listas montadas pela equipe da sua unidade chegam prontas, com séries,
+                repetições, carga e descanso prescritos. Um toque para salvar na sua rotina.
+              </p>
+            </div>
+            <figure className="uf-lp-rec-media">
+              <img src="/image/academiaTCC.jpg" alt="Sala de musculação da academia" />
+              <figcaption>Prescrição da equipe, execução sua</figcaption>
+            </figure>
+          </article>
+
+          <article className="uf-lp-rec">
+            <div className="uf-lp-rec-texto">
+              <span className="uf-lp-rec-n">03</span>
+              <h3>Listas pessoais do seu jeito</h3>
+              <p>
+                Monte a sua própria lista: escolha os exercícios, defina o objetivo e os
+                dias da semana. A prescrição fica salva e você edita quando quiser.
+              </p>
+            </div>
+            <div className="uf-lp-rec-media composta">
+              <div className="uf-lp-dias" role="img" aria-label="Dias de treino: segunda, quarta e sexta">
+                <span>D</span>
+                <span className="ativo">S</span>
+                <span>T</span>
+                <span className="ativo">Q</span>
+                <span>Q</span>
+                <span className="ativo">S</span>
+                <span>S</span>
+              </div>
+              <p className="uf-lp-presc">3 × 8–12 · 20 kg · 90 s de pausa</p>
+              <span className="uf-lp-presc-legenda">Prescrição de um exercício da lista</span>
+            </div>
+          </article>
+
+          <article className="uf-lp-rec invertido">
+            <div className="uf-lp-rec-texto">
+              <span className="uf-lp-rec-n">04</span>
+              <h3>Registro e evolução</h3>
+              <p>
+                Marque as séries concluídas e ajuste a carga na hora. O histórico guarda
+                as últimas cargas de cada exercício para você enxergar a progressão.
+              </p>
+            </div>
+            <figure className="uf-lp-rec-media">
+              <img src={'/ExerciciosGif/' + encodeURIComponent('Agachamento livre.gif')} alt="Demonstração animada do agachamento livre" />
+              <figcaption>Agachamento livre — pernas</figcaption>
+            </figure>
+          </article>
+        </section>
+
+        <section className="uf-lp-academias" id="academias">
+          <div className="uf-lp-academias-inner">
+            <div className="uf-lp-academias-texto">
+              <p className="uf-lp-overline azul">Para academias</p>
+              <h2>A gestão do treino no mesmo lugar que o aluno.</h2>
+              <p>
+                No painel administrativo, a equipe da unidade cuida de tudo que o aluno
+                vê no app: os alunos cadastrados, o catálogo de exercícios e as fichas
+                oficiais com prescrição.
+              </p>
+            </div>
+            <div className="uf-lp-academias-itens">
+              <ul>
+                <li>Gestão de alunos e administradores</li>
+                <li>Catálogo de exercícios da unidade</li>
+                <li>Fichas oficiais com séries, carga e descanso</li>
+              </ul>
+              <Link to="/login?papel=admin" className="uf-lp-link-adm">
+                Acesso administrativo
+                <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        <section className="uf-lp-final">
+          <div className="uf-lp-final-aluno">
+            <h2>Comece pelo próximo treino.</h2>
+            <p>Crie sua conta, escolha sua ficha e registre a primeira sessão hoje.</p>
+            <div className="uf-lp-final-acoes">
+              <button type="button" className="uf-lp-btn" onClick={() => navigate('/cadastro')}>
+                Criar conta de aluno
+              </button>
+              <Link to="/login" className="uf-lp-final-entrar">Já treino com o UniFit</Link>
+            </div>
+          </div>
+          <div className="uf-lp-final-adm">
+            <h3>É da equipe da academia?</h3>
+            <p>Entre no painel para gerenciar alunos, catálogo e fichas oficiais.</p>
+            <Link to="/login?papel=admin" className="uf-lp-link-adm">
+              Acesso administrativo
+              <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+            </Link>
           </div>
         </section>
       </main>
 
       <footer className="uf-lp-footer">
         <div className="uf-lp-footer-inner">
-          <div className="uf-lp-footer-top">
-            <div className="uf-brand">
+          <div className="uf-lp-footer-marca">
+            <a href="#inicio" className="uf-lp-brand">
               <img src="/image/logo.png" alt="UniFit" />
-              UniFit
-              <span className="uf-lp-badge">Tecnologia Fitness</span>
-            </div>
-            <div className="uf-lp-footer-links">
-              <a href="#sobre">Sobre a Plataforma</a>
-              <a href="#funcionalidades">Termos de Uso</a>
-              <a href="#funcionalidades">Política de Privacidade</a>
-              <a href="#unidades">Central de Ajuda</a>
-            </div>
+            </a>
+            <p>Gerenciador de exercícios e listas de treino.</p>
           </div>
-          <div className="uf-lp-footer-bot">
-            <p>© 2026 UniFit Tecnologia Fitness Ltda. Todos os direitos reservados.</p>
-            <p>Engenharia de Performance e Gestão de Treinos</p>
-          </div>
+          <nav className="uf-lp-footer-nav" aria-label="Rodapé">
+            <a href="#como-funciona">Como funciona</a>
+            <a href="#recursos">Recursos</a>
+            <a href="#academias">Para academias</a>
+            <Link to="/login">Entrar</Link>
+            <Link to="/cadastro">Criar conta</Link>
+          </nav>
         </div>
+        <p className="uf-lp-footer-copy">© 2026 UniFit</p>
       </footer>
     </div>
   );

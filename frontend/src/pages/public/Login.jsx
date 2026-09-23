@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { api } from '../../api/client';
+import '../../css/auth.css';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -46,66 +47,151 @@ export default function Login() {
 
   return (
     <div className="uf-auth">
-      <div className="uf-card uf-auth-card">
-        <img src="/image/logo.png" alt="UniFit" />
-        <span className="uf-auth-pill"><i />{ehAdmin ? 'Portal do Administrador' : 'Portal do Aluno'}</span>
-        <h1>{ehAdmin ? 'Acesso administrativo' : 'Bem-vindo de volta'}</h1>
-        <p className="uf-muted">
-          {ehAdmin
-            ? 'Acesse o painel para gerenciar usuários, exercícios e listas.'
-            : 'Entre com e-mail e senha para acessar seus treinos e listas.'}
-        </p>
-        <div className="uf-role-switch" role="tablist" aria-label="Tipo de acesso">
-          <button type="button" role="tab" aria-selected={!ehAdmin} className={!ehAdmin ? 'ativo' : ''} onClick={() => escolherPapel('aluno')}>
-            Aluno
-          </button>
-          <button type="button" role="tab" aria-selected={ehAdmin} className={ehAdmin ? 'ativo' : ''} onClick={() => escolherPapel('admin')}>
-            Administrador
-          </button>
-        </div>
-        {erro && <p className="uf-form-erro">E-mail ou senha incorretos.</p>}
-        <form onSubmit={onclick_btnLogin}>
-          <div className="uf-field">
-            <label htmlFor="email">E-mail</label>
-            <div className="uf-input-icon">
-              <span className="material-symbols-outlined">{ehAdmin ? 'admin_panel_settings' : 'mail'}</span>
-              <input id="email" type="email" className="uf-input" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            </div>
-          </div>
-          <div className="uf-field">
-            <label htmlFor="senha">Senha</label>
-            <div className="uf-input-icon">
-              <span className="material-symbols-outlined">lock</span>
-              <input id="senha" type={mostrarSenha ? 'text' : 'password'} className="uf-input" placeholder="••••••••••••" value={senha} onChange={(e) => setSenha(e.target.value)} required />
-              <button type="button" className="uf-eye" onClick={() => setMostrarSenha((atual) => !atual)} aria-label="Alternar senha">
-                <span className="material-symbols-outlined">{mostrarSenha ? 'visibility_off' : 'visibility'}</span>
+      <header className="uf-auth-top">
+        <Link to="/" className="uf-auth-brand">
+          <img src="/image/logo.png" alt="UniFit" />
+        </Link>
+        <Link to="/" className="uf-auth-voltar">Início</Link>
+      </header>
+
+      <div className="uf-auth-shell">
+        <aside className="uf-auth-rail" aria-hidden="true">
+          <p className={'uf-auth-overline' + (ehAdmin ? ' azul' : '')}>
+            {ehAdmin ? 'Painel da academia' : 'Portal do aluno'}
+          </p>
+          <h2>
+            {ehAdmin ? <>Gestão do catálogo e das <em>fichas.</em></> : <>O treino continua <em>aqui.</em></>}
+          </h2>
+          <p>
+            {ehAdmin
+              ? 'Alunos, exercícios e listas oficiais no mesmo lugar que o aluno vê no app.'
+              : 'Abra sua ficha, registre as séries e acompanhe a carga do último treino.'}
+          </p>
+          {!ehAdmin && (
+            <>
+              <dl className="uf-auth-rail-dados">
+                <div>
+                  <dt>Séries</dt>
+                  <dd>4</dd>
+                </div>
+                <div>
+                  <dt>Reps</dt>
+                  <dd>8–10</dd>
+                </div>
+                <div>
+                  <dt>Carga</dt>
+                  <dd>40</dd>
+                </div>
+              </dl>
+              <p className="uf-auth-rail-nota">Exemplo de prescrição. Os números na conta são os seus.</p>
+            </>
+          )}
+          {ehAdmin && (
+            <ul className="uf-auth-rail-lista">
+              <li>Gestão de alunos e administradores</li>
+              <li>Catálogo de exercícios</li>
+              <li>Fichas oficiais com prescrição</li>
+            </ul>
+          )}
+        </aside>
+
+        <div className="uf-auth-main">
+          <div className="uf-auth-box">
+            <p className={'uf-auth-overline' + (ehAdmin ? ' azul' : '')}>
+              {ehAdmin ? 'Acesso administrativo' : 'Entrar'}
+            </p>
+            <h1>{ehAdmin ? 'Painel da unidade' : <>Bem-vindo de <em>volta.</em></>}</h1>
+            <p className="uf-auth-lead">
+              {ehAdmin
+                ? 'Entre com o e-mail e a senha de administrador.'
+                : 'Use o e-mail e a senha da sua conta de aluno.'}
+            </p>
+
+            <div className="uf-auth-papeis" role="tablist" aria-label="Tipo de acesso">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={!ehAdmin}
+                className={!ehAdmin ? 'ativo' : ''}
+                onClick={() => escolherPapel('aluno')}
+              >
+                Aluno
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={ehAdmin}
+                className={ehAdmin ? 'ativo admin' : 'admin'}
+                onClick={() => escolherPapel('admin')}
+              >
+                Administrador
               </button>
             </div>
+
+            {erro && <p className="uf-form-erro" role="alert">E-mail ou senha incorretos.</p>}
+
+            <form onSubmit={onclick_btnLogin}>
+              <div className="uf-field">
+                <label htmlFor="email">E-mail</label>
+                <div className="uf-input-icon">
+                  <span className="material-symbols-outlined" aria-hidden="true">{ehAdmin ? 'admin_panel_settings' : 'mail'}</span>
+                  <input
+                    id="email"
+                    type="email"
+                    className="uf-input"
+                    placeholder="E-mail"
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="uf-field">
+                <label htmlFor="senha">Senha</label>
+                <div className="uf-input-icon">
+                  <span className="material-symbols-outlined" aria-hidden="true">lock</span>
+                  <input
+                    id="senha"
+                    type={mostrarSenha ? 'text' : 'password'}
+                    className="uf-input"
+                    placeholder="Senha"
+                    autoComplete="current-password"
+                    value={senha}
+                    onChange={(e) => setSenha(e.target.value)}
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="uf-eye"
+                    onClick={() => setMostrarSenha((atual) => !atual)}
+                    aria-label={mostrarSenha ? 'Ocultar senha' : 'Mostrar senha'}
+                  >
+                    <span className="material-symbols-outlined" aria-hidden="true">{mostrarSenha ? 'visibility_off' : 'visibility'}</span>
+                  </button>
+                </div>
+              </div>
+              <button type="submit" id="btnLogin" className={'uf-auth-enviar' + (ehAdmin ? ' admin' : '')}>
+                {ehAdmin ? 'Entrar no painel' : 'Entrar'}
+              </button>
+            </form>
+
+            {!ehAdmin && (
+              <p className="uf-auth-pe">
+                Ainda não tem conta? <Link to="/cadastro">Criar conta de aluno</Link>
+                <br />
+                Administra uma academia? <Link to="/login?papel=admin" className="admin">Acesso administrativo</Link>
+              </p>
+            )}
+            {ehAdmin && (
+              <p className="uf-auth-pe">
+                É aluno? <Link to="/login">Entrar na conta de aluno</Link>
+                <br />
+                <Link to="/">Voltar para o início</Link>
+              </p>
+            )}
           </div>
-          <button type="submit" id="btnLogin" className="uf-btn-primary">
-            {ehAdmin ? 'Entrar no painel' : 'Entrar na minha conta'}
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
-        </form>
-        {!ehAdmin && (
-          <>
-            <div className="uf-auth-divider">Novo por aqui?</div>
-            <Link to="/cadastro" className="uf-btn-ghost" style={{ width: '100%', color: '#C30505' }}>
-              <span className="material-symbols-outlined">person_add</span>
-              Criar meu cadastro de aluno
-            </Link>
-            <p className="uf-muted" style={{ marginTop: 16 }}>
-              <Link to="/login?papel=admin" style={{ color: 'var(--uf-secondary)', fontWeight: 600 }}>
-                É um gestor? Acesse o portal do administrador
-              </Link>
-            </p>
-          </>
-        )}
-        {ehAdmin && (
-          <p className="uf-muted" style={{ marginTop: 16 }}>
-            <Link to="/" style={{ color: '#C30505', fontWeight: 600 }}>Voltar para o início</Link>
-          </p>
-        )}
+        </div>
       </div>
     </div>
   );
