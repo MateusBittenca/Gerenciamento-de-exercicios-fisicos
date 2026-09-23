@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
+import { swalDark } from '../../api/client';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
 import '../../css/home.css';
@@ -21,14 +23,24 @@ export default function Home() {
       if (listas.status === true) {
         setListasSugeridas(listas.dados || []);
       } else {
-        alert('Login invalido!');
+        Swal.fire({
+          ...swalDark,
+          title: 'Sessão expirada!',
+          text: 'Não foi possível carregar as listas recomendadas. Faça login novamente.',
+          icon: 'error'
+        });
       }
 
       const minhas = await request('/lista/' + payload.usuarioId, { method: 'get' });
       if (minhas.status === true) {
         setMinhasListas(minhas.dados || []);
       } else {
-        alert('Login invalido!');
+        Swal.fire({
+          ...swalDark,
+          title: 'Sessão expirada!',
+          text: 'Não foi possível carregar suas listas. Faça login novamente.',
+          icon: 'error'
+        });
       }
 
       const exer = await request('/exercicios', { method: 'get' });

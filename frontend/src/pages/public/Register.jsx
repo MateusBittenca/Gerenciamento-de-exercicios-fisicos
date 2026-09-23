@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { api } from '../../api/client';
+import Swal from 'sweetalert2';
+import { api, swalDark } from '../../api/client';
 import '../../css/login.css';
 
 export default function Register() {
@@ -20,10 +21,20 @@ export default function Register() {
     });
 
     if (obj.status === true) {
-      alert('cadastro feito com sucesso');
+      await Swal.fire({
+        ...swalDark,
+        title: 'Cadastro realizado!',
+        text: 'Sua conta foi criada com sucesso. Faça login para continuar.',
+        icon: 'success'
+      });
       navigate('/login');
     } else {
-      alert('Nâo foi possivel cadastrar esse usuario!');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro no cadastro!',
+        text: 'Não foi possível cadastrar esse usuário. Verifique os dados e tente novamente.',
+        icon: 'error'
+      });
     }
   }
 

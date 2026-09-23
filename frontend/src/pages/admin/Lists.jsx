@@ -23,7 +23,12 @@ export default function AdminLists() {
     if (obj.status === true) {
       setListaExer(obj.dados || []);
     } else {
-      alert('Login invalido!');
+      Swal.fire({
+        ...swalDark,
+        title: 'Sessão expirada!',
+        text: 'Não foi possível carregar as listas. Faça login novamente.',
+        icon: 'error'
+      });
     }
   }
 

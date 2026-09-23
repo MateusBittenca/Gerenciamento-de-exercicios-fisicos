@@ -49,5 +49,8 @@ export const MUSCULOS = ['Bíceps', 'Tríceps', 'Peito', 'Costas', 'Quadríceps'
 
 export const swalDark = {
   color: 'white',
-  background: '#1f2021'
+  background: '#1a1a1a',
+  confirmButtonColor: '#c0392b',
+  cancelButtonColor: '#333333',
+  iconColor: '#c0392b'
 };

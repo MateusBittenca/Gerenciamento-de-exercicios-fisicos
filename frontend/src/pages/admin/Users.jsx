@@ -17,7 +17,12 @@ export default function Users() {
     if (obj.status === true) {
       setUsuarios(obj.dados || []);
     } else {
-      alert('login invalido');
+      Swal.fire({
+        ...swalDark,
+        title: 'Sessão expirada!',
+        text: 'Não foi possível carregar os usuários. Faça login novamente.',
+        icon: 'error'
+      });
     }
   }
 
@@ -50,7 +55,12 @@ export default function Users() {
       });
       carregar();
     } else {
-      alert('Login invalido');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível excluir o usuário.',
+        icon: 'error'
+      });
     }
   }
 
@@ -79,13 +89,19 @@ export default function Users() {
     if (obj.status === true) {
       setEditandoId(null);
       Swal.fire({
+        ...swalDark,
         title: 'Sucesso!',
         text: 'Dados do usuario modificados!',
         icon: 'success'
       });
       carregar();
     } else {
-      alert('Login invalido!');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível salvar as alterações do usuário.',
+        icon: 'error'
+      });
     }
   }
 

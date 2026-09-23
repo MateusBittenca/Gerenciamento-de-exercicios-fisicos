@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
+import { swalDark } from '../../api/client';
 import '../../css/usuario.css';
 
 export default function Profile() {
@@ -27,7 +29,12 @@ export default function Profile() {
         peso: dados.Peso || ''
       });
     } else {
-      alert('login invalido');
+      Swal.fire({
+        ...swalDark,
+        title: 'Sessão expirada!',
+        text: 'Não foi possível carregar seus dados. Faça login novamente.',
+        icon: 'error'
+      });
     }
   }
 
@@ -64,7 +71,12 @@ export default function Profile() {
       setEditando(false);
       fetch_usuario_get();
     } else {
-      alert('Login Inválido!');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível salvar as alterações do perfil.',
+        icon: 'error'
+      });
     }
   }
 

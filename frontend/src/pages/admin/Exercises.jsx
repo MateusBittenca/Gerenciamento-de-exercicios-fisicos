@@ -33,7 +33,12 @@ export default function AdminExercises() {
     if (obj.status === true) {
       setExercicios(obj.dados || []);
     } else {
-      alert('Login invalido!');
+      Swal.fire({
+        ...swalDark,
+        title: 'Sessão expirada!',
+        text: 'Não foi possível carregar os exercícios. Faça login novamente.',
+        icon: 'error'
+      });
     }
   }
 
@@ -64,7 +69,12 @@ export default function AdminExercises() {
       });
       carregar();
     } else {
-      alert('login invalido');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível criar o exercício. Verifique os dados e tente novamente.',
+        icon: 'error'
+      });
     }
   }
 
@@ -85,7 +95,12 @@ export default function AdminExercises() {
       });
       carregar();
     } else {
-      alert('login Invalido!');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível salvar as alterações do exercício.',
+        icon: 'error'
+      });
     }
   }
 
@@ -114,7 +129,12 @@ export default function AdminExercises() {
       });
       carregar();
     } else {
-      alert('Login invalido');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível excluir o exercício.',
+        icon: 'error'
+      });
     }
   }
 

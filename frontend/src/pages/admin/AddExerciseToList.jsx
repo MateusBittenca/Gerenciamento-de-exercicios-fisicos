@@ -43,7 +43,12 @@ export default function AddExerciseToList() {
       setListas(obj.dados || []);
       setListasModal(exercicio);
     } else {
-      alert('Erro ao buscar as listas.');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível buscar as listas de exercícios.',
+        icon: 'error'
+      });
     }
   }
 

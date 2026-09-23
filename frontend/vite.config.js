@@ -12,13 +12,13 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      '/usuario': { target: 'http://localhost:3000', bypass: bypassSpa },
-      '/usuarios': { target: 'http://localhost:3000', bypass: bypassSpa },
-      '/admin': { target: 'http://localhost:3000', bypass: bypassSpa },
-      '/exercicios': { target: 'http://localhost:3000', bypass: bypassSpa },
-      '/lista': { target: 'http://localhost:3000', bypass: bypassSpa },
-      '/listas': { target: 'http://localhost:3000', bypass: bypassSpa },
-      '/ExerciciosGif': 'http://localhost:3000'
+      '/usuario': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
+      '/usuarios': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
+      '/admin': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
+      '/exercicios': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
+      '/lista': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
+      '/listas': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
+      '/ExerciciosGif': 'http://127.0.0.1:3000'
     }
   }
 });

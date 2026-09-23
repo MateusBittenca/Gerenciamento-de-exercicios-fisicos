@@ -19,7 +19,12 @@ export default function Admins() {
     if (obj.status === true) {
       setAdmins(obj.dados || []);
     } else {
-      alert('login invalido');
+      Swal.fire({
+        ...swalDark,
+        title: 'Sessão expirada!',
+        text: 'Não foi possível carregar os administradores. Faça login novamente.',
+        icon: 'error'
+      });
     }
   }
 
@@ -43,7 +48,12 @@ export default function Admins() {
       });
       carregar();
     } else {
-      alert('login invalido!');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível criar o administrador. Verifique os dados e tente novamente.',
+        icon: 'error'
+      });
     }
   }
 
@@ -72,7 +82,12 @@ export default function Admins() {
       });
       carregar();
     } else {
-      alert('Login invalido');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível excluir o administrador.',
+        icon: 'error'
+      });
     }
   }
 
@@ -96,7 +111,12 @@ export default function Admins() {
       });
       carregar();
     } else {
-      alert('Login invalido!');
+      Swal.fire({
+        ...swalDark,
+        title: 'Erro!',
+        text: 'Não foi possível salvar as alterações do administrador.',
+        icon: 'error'
+      });
     }
   }
 

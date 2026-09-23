@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { groupListsById } from '../../api/client';
+import { groupListsById, swalDark } from '../../api/client';
 import ExerciseModal from '../../components/ExerciseModal';
 import '../../css/lista.css';
 import '../../css/modalExercicios.css';
@@ -17,7 +18,12 @@ export default function PublicLists() {
       if (obj.status === true) {
         setListaExer(obj.dados || []);
       } else {
-        alert('Login invalido!');
+        Swal.fire({
+          ...swalDark,
+          title: 'Sessão expirada!',
+          text: 'Não foi possível carregar as listas públicas. Faça login novamente.',
+          icon: 'error'
+        });
       }
     }
     carregar();
@@ -39,7 +45,7 @@ export default function PublicLists() {
             <table>
               <thead>
                 <tr>
-                  <th onClick={() => alert('Você clicou no cabeçalho: ' + lista[0].nome_lista)}>
+                  <th onClick={() => setSelecionado(lista[0])}>
                     {lista[0].nome_lista}
                   </th>
                 </tr>

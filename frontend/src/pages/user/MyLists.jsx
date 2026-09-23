@@ -21,7 +21,12 @@ export default function MyLists() {
     if (obj.status === true) {
       setListaExer(obj.dados || []);
     } else {
-      alert('Login invalido!');
+      Swal.fire({
+        ...swalDark,
+        title: 'Sessão expirada!',
+        text: 'Não foi possível carregar suas listas. Faça login novamente.',
+        icon: 'error'
+      });
     }
   }
 
