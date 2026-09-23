@@ -313,6 +313,10 @@ img {
   line-height: 24px;
 }
 
+.uf-modal-card .uf-page-head {
+  padding-right: 40px;
+}
+
 .uf-empty {
   padding: 32px;
   text-align: center;
@@ -1863,3 +1867,559 @@ img {
     line-height: 40px;
   }
 }
+
+/* ============================================================
+   DASHBOARD DE PROGRESSO & ANALYTICS
+   ============================================================ */
+
+.uf-dashboard {
+  padding-bottom: 80px;
+}
+
+/* Métricas do topo */
+.uf-dashboard-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.uf-metric--highlight {
+  background: linear-gradient(135deg, #fff 60%, #feeceb 100%);
+  border-color: rgba(195, 5, 5, 0.18);
+}
+
+.uf-metric--highlight strong {
+  color: var(--uf-primary);
+}
+
+.uf-metric small {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--uf-text-2);
+}
+
+/* Layout principal */
+.uf-dashboard-body {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Painel lateral de exercícios */
+.uf-dashboard-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 120px);
+}
+
+.uf-dashboard-aside-head {
+  padding: 20px 20px 12px;
+  border-bottom: 1px solid var(--uf-border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.uf-dashboard-aside-head h2 {
+  font-size: 16px;
+}
+
+.uf-dashboard-ex-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 8px 0 12px;
+}
+
+.uf-dashboard-muscle-group {
+  margin-bottom: 4px;
+}
+
+.uf-dashboard-muscle-label {
+  display: block;
+  padding: 8px 20px 4px;
+  font-family: var(--uf-font-title);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--uf-text-2);
+}
+
+.uf-dashboard-ex-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 20px;
+  border: 0;
+  background: transparent;
+  color: var(--uf-text);
+  font-family: var(--uf-font-body);
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.uf-dashboard-ex-btn .material-symbols-outlined {
+  font-size: 18px;
+  color: var(--uf-text-2);
+  flex-shrink: 0;
+  transition: color 0.12s;
+}
+
+.uf-dashboard-ex-btn:hover {
+  background: var(--uf-surface-low);
+  color: var(--uf-primary);
+}
+
+.uf-dashboard-ex-btn:hover .material-symbols-outlined {
+  color: var(--uf-primary);
+}
+
+.uf-dashboard-ex-btn.ativo {
+  background: var(--uf-soft-bg);
+  color: var(--uf-primary);
+  font-weight: 600;
+}
+
+.uf-dashboard-ex-btn.ativo .material-symbols-outlined {
+  color: var(--uf-primary);
+}
+
+/* Área do gráfico */
+.uf-dashboard-chart-area {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.uf-dashboard-empty-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 40px;
+  text-align: center;
+  color: var(--uf-text-2);
+}
+
+.uf-dashboard-empty-chart .material-symbols-outlined {
+  font-size: 56px;
+  color: var(--uf-border);
+}
+
+.uf-dashboard-empty-chart h3 {
+  font-size: 20px;
+  color: var(--uf-text);
+}
+
+.uf-dashboard-empty-chart p {
+  max-width: 340px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.uf-dashboard-chart-card {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.uf-dashboard-chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.uf-dashboard-chart-head h2 {
+  font-size: 22px;
+}
+
+.uf-dashboard-chart-head p {
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+
+/* Gráfico SVG */
+.uf-chart-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.uf-chart-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid var(--uf-border);
+  border-radius: var(--uf-radius) var(--uf-radius) 0 0;
+  overflow: hidden;
+  background: var(--uf-bg);
+}
+
+.uf-chart-stat {
+  flex: 1;
+  min-width: 100px;
+  padding: 14px 20px;
+  border-right: 1px solid var(--uf-border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.uf-chart-stat:last-child {
+  border-right: 0;
+}
+
+.uf-chart-stat span {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--uf-text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.uf-chart-stat strong {
+  font-family: var(--uf-font-title);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--uf-text);
+}
+
+.uf-chart-stat strong small {
+  font-size: 13px;
+  color: var(--uf-text-2);
+  font-weight: 400;
+}
+
+.uf-chart-stat.positivo strong {
+  color: var(--uf-success);
+}
+
+.uf-chart-stat.negativo strong {
+  color: var(--uf-danger);
+}
+
+.uf-chart-svg {
+  width: 100%;
+  border: 1px solid var(--uf-border);
+  border-top: 0;
+  border-radius: 0 0 var(--uf-radius) var(--uf-radius);
+  background: var(--uf-surface);
+  display: block;
+  overflow: visible;
+}
+
+.uf-chart-point {
+  cursor: default;
+}
+
+.uf-chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--uf-text-2);
+  border: 1px dashed var(--uf-border);
+  border-radius: var(--uf-radius);
+  background: var(--uf-bg);
+}
+
+.uf-chart-empty .material-symbols-outlined {
+  font-size: 48px;
+  color: var(--uf-border);
+}
+
+.uf-chart-empty p {
+  font-size: 14px;
+  line-height: 22px;
+  max-width: 280px;
+}
+
+.uf-chart-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 60px 24px;
+  color: var(--uf-text-2);
+}
+
+.uf-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--uf-border);
+  border-top-color: var(--uf-primary);
+  border-radius: 50%;
+  animation: uf-spin 0.7s linear infinite;
+}
+
+@keyframes uf-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Tabela de histórico */
+.uf-dashboard-hist-table {
+  border-top: 1px solid var(--uf-border);
+  padding-top: 20px;
+}
+
+.uf-badge.risco {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .uf-dashboard-body {
+    grid-template-columns: 260px 1fr;
+  }
+
+  .uf-dashboard-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .uf-dashboard-body {
+    grid-template-columns: 1fr;
+  }
+
+  .uf-dashboard-aside {
+    position: static;
+    max-height: 320px;
+  }
+
+  .uf-dashboard-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .uf-chart-header {
+    flex-wrap: wrap;
+  }
+
+  .uf-chart-stat {
+    min-width: 50%;
+    border-bottom: 1px solid var(--uf-border);
+  }
+}
+
+/* ============================================================
+   CALENDÁRIO DE TREINOS
+   ============================================================ */
+
+.uf-dashboard-calendar-wrap {
+  margin-bottom: 28px;
+}
+
+.uf-dashboard-cal-card {
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.uf-dashboard-cal-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.uf-dashboard-cal-head h2 {
+  font-size: 22px;
+}
+
+.uf-dashboard-cal-head p {
+  font-size: 14px;
+  line-height: 22px;
+}
+
+/* Calendário em si */
+.uf-cal {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.uf-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.uf-cal-title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.uf-cal-mes {
+  font-family: var(--uf-font-title);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--uf-text);
+}
+
+.uf-cal-ano {
+  font-family: var(--uf-font-title);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--uf-text-2);
+}
+
+.uf-cal-nav {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--uf-border);
+  border-radius: 50%;
+  background: var(--uf-surface);
+  color: var(--uf-text-2);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.uf-cal-nav:hover:not(:disabled) {
+  background: var(--uf-soft-bg);
+  color: var(--uf-primary);
+  border-color: var(--uf-primary);
+}
+
+.uf-cal-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* Grid 7 colunas */
+.uf-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+/* Cabeçalho de dias da semana */
+.uf-cal-weekdays {
+  margin-bottom: 6px;
+}
+
+.uf-cal-weekday {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--uf-font-title);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--uf-text-2);
+}
+
+/* Células dos dias */
+.uf-cal-cell {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-family: var(--uf-font-title);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--uf-text);
+  transition: background 0.1s;
+}
+
+.uf-cal-cell--vazio {
+  background: transparent;
+}
+
+.uf-cal-cell--treino {
+  background: var(--uf-soft-bg);
+  color: var(--uf-primary);
+  font-weight: 700;
+}
+
+.uf-cal-cell--hoje {
+  outline: 2px solid var(--uf-primary);
+  outline-offset: -2px;
+}
+
+.uf-cal-num {
+  line-height: 1;
+}
+
+/* Ponto indicador de treino */
+.uf-cal-dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--uf-primary);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Rodapé com legenda e contagem */
+.uf-cal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--uf-border);
+  gap: 8px;
+}
+
+.uf-cal-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--uf-text-2);
+  font-family: var(--uf-font-title);
+  font-weight: 600;
+}
+
+.uf-cal-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--uf-primary);
+  flex-shrink: 0;
+}
+
+.uf-cal-count {
+  font-family: var(--uf-font-title);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--uf-primary);
+}
+
+/* Responsividade do card do calendário */
+@media (max-width: 860px) {
+  .uf-dashboard-cal-card {
+    grid-template-columns: 1fr;
+  }
+}
+

@@ -14,6 +14,7 @@ import PublicLists from './pages/user/PublicLists';
 import MyLists from './pages/user/MyLists';
 import Profile from './pages/user/Profile';
 import WorkoutSession from './pages/user/WorkoutSession';
+import Dashboard from './pages/user/Dashboard';
 import Users from './pages/admin/Users';
 import Admins from './pages/admin/Admins';
 import AdminExercises from './pages/admin/Exercises';
@@ -39,6 +40,7 @@ export default function App() {
               <Route path="/app/minhas-listas" element={<MyLists />} />
               <Route path="/app/perfil" element={<Profile />} />
               <Route path="/app/treino/:sessaoId" element={<WorkoutSession />} />
+              <Route path="/app/dashboard" element={<Dashboard />} />
             </Route>
           </Route>
 
