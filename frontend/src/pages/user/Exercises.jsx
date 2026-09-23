@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import { swalDark } from '../../api/client';
+import { useFeedback } from '../../auth/FeedbackContext';
+import { defaultPrescricao } from '../../api/client';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
-import '../../css/exercicios.css';
-import '../../css/modalExercicios.css';
+import PrescriptionFields from '../../components/PrescriptionFields';
 
 const FILTROS = [
   { label: 'Biceps', value: 'Bíceps' },
@@ -18,12 +18,24 @@ const FILTROS = [
 
 export default function Exercises() {
   const { payload, request } = useAuth();
+  const { toast } = useFeedback();
+  const navigate = useNavigate();
   const [exercicios, setExercicios] = useState([]);
   const [filtroMusculo, setFiltroMusculo] = useState('');
   const [busca, setBusca] = useState('');
+  const [apenasFav, setApenasFav] = useState(false);
   const [selecionado, setSelecionado] = useState(null);
   const [listasModal, setListasModal] = useState(null);
   const [listas, setListas] = useState([]);
+  const [presc, setPresc] = useState(defaultPrescricao('hipertrofia'));
+  const [favoritos, setFavoritos] = useState([]);
+
+  async function carregarFav() {
+    const obj = await request('/exerfav', { method: 'get' });
+    if (obj.status === true) {
+      setFavoritos((obj.dados || []).map((item) => item.exercicio_id || item.idexercicio));
+    }
+  }
 
   useEffect(() => {
     async function carregar() {
@@ -31,47 +43,50 @@ export default function Exercises() {
       if (obj.status === true) {
         setExercicios(obj.dados || []);
       }
+      carregarFav();
     }
     carregar();
   }, [request]);
+
+  async function toggleFav(exercicio) {
+    const id = exercicio.idexercicio;
+    if (favoritos.includes(id)) {
+      await request('/exerfav/' + id, { method: 'delete' });
+    } else {
+      await request('/exerfav', { method: 'post', body: JSON.stringify({ exercicioId: id }) });
+    }
+    carregarFav();
+  }
 
   async function abrirListas(exercicio) {
     const obj = await request('/lista/' + payload.usuarioId, { method: 'get' });
     if (obj.status === true) {
       setListas(obj.dados || []);
       setListasModal(exercicio);
+      setPresc(defaultPrescricao('hipertrofia'));
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Erro!',
-        text: 'Não foi possível buscar suas listas de exercícios.',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Não foi possível carregar suas listas.');
     }
   }
 
   async function adicionarNaLista(lista) {
+    const def = defaultPrescricao(lista.objetivo);
     const obj = await request('/lista/exercicios/create', {
       method: 'post',
       body: JSON.stringify({
         idListaExer: lista.idlista,
-        idExercicios: listasModal.idexercicio
+        idExercicios: listasModal.idexercicio,
+        series: presc.series || def.series,
+        reps: presc.reps || def.reps,
+        carga_kg: presc.carga_kg || null,
+        descanso_seg: presc.descanso_seg || def.descanso_seg
       })
     });
     if (obj.status === true) {
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Exercicio adionado a lista!',
-        icon: 'success'
-      });
+      toast('ok', 'Adicionado em ' + lista.nome + '.');
+      setListasModal(null);
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Erro!',
-        text: 'Erro ao adicionar exercicio na lista!',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Esse exercício já está na lista.');
     }
   }
 
@@ -81,53 +96,105 @@ export default function Exercises() {
     : exercicios;
 
   if (textoBusca) {
-    visiveis = exercicios.filter((exercicio) => exercicio.nome.toLowerCase().includes(textoBusca));
+    visiveis = visiveis.filter((exercicio) => exercicio.nome.toLowerCase().includes(textoBusca));
+  }
+  if (apenasFav) {
+    visiveis = visiveis.filter((exercicio) => favoritos.includes(exercicio.idexercicio));
+  }
+
+  function contarMusculo(valor) {
+    return exercicios.filter((exercicio) => exercicio.musculo === valor).length;
   }
 
   return (
     <>
-      <div id="filtro">
-        <button type="button" className={!filtroMusculo && !busca ? 'filtro-ativo' : undefined} onClick={() => { setFiltroMusculo(''); setBusca(''); }}>Todos</button>
-        {FILTROS.map((filtro) => (
-          <button key={filtro.value} type="button" className={filtroMusculo === filtro.value && !busca ? 'filtro-ativo' : undefined} onClick={() => { setFiltroMusculo(filtro.value); setBusca(''); }}>{filtro.label}</button>
-        ))}
-        <input type="text" id="busca" placeholder="Buscar" value={busca} onChange={(e) => setBusca(e.target.value)} />
+      <section className="uf-card uf-page-intro">
+        <div>
+          <p className="uf-kicker" style={{ marginBottom: 8 }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>fitness_center</span>
+            Biblioteca oficial UniFit
+          </p>
+          <h1>Catálogo de Exercícios</h1>
+          <p>Explore a biblioteca com instruções, biomecânica e adicione aos seus treinos pessoais.</p>
+        </div>
+        <div className="uf-stat-pill">
+          <span className="material-symbols-outlined">video_library</span>
+          <div>
+            <small>Disponíveis</small>
+            <strong>{exercicios.length} exercícios</strong>
+          </div>
+        </div>
+      </section>
+
+      <div className="uf-toolbar">
+        <div className="uf-search">
+          <span className="material-symbols-outlined">search</span>
+          <input type="text" id="busca" className="uf-input" placeholder="Buscar por nome de exercício, equipamento ou músculo..." value={busca} onChange={(e) => setBusca(e.target.value)} />
+        </div>
       </div>
 
-      <div className="card-container" id="card">
-        {visiveis.map((exercicio) => (
+      <div className="uf-chips" id="filtro">
+        <button type="button" className={'uf-chip' + (!filtroMusculo && !busca && !apenasFav ? ' ativo' : '')} onClick={() => { setFiltroMusculo(''); setBusca(''); setApenasFav(false); }}>
+          Todos <span className="uf-chip-count">{exercicios.length}</span>
+        </button>
+        {FILTROS.map((filtro) => (
+          <button key={filtro.value} type="button" className={'uf-chip' + (filtroMusculo === filtro.value && !busca ? ' ativo' : '')} onClick={() => { setFiltroMusculo(filtro.value); setBusca(''); }}>
+            {filtro.label} <span className="uf-chip-count">{contarMusculo(filtro.value)}</span>
+          </button>
+        ))}
+        <button type="button" className={'uf-chip' + (apenasFav ? ' ativo' : '')} onClick={() => setApenasFav((v) => !v)}>
+          Favoritos <span className="uf-chip-count">{favoritos.length}</span>
+        </button>
+      </div>
+      <div className="uf-filter-meta">
+        <span><i style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--uf-primary)', marginRight: 8 }} />Exibindo <strong>{visiveis.length}</strong> exercícios cadastrados</span>
+      </div>
+
+      <div className="uf-grid-cards" id="card">
+        {visiveis.length === 0 ? (
+          <p className="uf-empty uf-card">Nenhum exercício encontrado.</p>
+        ) : visiveis.map((exercicio) => (
           <ExerciseCard
             key={exercicio.idexercicio}
             exercicio={exercicio}
             onOpen={() => setSelecionado(exercicio)}
             onAdd={() => abrirListas(exercicio)}
+            favorito={favoritos.includes(exercicio.idexercicio)}
+            onFav={toggleFav}
           />
         ))}
       </div>
 
-      <ExerciseModal exercicio={selecionado} onClose={() => setSelecionado(null)} />
+      <ExerciseModal
+        exercicio={selecionado}
+        onClose={() => setSelecionado(null)}
+        favorito={selecionado ? favoritos.includes(selecionado.idexercicio) : false}
+        onFav={toggleFav}
+      />
 
       {listasModal && (
-        <div className="modal aberto">
-          <div className="modal-content">
-            <span className="close-button" onClick={() => setListasModal(null)}>&times;</span>
-            <h2>Listas de Exercícios</h2>
-            <table className="exercise-table">
-              <thead>
-                <tr>
-                  <th>Lista</th>
-                  <th>Tipo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {listas.map((lista) => (
-                  <tr key={lista.idlista} onClick={() => adicionarNaLista(lista)}>
-                    <td>{lista.nome}</td>
-                    <td>{lista.tipo}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="uf-modal" onClick={() => setListasModal(null)}>
+          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="uf-modal-close" onClick={() => setListasModal(null)}>&times;</button>
+            <div className="uf-modal-form">
+              <h2>Adicionar à lista</h2>
+              <PrescriptionFields value={presc} onChange={setPresc} />
+              {listas.length === 0 ? (
+                <div className="uf-empty">
+                  <p>Crie uma lista pessoal primeiro.</p>
+                  <button type="button" className="uf-btn-primary" onClick={() => { setListasModal(null); navigate('/app/minhas-listas'); }}>Ir para minhas listas</button>
+                </div>
+              ) : (
+                <ul className="uf-pick-list">
+                  {listas.map((lista) => (
+                    <li key={lista.idlista} onClick={() => adicionarNaLista(lista)}>
+                      <strong>{lista.nome}</strong>
+                      <span className="uf-muted">{lista.tipo} · {lista.objetivo || 'hipertrofia'}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       )}

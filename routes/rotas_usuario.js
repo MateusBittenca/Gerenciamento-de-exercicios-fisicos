@@ -25,6 +25,12 @@ module.exports = function(app,banco){
     app.put("/usuario/:usuarioId",(request,response)=>{
         usuario_update(request,response,banco);
     })
+    app.post("/usuario/:usuarioId/foto",(request,response)=>{
+        usuario_update.foto(request,response,banco);
+    });
+    app.get("/usuario/:usuarioId/afericoes",(request,response)=>{
+        usuario_update.afericoes(request,response,banco);
+    });
 
     app.get("/usuarios",(request,response)=>{
         usuarioall_get(request,response,banco);

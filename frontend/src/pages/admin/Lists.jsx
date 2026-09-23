@@ -1,34 +1,31 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
-import { groupListsById, swalDark } from '../../api/client';
-import ExerciseModal from '../../components/ExerciseModal';
-import '../../css/table.css';
-import '../../css/homepageAdm.css';
-import '../../css/lista.css';
-import '../../css/modalExercicios.css';
+import { useFeedback } from '../../auth/FeedbackContext';
+import { defaultPrescricao, exerciciosDaLista, formatDias, formatPrescricao, groupListsById, OBJETIVOS } from '../../api/client';
+import ListaCard from '../../components/ListaCard';
+import PrescriptionFields from '../../components/PrescriptionFields';
+import WeekdayToggles from '../../components/WeekdayToggles';
 
 export default function AdminLists() {
   const { request } = useAuth();
+  const { toast, confirmar } = useFeedback();
+  const navigate = useNavigate();
   const [listaExer, setListaExer] = useState([]);
-  const [selecionado, setSelecionado] = useState(null);
   const [criarAberto, setCriarAberto] = useState(false);
   const [detalheLista, setDetalheLista] = useState(null);
   const [nomeLista, setNomeLista] = useState('');
-  const [tipoLista, setTipoLista] = useState('');
+  const [tipoLista, setTipoLista] = useState('A');
+  const [objetivoLista, setObjetivoLista] = useState('hipertrofia');
+  const [dias, setDias] = useState([]);
+  const [editando, setEditando] = useState(null);
 
   async function carregar() {
     const obj = await request('/listas/read', { method: 'get' });
     if (obj.status === true) {
       setListaExer(obj.dados || []);
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Sessão expirada!',
-        text: 'Não foi possível carregar as listas. Faça login novamente.',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Não foi possível carregar as listas.');
     }
   }
 
@@ -37,58 +34,47 @@ export default function AdminLists() {
   }, [request]);
 
   async function criarLista() {
+    if (!nomeLista.trim()) {
+      toast('info', 'Dê um nome à lista.');
+      return;
+    }
     const obj = await request('/lista/create', {
       method: 'post',
       body: JSON.stringify({
         nome: nomeLista,
-        tipo: tipoLista
+        tipo: tipoLista,
+        objetivo: objetivoLista,
+        dias_semana: formatDias(dias)
       })
     });
     setCriarAberto(false);
     setNomeLista('');
-    setTipoLista('');
+    setTipoLista('A');
+    setObjetivoLista('hipertrofia');
+    setDias([]);
     if (obj.status === true) {
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Lista criada com sucesso!',
-        icon: 'success'
-      });
+      toast('ok', 'Lista criada. Adicione exercícios em seguida.');
       carregar();
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Erro!',
-        text: 'Erro ao criar a lista!',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Não foi possível criar a lista.');
     }
   }
 
   async function excluirLista(lista) {
-    const result = await Swal.fire({
-      ...swalDark,
-      title: 'Você tem certeza?',
-      text: 'Você não poderá reverter!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sim!'
+    const ok = await confirmar({
+      titulo: 'Excluir esta lista oficial?',
+      texto: 'Os exercícios saem dela. Essa ação não pode ser desfeita.',
+      confirma: 'Excluir',
+      perigo: true
     });
-    if (!result.isConfirmed) {
+    if (!ok) {
       return;
     }
     const idLista = lista[0].id_lista;
     await request('/lista/exercicios/deleteAll/' + idLista, { method: 'delete' });
     await request('/lista/delete/' + idLista, { method: 'delete' });
     setDetalheLista(null);
-    Swal.fire({
-      ...swalDark,
-      title: 'Excluida!',
-      text: 'Sua lista de exercicio foi excluida.',
-      icon: 'success'
-    });
+    toast('ok', 'Lista excluída.');
     carregar();
   }
 
@@ -97,115 +83,147 @@ export default function AdminLists() {
       method: 'delete'
     });
     setDetalheLista(detalheLista.filter((item) => item.id_exercicio !== exercicio.id_exercicio));
+    toast('ok', 'Exercício removido.');
     carregar();
+  }
+
+  async function salvarPrescricao() {
+    const obj = await request('/lista/exercicios/update', {
+      method: 'put',
+      body: JSON.stringify({
+        id: editando.id_lista_exercicio,
+        series: editando.series,
+        reps: editando.reps,
+        carga_kg: editando.carga_kg || null,
+        descanso_seg: editando.descanso_seg
+      })
+    });
+    if (obj.status === true) {
+      setEditando(null);
+      toast('ok', 'Prescrição atualizada.');
+      carregar();
+    } else {
+      toast('erro', obj.msg || 'Não foi possível salvar.');
+    }
   }
 
   const agrupadas = groupListsById(listaExer);
 
   return (
-    <>
-      <div className="tabela">
-        <div className="cabeca">
-          <h1>Lista de exercicios</h1>
-          <img
-            src="/image/alem-disso-positivo-adicionar-simbolo-matematico.png"
-            alt=""
-            id="Create-lista"
-            onClick={() => setCriarAberto(true)}
-          />
+    <div>
+      <div className="uf-page-head">
+        <div>
+          <p className="uf-kicker" style={{ marginBottom: 8 }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>verified</span>
+            Homologado UniFit
+          </p>
+          <h1>Listas Oficiais</h1>
+          <p>Listas visíveis para os alunos no portal.</p>
         </div>
-        <Link to="/admin/listas/adicionar"><button>Adicionar Exercicios</button></Link>
-      </div>
-      <div id="tabelaExercicios">
-        {listaExer.length === 0 && (
-          <tr>
-            <td colSpan="2">nenhuma lista encontrada!</td>
-          </tr>
-        )}
-        {Object.keys(agrupadas).map((idLista) => {
-          const lista = agrupadas[idLista];
-          return (
-            <div className="container-tabela" key={idLista}>
-              <table className="tabela-list">
-                <thead>
-                  <tr>
-                    <th onClick={() => setDetalheLista(lista)}>{lista[0].nome_lista}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {lista.map((exercicio) => (
-                    <tr key={exercicio.id_exercicio} onClick={() => setSelecionado(exercicio)}>
-                      <td>{exercicio.nome_exercicio}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          );
-        })}
+        <div className="uf-actions">
+          <button type="button" className="uf-btn-primary" id="Create-lista" onClick={() => setCriarAberto(true)}>
+            <span className="material-symbols-outlined">add</span>
+            Nova lista
+          </button>
+          <Link to="/admin/listas/adicionar" className="uf-btn-outline">Adicionar exercícios</Link>
+        </div>
       </div>
 
-      <ExerciseModal exercicio={selecionado} onClose={() => setSelecionado(null)} />
+      {Object.keys(agrupadas).length === 0 ? (
+        <div className="uf-empty uf-card">
+          <p>Nenhuma lista oficial ainda.</p>
+          <button type="button" className="uf-btn-primary" onClick={() => setCriarAberto(true)}>Criar primeira lista</button>
+        </div>
+      ) : (
+        <div className="uf-grid-lists" id="tabelaExercicios">
+          {Object.keys(agrupadas).map((idLista) => (
+              <ListaCard
+                key={idLista}
+                lista={agrupadas[idLista]}
+                oficial
+                onAbrir={() => setDetalheLista(agrupadas[idLista])}
+                onAdicionar={() => navigate('/admin/listas/adicionar')}
+              />
+          ))}
+        </div>
+      )}
 
       {criarAberto && (
-        <div className="modal aberto">
-          <div className="modal-content">
-            <span className="close-button" onClick={() => setCriarAberto(false)}>&times;</span>
-            <h2>Criar Lista</h2>
-            <input placeholder="Nome da Lista" value={nomeLista} onChange={(e) => setNomeLista(e.target.value)} />
-            <select id="txtTipo" required value={tipoLista} onChange={(e) => setTipoLista(e.target.value)}>
-              <option value="" disabled>Tipo</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-            </select>
-            <button type="submit" onClick={criarLista}>Criar</button>
+        <div className="uf-modal" onClick={() => setCriarAberto(false)}>
+          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="uf-modal-close" onClick={() => setCriarAberto(false)}>&times;</button>
+            <div className="uf-modal-form">
+              <h2>Criar lista</h2>
+              <input className="uf-input" placeholder="Nome da Lista" value={nomeLista} onChange={(e) => setNomeLista(e.target.value)} />
+              <select className="uf-select" value={objetivoLista} onChange={(e) => setObjetivoLista(e.target.value)}>
+                {OBJETIVOS.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
+              </select>
+              <select id="txtTipo" className="uf-select" required value={tipoLista} onChange={(e) => setTipoLista(e.target.value)}>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+              </select>
+              <WeekdayToggles value={dias} onChange={setDias} />
+              <button type="submit" className="uf-btn-primary" onClick={criarLista}>Criar</button>
+            </div>
           </div>
         </div>
       )}
 
       {detalheLista && (
-        <div className="modal-lista aberto">
-          <div className="modal-content-lista">
-            <span className="close-button-lista" onClick={() => setDetalheLista(null)}>&times;</span>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="uf-modal" onClick={() => setDetalheLista(null)}>
+          <div className="uf-modal-card largo" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="uf-modal-close" onClick={() => setDetalheLista(null)}>&times;</button>
+            <div className="uf-page-head">
               <h2>{detalheLista[0].nome_lista}</h2>
-              <i
-                className="bi bi-trash-fill"
-                style={{ cursor: 'pointer', marginLeft: '10px' }}
-                onClick={() => excluirLista(detalheLista)}
-              ></i>
+              <div className="uf-actions">
+                <button type="button" className="uf-btn-outline" onClick={() => { setDetalheLista(null); navigate('/admin/listas/adicionar'); }}>Adicionar exercícios</button>
+                <button type="button" className="uf-btn-danger" onClick={() => excluirLista(detalheLista)}>Excluir lista</button>
+              </div>
             </div>
-            <br /><br />
-            <table>
-              <thead>
-                <tr>
-                  <th>Nome do Exercício</th>
-                  <th>Músculo Trabalhado</th>
-                  <th>Equipamento</th>
-                  <th>Dificuldade</th>
-                  <th>Ação</th>
-                </tr>
-              </thead>
-              <tbody>
-                {detalheLista.map((exercicio) => (
-                  <tr key={exercicio.id_exercicio}>
-                    <td>{exercicio.nome_exercicio}</td>
-                    <td>{exercicio.musculo_trabalhado}</td>
-                    <td>{exercicio.equipamento}</td>
-                    <td>{exercicio.dificuldade}</td>
-                    <td>
-                      <button onClick={() => removerExercicio(exercicio)}>
-                        <i className="bi bi-trash3-fill" style={{ cursor: 'pointer' }}></i>
-                      </button>
-                    </td>
+            <div className="uf-table-wrap">
+              <table className="uf-table">
+                <thead>
+                  <tr>
+                    <th>Nome do Exercício</th>
+                    <th>Prescrição</th>
+                    <th>Ação</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {exerciciosDaLista(detalheLista).length === 0 ? (
+                    <tr><td colSpan="3" className="uf-empty">Vazia. Adicione exercícios pelo catálogo oficial.</td></tr>
+                  ) : exerciciosDaLista(detalheLista).map((exercicio) => (
+                    <tr key={exercicio.id_exercicio}>
+                      <td>{exercicio.nome_exercicio}</td>
+                      <td>{formatPrescricao(exercicio)}</td>
+                      <td>
+                        <div className="uf-actions">
+                          <button type="button" className="uf-btn-edit" onClick={() => setEditando({ ...defaultPrescricao(detalheLista[0].objetivo), ...exercicio })}>Editar</button>
+                          <button type="button" className="uf-btn-danger" onClick={() => removerExercicio(exercicio)}>Remover</button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
-    </>
+
+      {editando && (
+        <div className="uf-modal" onClick={() => setEditando(null)}>
+          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="uf-modal-close" onClick={() => setEditando(null)}>&times;</button>
+            <div className="uf-modal-form">
+              <h2>Editar prescrição</h2>
+              <PrescriptionFields value={editando} onChange={setEditando} />
+              <button type="button" className="uf-btn-primary" onClick={salvarPrescricao}>Salvar</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

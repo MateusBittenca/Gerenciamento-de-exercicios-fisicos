@@ -18,7 +18,10 @@ export default defineConfig({
       '/exercicios': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
       '/lista': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
       '/listas': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
-      '/ExerciciosGif': 'http://127.0.0.1:3000'
+      '/exerfav': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
+      '/treino': { target: 'http://127.0.0.1:3000', bypass: bypassSpa },
+      '/ExerciciosGif': 'http://127.0.0.1:3000',
+      '/image': 'http://127.0.0.1:3000'
     }
   }
 });

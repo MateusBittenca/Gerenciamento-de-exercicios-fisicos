@@ -31,6 +31,7 @@ function readStoredPayload() {
 export function AuthProvider({ children }) {
   const [token, setTokenState] = useState(() => localStorage.getItem('token'));
   const [payload, setPayloadState] = useState(() => readStoredPayload());
+  const [sessaoAtiva, setSessaoAtiva] = useState(null);
   const tokenRef = useRef(token);
   tokenRef.current = token;
 
@@ -50,17 +51,41 @@ export function AuthProvider({ children }) {
     localStorage.clear();
     setTokenState(null);
     setPayloadState(null);
+    setSessaoAtiva(null);
   }, []);
 
   const request = useCallback((path, options = {}) => {
     return api(path, options, { token: tokenRef.current, setToken });
   }, [setToken]);
 
+  const refreshSessao = useCallback(async () => {
+    if (!tokenRef.current) {
+      setSessaoAtiva(null);
+      return null;
+    }
+    try {
+      const obj = await api('/treino/ativa', { method: 'get' }, { token: tokenRef.current, setToken });
+      const dados = obj.status === true ? obj.dados : null;
+      setSessaoAtiva(dados);
+      return dados;
+    } catch {
+      return null;
+    }
+  }, [setToken]);
+
+  const patchPayload = useCallback((parcial) => {
+    setPayloadState((atual) => {
+      const next = { ...(atual || {}), ...parcial };
+      localStorage.setItem('payload', JSON.stringify(next));
+      return next;
+    });
+  }, []);
+
   const role = getRole(payload);
 
   const value = useMemo(
-    () => ({ token, payload, role, login, logout, setToken, request }),
-    [token, payload, role, login, logout, setToken, request]
+    () => ({ token, payload, role, login, logout, setToken, request, sessaoAtiva, setSessaoAtiva, refreshSessao, patchPayload }),
+    [token, payload, role, login, logout, setToken, request, sessaoAtiva, refreshSessao, patchPayload]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

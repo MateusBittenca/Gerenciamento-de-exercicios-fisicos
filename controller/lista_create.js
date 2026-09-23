@@ -13,6 +13,8 @@ module.exports = function(request,response,banco){
         const p_nome = request.body.nome;
         const p_tipo = request.body.tipo;
         const p_usuario = request.body.usuarioId;
+        const p_objetivo = request.body.objetivo || 'hipertrofia';
+        const p_dias = request.body.dias_semana || request.body.diasSemana || null;
 
         if(p_nome == '' || p_tipo == ''){
             const resposta = {
@@ -27,6 +29,8 @@ module.exports = function(request,response,banco){
             lista.nome = p_nome;
             lista.tipo = p_tipo;
             lista.usuarioId = p_usuario;
+            lista.objetivo = p_objetivo;
+            lista.diasSemana = p_dias;
 
             lista.create().then(respostaPromisse =>{
                 const resposta = {
@@ -38,9 +42,10 @@ module.exports = function(request,response,banco){
                         nome:p_nome,
                         tipo:p_tipo,
                         usuarioId:p_usuario,
-                       
+                        objetivo:p_objetivo,
+                        dias_semana:p_dias
                     },
-                    token:jwt.gerar(validou.payload)
+                    token:jwt.gerar(jwt.dados(validou))
                 }   
                 response.status(200).send(resposta);
             }).catch(erro =>{
@@ -64,7 +69,4 @@ module.exports = function(request,response,banco){
         };
         response.status(200).send(resposta);
     }
-
-
-        
 }

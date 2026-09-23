@@ -6,18 +6,23 @@
             this._nome = null;
             this._tipo = null;
             this._usuarioId = null;
+            this._objetivo = 'hipertrofia';
+            this._diasSemana = null;
+            this._listaOrigemId = null;
         }
 
         async create() {
             const operacao = new Promise((resolve, reject) => {
-                const idLista = this._idLista;
                 const nome = this._nome;
                 const tipo = this._tipo;
                 const usuarioId = this._usuarioId;
+                const objetivo = this._objetivo || 'hipertrofia';
+                const diasSemana = this._diasSemana;
+                const listaOrigemId = this._listaOrigemId;
 
-                const parametros = [idLista, nome, tipo, usuarioId];
+                const parametros = [nome, tipo, usuarioId, objetivo, diasSemana, listaOrigemId];
 
-                const sql = "INSERT INTO lista (idlista,nome,tipo, usuario_UsuarioID) VALUES (?,?,?,?);";
+                const sql = "INSERT INTO lista (nome,tipo, usuario_UsuarioID, objetivo, dias_semana, lista_origem_id) VALUES (?,?,?,?,?,?);";
                 this._banco.query(sql, parametros, function (erro, resultados) {
                     if (erro) {
                         console.log(erro);
@@ -39,6 +44,41 @@
                 this._banco.query(sql, parametros, function (erro, resultados) {
                     if (erro) {
                         console.log(erro);
+                        reject(erro);
+                    } else {
+                        resolve(resultados);
+                    }
+                });
+            });
+            return operacao;
+        }
+
+        async readById() {
+            const operacao = new Promise((resolve, reject) => {
+                const idLista = this._idLista;
+                const parametros = [idLista];
+                const sql = 'SELECT * FROM lista WHERE idlista = ?';
+
+                this._banco.query(sql, parametros, function (erro, resultados) {
+                    if (erro) {
+                        reject(erro);
+                    } else {
+                        resolve(resultados);
+                    }
+                });
+            });
+            return operacao;
+        }
+
+        async readOrigemDoUsuario() {
+            const operacao = new Promise((resolve, reject) => {
+                const usuarioId = this._usuarioId;
+                const origemId = this._listaOrigemId;
+                const parametros = [usuarioId, origemId];
+                const sql = 'SELECT * FROM lista WHERE usuario_UsuarioID = ? AND lista_origem_id = ?';
+
+                this._banco.query(sql, parametros, function (erro, resultados) {
+                    if (erro) {
                         reject(erro);
                     } else {
                         resolve(resultados);
@@ -71,9 +111,11 @@
                 const idLista = this._idLista;
                 const nome = this._nome;
                 const tipo = this._tipo;
+                const objetivo = this._objetivo;
+                const diasSemana = this._diasSemana;
 
-                const parametros = [nome, tipo, idLista];
-                const sql = 'UPDATE lista SET nome = ?, tipo =? WHERE idlista = ?;';
+                const parametros = [nome, tipo, objetivo, diasSemana, idLista];
+                const sql = 'UPDATE lista SET nome = ?, tipo =?, objetivo = ?, dias_semana = ? WHERE idlista = ?;';
 
                 this._banco.query(sql, parametros, function (erro, resultados) {
                     if (erro) {
@@ -140,5 +182,26 @@
         }
         get usuarioId(){
             return this._usuarioId;
+        }
+
+        set objetivo(objetivo) {
+            this._objetivo = objetivo;
+        }
+        get objetivo() {
+            return this._objetivo;
+        }
+
+        set diasSemana(diasSemana) {
+            this._diasSemana = diasSemana;
+        }
+        get diasSemana() {
+            return this._diasSemana;
+        }
+
+        set listaOrigemId(listaOrigemId) {
+            this._listaOrigemId = listaOrigemId;
+        }
+        get listaOrigemId() {
+            return this._listaOrigemId;
         }
     }

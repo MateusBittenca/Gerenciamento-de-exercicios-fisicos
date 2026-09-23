@@ -1,0 +1,41 @@
+---
+description: Consultar e atualizar o cérebro UniFit no Obsidian antes e depois de mudar código
+alwaysApply: true
+---
+
+# UniFit — documentação no Obsidian
+
+O cérebro deste projeto vive em `Obsidian Vault/UniFit/`. O workspace precisa incluir o repo **e** o vault.
+
+## Antes de gerar código
+
+1. Ler `UniFit/UniFit — Índice.md`
+2. Ler no mínimo: Arquitetura, Como adicionar uma feature, e a nota do domínio (fluxo, modelo, rotas, mapa, auth, frontend)
+3. Feature nova: copiar `UniFit — Tech Spec template.md` para `UniFit — Tech Spec — <nome>.md` **antes** de implementar
+4. Não inventar pasta, lib ou fluxo paralelo (sem Prisma, TypeScript, Tailwind, prefixo `/api`)
+
+## Depois de alterar código
+
+Atualizar as notas afetadas no mesmo turno. Frontmatter `updated:` com a data de hoje. Wikilinks. Só fatos.
+
+| Mudança | Nota |
+|---------|------|
+| Feature nova | spec + Índice (caso de uso) |
+| Tabela / coluna | UniFit — Modelo de dados |
+| Rota / API | UniFit — Rotas e APIs |
+| Fluxo de usuário | UniFit — Fluxos de negócio |
+| Onde mexer | UniFit — Mapa de código |
+| Auth / JWT | UniFit — Auth e papéis |
+| UI / nav / CSS | UniFit — Frontend e UniFit — Design |
+| Setup / portas | UniFit — Como rodar |
+
+Nomes das notas começam com `UniFit —`. Não criar nota nova se já existe uma do mesmo tema.
+
+## Fatos que não violar
+
+- Express em `app.js` (porta 3000) + Vite em `frontend/` (5173)
+- MySQL `unifit` na porta **3307**, credenciais em `app.js`
+- Envelope `{ status, msg, codigo, dados, token? }`, HTTP 200
+- Lista oficial = `usuario_UsuarioID` NULL; pessoal = id do aluno
+- Path HTTP novo precisa de proxy em `frontend/vite.config.js`
+- JWT: preferir `jwt.gerar(jwt.dados(validou))` para não aninhar payload

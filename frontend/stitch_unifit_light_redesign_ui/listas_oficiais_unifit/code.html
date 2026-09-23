@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@500;600;700&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-error": "#ffffff", "primary-fixed-dim": "#ffb4a8", "surface-container-low": "#f5f3f4", "secondary-container": "#448ffd", "surface-bright": "#faf9fa", "inverse-primary": "#ffb4a8", "on-tertiary-fixed-variant": "#881d24", "on-surface": "#1b1c1d", "tertiary-fixed-dim": "#ffb3b0", "secondary": "#005cba", "outline-variant": "#e7bdb6", "error-container": "#ffdad6", "primary-container": "#c30505", "surface-dim": "#dbdadb", "tertiary-fixed": "#ffdad8", "surface-container-lowest": "#ffffff", "on-error-container": "#93000a", "surface-container": "#efedee", "background": "#faf9fa", "secondary-fixed": "#d7e3ff", "primary-fixed": "#ffdad5", "primary": "#970001", "error": "#ba1a1a", "on-primary-container": "#ffd1ca", "on-primary-fixed-variant": "#930001", "surface-tint": "#c00103", "on-tertiary-fixed": "#410006", "inverse-on-surface": "#f2f0f1", "on-secondary-container": "#002959", "surface-variant": "#e3e2e3", "secondary-fixed-dim": "#abc7ff", "on-background": "#1b1c1d", "on-secondary": "#ffffff", "on-secondary-fixed-variant": "#00458e", "tertiary": "#8b2026", "inverse-surface": "#303031", "on-primary": "#ffffff", "outline": "#926f69", "on-primary-fixed": "#410000", "on-surface-variant": "#5d3f3b", "on-tertiary-container": "#ffd1cf", "surface-container-high": "#e9e8e9", "on-secondary-fixed": "#001b3f", "tertiary-container": "#ab383b", "surface-container-highest": "#e3e2e3", "on-tertiary": "#ffffff", "surface": "#faf9fa" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter-sm": "1rem", "margin-sm": "1rem", "space-xl": "2rem", "margin-lg": "3rem", "gutter-lg": "2rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-2xl": "3rem", "space-lg": "1.5rem", "margin": "1.5rem", "space-md": "1rem", "gutter": "1.5rem" }, fontFamily: { "headline-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "body-lg": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "body-sm": ["Inter"], "label-md": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.015em", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.04em", fontWeight: "700" }], "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-md": ["22px", { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-20 flex items-center px-margin gap-space-md"><img alt="Brand logo. - Primary color: #c30505 - Font: plusJakartaSans - Mode: light - Roundness: rounded-md" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VIYmGz3qPuk3DMVLnYt1DzL1VEqcpo0yWXFzpFNe2gF59gNktKpJ0QQJFGYOXbgJC9_7WSedVfIXzSWvm-ZqbiFWoi3qnswn55XRvvf_GYKAlyiBJb8dA7RUixoeG5-Kd5wmwhf33-sdISU-_k6CKabE5bC7OhkMbE3ku4NLA1a4BW4w3um2AejHWk5I9JNCbkm8m3DFafnFWsCafDT4KnKZ7NIGBYOGxKdgOg2L0glxJeR-El_mauw1Ar"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">UniFit</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mt-1">Portal do Aluno</span></div></div><nav class="flex flex-col gap-space-xs px-margin-sm mt-space-md" data-active-classes="bg-primary-container text-on-primary font-label-lg rounded-xl shadow-[0_4px_12px_-2px_rgba(195,5,5,0.2)]"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="home-do-aluno" href="#"><span class="material-symbols-outlined text-[22px]">home</span><span>Início</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="catalogo-de-exercicios" href="#"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span>Catálogo de Exercícios</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="listas-oficiais" href="#"><span class="material-symbols-outlined text-[22px]">verified</span><span>Listas Oficiais</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="minhas-listas" href="#"><span class="material-symbols-outlined text-[22px]">playlist_add_check</span><span>Minhas Listas</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-all duration-200" data-path="perfil" href="#"><span class="material-symbols-outlined text-[22px]">person</span><span>Perfil</span></a></nav></div><div class="p-margin-sm"><div class="bg-surface-container-low rounded-xl p-space-md mb-space-sm flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary-container text-[20px]">timer</span><div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface-variant">Treino Ativo</span><span class="font-headline-sm text-headline-sm text-on-surface leading-none">00:45:12</span></div></div><span class="w-2.5 h-2.5 rounded-full bg-primary-container animate-pulse"></span></div><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl font-label-lg text-label-lg text-error hover:bg-error-container hover:text-on-error-container transition-all duration-200" data-path="sair" href="#"><span class="material-symbols-outlined text-[22px]">logout</span><span>Sair</span></a></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-20 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin-lg"><div class="flex items-center gap-space-sm"><span class="font-label-md text-label-md text-on-surface-variant">Painel</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">chevron_right</span><span class="font-label-md text-label-md text-on-surface font-semibold">Portal do Aluno</span></div><div class="flex items-center gap-gutter"><div class="relative flex items-center"><button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span></button><span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary-container"></span></div><div class="flex items-center gap-space-md pl-space-sm"><div class="flex flex-col text-right"><span class="font-label-lg text-label-lg text-on-surface leading-tight">Mariana Souza</span><span class="font-label-sm text-label-sm text-on-surface-variant">Aluno UniFit</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1V6emmBV36bNgboONtr_Ec8ZxYMd-QomcqX09H6amQvxRq3A4xPlJS928C0fdpf6UpsMluXqncdqqSKnSY6Dg3KNb8mDp7kN7i-vkWV_OmQBIXxFUOM_UVOxEUfzxCCsyO2kEVLjyR7KmA-71cgzoyb9Aw0vLrqCbRkhEvTFWeA3Uk0BCQTDGhC_fF8u_rR-PSyiT3OjMz43McZNtjm5_GQXmmdyA_5nEg_Gk4K_tMt_BGKxq1U27gT5Z4"/></div></div></header><main class="relative pt-20 bg-surface min-h-screen w-full px-margin-lg py-space-xl"><div class="flex flex-col w-full">
+<!-- Top Bar & Breadcrumb -->
+<div class="flex flex-col gap-space-sm mb-space-xl">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Painel</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Treinamento Diário</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Listas Oficiais</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div class="flex flex-col max-w-3xl">
+<div class="flex items-center gap-space-sm mb-1">
+<span class="material-symbols-outlined text-primary-container text-[24px]">verified</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-container font-semibold">Homologado UniFit Pro</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Listas Oficiais UniFit</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">
+          Rotinas e periodizações prescritas e homologadas pelos instrutores da academia. Adicione à sua rotina ou execute diretamente no salão.
+        </p>
+</div>
+<!-- Quick Metrics Pill -->
+<div class="flex items-center gap-space-md bg-surface-container-lowest px-space-md py-space-sm rounded-xl shadow-sm self-start md:self-auto">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">fitness_center</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Catálogo Ativo</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">12 Fichas Oficiais</span>
+</div>
+</div>
+<div class="w-px h-8 bg-surface-variant"></div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">update</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ciclo Atual</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Semana 03/08</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Search & Filter Controls -->
+<div class="flex flex-col gap-space-md bg-surface-container-lowest p-space-md rounded-xl shadow-sm mb-space-xl">
+<div class="flex flex-col lg:flex-row items-center justify-between gap-space-md">
+<!-- Search Input -->
+<div class="relative w-full lg:w-96 flex items-center">
+<span class="material-symbols-outlined absolute left-space-md text-on-surface-variant text-[20px] pointer-events-none">search</span>
+<input class="w-full h-11 pl-11 pr-space-md bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary-container/20 focus:bg-surface-container-lowest transition-all" id="routineSearchInput" placeholder="Buscar rotina oficial, grupamento muscular ou professor..." type="text"/>
+</div>
+<!-- Sort & Display Stats -->
+<div class="flex items-center justify-between w-full lg:w-auto gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant">Ordenar por:</span>
+<div class="relative">
+<select class="h-10 pl-space-sm pr-space-lg bg-surface-container-low rounded-lg font-label-md text-label-md text-on-surface focus:outline-none cursor-pointer appearance-none">
+<option value="recentes">Mais recentes</option>
+<option value="duracao-asc">Menor Duração (min)</option>
+<option value="duracao-desc">Maior Duração (min)</option>
+<option value="popularidade">Recomendados</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1" id="filterChipsContainer">
+<button class="filter-chip active flex items-center gap-space-xs px-space-md py-1.5 rounded-full font-label-md text-label-md bg-on-surface text-surface-container-lowest transition-all">
+<span>Todos (12)</span>
+</button>
+<button class="filter-chip flex items-center gap-space-xs px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all">
+<span>Hipertrofia (5)</span>
+</button>
+<button class="filter-chip flex items-center gap-space-xs px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all">
+<span>Iniciante / Adaptação (3)</span>
+</button>
+<button class="filter-chip flex items-center gap-space-xs px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all">
+<span>Força &amp; Potência (2)</span>
+</button>
+<button class="filter-chip flex items-center gap-space-xs px-space-md py-1.5 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-all">
+<span>Funcional &amp; Queima (2)</span>
+</button>
+</div>
+</div>
+<!-- Cards Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-xl">
+<!-- CARD 1 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
+<!-- Card Top Accent Header -->
+<div class="p-space-lg flex flex-col flex-1">
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-primary-container/10 text-primary-container font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Oficial UniFit
+            </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-medium">
+              Iniciante • 4 Semanas
+            </span>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" title="Favoritar lista">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary-container transition-colors">
+          Adaptação Anatômica Geral — I
+        </h2>
+<!-- Instructor Info -->
+<div class="flex items-center gap-space-sm mt-space-xs mb-space-md">
+<img class="w-7 h-7 rounded-full object-cover shadow-sm" data-alt="Professional portrait of a male gym coach smiling with short athletic haircut and black fitness t-shirt against a clean studio backdrop in red and neutral tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvE4xnO8-CjNnEwzOOMzlOQUf5yNq24xV_fJMHzdMC8wP4Vxp-3hmgZW2wajne1_r32RWKsnU6FN0ugeNkCAiw8RySsDT400On2omaRNKCC0ClJ7RYCdp75lH1gDQxCkLQML5XTHG9kmCT1fz56A_VZUOSY-e8bTY92QUVWkWiqf6VV1p5D-Itk3LVbn-JOmFZcx5qNhFcsfrh_0wIQUSR7Tbh6m5roqEMb6-KA-8v6To6pSkoYcGgHQ"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Prof. Lucas Mendes</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">CREF 049211-G/SP</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-space-lg">
+          Foco no recrutamento neuromuscular, aprendizado motor dos padrões básicos e fortalecimento de ligamentos e tendões.
+        </p>
+<!-- Exercises List Component -->
+<div class="flex flex-col gap-space-xs mb-space-md">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Sequência de Exercícios (4)</span>
+<span class="font-label-sm text-label-sm">Clique p/ ver execução</span>
+</div>
+<!-- Exercise item 1 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Supino Reto com Halteres', 'Peitoral Maior, Tríceps Braquial e Deltóide Anterior', '3 séries x 12 a 15 repetições • Cadência 2-0-2 • Descanso: 60s', 'Mantenha os cotovelos a 45 graus em relação ao tronco, escápulas em depressão e retração estável no banco.', 'Peitoral')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">fitness_center</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Supino Reto com Halteres</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Peito • Halteres</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 12-15</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 2 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Puxada Frontal Aberta', 'Latíssimo do Dorso, Redondo Maior e Bíceps Braquial', '3 séries x 12 a 15 repetições • Descanso: 60s', 'Puxe a barra em direção à parte superior do peito com o tronco levemente inclinado para trás.', 'Costas')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">sports_gymnastics</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Puxada Frontal Aberta</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Costas • Polia Alta</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 12-15</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 3 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Leg Press 45°', 'Quadríceps, Glúteo Máximo e Isquiotibiais', '3 séries x 15 repetições • Descanso: 75s', 'Posicione os pés na largura dos ombros no meio da plataforma, sem estender completamente os joelhos no pico concêntrico.', 'Pernas')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">airline_seat_recline_extra</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Leg Press 45°</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Pernas • Máquina</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 15</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 4 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Prancha Abdominal Estática', 'Core Central, Reto Abdominal e Estabilizadores Lombares', '3 séries x 40 segundos • Descanso: 45s', 'Alinhe cabeça, tronco e quadris formando uma linha reta sem arquear a coluna lombar.', 'Core')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">accessibility_new</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Prancha Abdominal Estática</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Core • Peso Corporal</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 40s</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Footer -->
+<div class="p-space-md bg-surface-container-low/60 flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">schedule</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">45 min</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">• Intensidade Moderada</span>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto">
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-space-md h-10 rounded-full font-label-md text-label-md text-primary-container hover:bg-primary-container/10 transition-all font-semibold" onclick="showToast('Adicionado com sucesso às suas listas!')">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+<span>Salvar</span>
+</button>
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-space-lg h-10 rounded-full font-label-md text-label-md bg-primary-container text-on-primary hover:bg-primary transition-all font-semibold shadow-sm" onclick="startWorkout('Adaptação Anatômica Geral — I', '45 min', 4)">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Iniciar Treino</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CARD 2 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
+<!-- Card Content -->
+<div class="p-space-lg flex flex-col flex-1">
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-primary-container/10 text-primary-container font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Oficial UniFit
+            </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-medium">
+              Hipertrofia Avançada • Volume Alto
+            </span>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" title="Favoritar lista">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary-container transition-colors">
+          Divisão ABC — Treino A (Peito &amp; Ombros)
+        </h2>
+<!-- Technical Team Info -->
+<div class="flex items-center gap-space-sm mt-space-xs mb-space-md">
+<div class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-label-sm text-label-sm font-bold">
+            UF
+          </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1">
+<span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Equipe Técnica UniFit</span>
+<span class="material-symbols-outlined text-primary-container text-[14px]">verified</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Protocolo Homologado de Alto Rendimento</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-space-lg">
+          Estímulo de tensão mecânica e sobrecarga progressiva com ênfase nas porções clavicular e esternal com transição direta aos deltoides.
+        </p>
+<!-- Exercises List Component -->
+<div class="flex flex-col gap-space-xs mb-space-md">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Sequência de Exercícios (5)</span>
+<span class="font-label-sm text-label-sm">Clique p/ ver execução</span>
+</div>
+<!-- Exercise item 1 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Supino Reto com Barra', 'Peitoral Maior porção medial, Tríceps e Deltoide Anterior', '4 séries x 6 a 8 repetições • RPE 8-9 • Descanso: 120s', 'Toque controlado da barra no esterno sem repouso e empurre explosivo mantendo a ponte escapular.', 'Peitoral')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">fitness_center</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Supino Reto com Barra</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Peitoral • Barra Olímpica</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">4x 6-8 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 2 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Supino Inclinado c/ Halteres', 'Peitoral Superior (Clavicular) e Deltoide Anterior', '3 séries x 8 a 10 repetições • Descanso: 90s', 'Banco regulado a 30 graus para otimizar o recrutamento do feixe superior sem sobrecarregar o ombro anterior.', 'Peitoral')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">fitness_center</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Supino Inclinado c/ Halteres</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Peitoral Superior • Halteres</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 8-10 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 3 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Crucifixo Máquina (Peck Deck)', 'Isolamento de Peitoral com pico de contração', '3 séries x 12 repetições • Drop-set na última • Descanso: 60s', 'Ajuste a altura do banco para que as mãos fiquem na linha do meio do peitoral.', 'Peitoral')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">repeat</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Crucifixo Máquina (Peck Deck)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Isolamento • Máquina</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 12 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 4 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Elevação Lateral com Halteres', 'Deltoide Medial', '4 séries x 12 a 15 repetições • Descanso: 45s', 'Eleve com ligeira flexão de cotovelos sem girar o ombro para cima.', 'Ombros')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">sports_martial_arts</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Elevação Lateral com Halteres</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Deltoide Medial • Halteres</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">4x 12-15 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 5 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Desenvolvimento Militar c/ Barra', 'Deltoides, Tríceps e Estabilizadores de Tronco', '3 séries x 8 repetições • Descanso: 90s', 'Pressionar verticalmente a barra à frente do queixo sem hiperextensão da lombar.', 'Ombros')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">fitness_center</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Desenvolvimento Militar c/ Barra</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Ombros Geral • Barra</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 8 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Footer -->
+<div class="p-space-md bg-surface-container-low/60 flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">schedule</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">60 min</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">• Carga Elevada</span>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto">
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-space-md h-10 rounded-full font-label-md text-label-md text-primary-container hover:bg-primary-container/10 transition-all font-semibold" onclick="showToast('Adicionado com sucesso às suas listas!')">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+<span>Salvar</span>
+</button>
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-space-lg h-10 rounded-full font-label-md text-label-md bg-primary-container text-on-primary hover:bg-primary transition-all font-semibold shadow-sm" onclick="startWorkout('Divisão ABC — Treino A (Peito &amp; Ombros)', '60 min', 5)">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Iniciar Treino</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CARD 3 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
+<div class="p-space-lg flex flex-col flex-1">
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-primary-container/10 text-primary-container font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Oficial UniFit
+            </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-medium">
+              Intermediário • Força e Densidade
+            </span>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" title="Favoritar lista">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary-container transition-colors">
+          Divisão ABC — Treino B (Costas &amp; Bíceps)
+        </h2>
+<!-- Instructor Info -->
+<div class="flex items-center gap-space-sm mt-space-xs mb-space-md">
+<img class="w-7 h-7 rounded-full object-cover shadow-sm" data-alt="Athletic sports physiologist man with beard wearing dark polo shirt in a high performance gym research laboratory environment with warm ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsad86KEeVHMEMJ69LS_LVMs4Ff50p363g-Pbsp-kFjh3vN9G8A6MvsOHPWuoO-_0RPUU71z-FTMShBqEIg3Ft9Zf6BM9hIA9FM-EP2Mn-lxWWxpxgCP3KalrEofwlYDGsb06OtDF-x4PezQDfZrhXO3sKu1-q9bV2nB8RGbI-aP2CZOJeNQbbx07ZTJ6prJdd-MZmYA1bYJjI66Pf_tcLA9ZKSLeqq307zQW1xojR5ly11RMc2EYGxA"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Prof. Rafael Torres</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Fisiologista do Exercício</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-space-lg">
+          Construção da largura e densidade dorsal com cadeia cinética posterior integrada e foco em puxadas verticais e horizontais.
+        </p>
+<!-- Exercises List Component -->
+<div class="flex flex-col gap-space-xs mb-space-md">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Sequência de Exercícios (4)</span>
+<span class="font-label-sm text-label-sm">Clique p/ ver execução</span>
+</div>
+<!-- Exercise item 1 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Levantamento Terra Convencional', 'Cadeia Posterior, Glúteos, Trapézios e Dorsais', '4 séries x 6 repetições • Descanso: 150s', 'Puxar o chão, empurrando os calcanhares e mantendo a coluna alinhada durante toda a extensão do quadril.', 'Costas / Cadeia Posterior')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">weight</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Levantamento Terra Convencional</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Cadeia Posterior • Barra</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">4x 6 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 2 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Remada Curvada com Barra', 'Dorsal média, Romboides e Latíssimo', '4 séries x 8 a 10 repetições • Descanso: 90s', 'Tronco inclinado a 45 graus, pegada pronada tracionando até o umbigo.', 'Costas')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">fitness_center</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Remada Curvada com Barra</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Costas • Barra Olímpica</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">4x 8-10 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 3 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Puxador Triângulo Neutro', 'Latíssimo do Dorso e Braquiorradial', '3 séries x 10 a 12 repetições • Descanso: 60s', 'Pegada neutra puxando próximo à base do tórax com ênfase na depressão escapular.', 'Costas')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">sports_gymnastics</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Puxador Triângulo Neutro</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Costas • Cabo</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 10-12 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 4 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Rosca Direta com Barra W', 'Bíceps Braquial e Braquial Anterior', '3 séries x 10 repetições • Descanso: 60s', 'Cotovelos estáveis ao lado do tronco, sem balanço do quadril no ponto inicial.', 'Braços')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">fitness_center</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Rosca Direta com Barra W</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Bíceps • Barra W</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 10 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Footer -->
+<div class="p-space-md bg-surface-container-low/60 flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">schedule</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">55 min</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">• Carga Média/Alta</span>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto">
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-space-md h-10 rounded-full font-label-md text-label-md text-primary-container hover:bg-primary-container/10 transition-all font-semibold" onclick="showToast('Adicionado com sucesso às suas listas!')">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+<span>Salvar</span>
+</button>
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-space-lg h-10 rounded-full font-label-md text-label-md bg-primary-container text-on-primary hover:bg-primary transition-all font-semibold shadow-sm" onclick="startWorkout('Divisão ABC — Treino B (Costas &amp; Bíceps)', '55 min', 4)">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Iniciar Treino</span>
+</button>
+</div>
+</div>
+</div>
+<!-- CARD 4 -->
+<div class="flex flex-col bg-surface-container-lowest rounded-xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden group">
+<div class="p-space-lg flex flex-col flex-1">
+<div class="flex items-start justify-between gap-space-sm mb-space-sm">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-primary-container/10 text-primary-container font-semibold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Oficial UniFit
+            </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-surface-container text-on-surface-variant font-medium">
+              Performance • Pernas e Glúteos
+            </span>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" title="Favoritar lista">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight group-hover:text-primary-container transition-colors">
+          Inferiores Completo — Foco Quadríceps &amp; Isquiotibiais
+        </h2>
+<!-- Instructor Info -->
+<div class="flex items-center gap-space-sm mt-space-xs mb-space-md">
+<img class="w-7 h-7 rounded-full object-cover shadow-sm" data-alt="Professional female fitness instructor with tied hair in dark athletic top smiling inside a pristine fitness facility with Technogym style equipment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVOw8FvjDUd-Tjy6iz9Wh0M-zaFyaBMDZW8VINpHs7H67sVLvm5_hzsK-wtL4XSrgTHKl72yWQYHQ66JOJCZeh09G6Q70K_T8AtQZlWJ_w3ZWJ73mSZt9XoGsDCUVlgBkuuvt1OMSadoW0484ixg2ZJaXtRKzheMPbND1RM3zZLVFa0DOKqeUoSRox1jk7fh32XsjKbfu-UQb_O33uvLOiN1GWRIlKXwI4j8-fjSApLtHYgzAT7XSCPw"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold leading-tight">Profa. Camila Duarte</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Especialista em Biomecânica</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mb-space-lg">
+          Desenvolvimento simétrico dos membros inferiores priorizando amplitude mecânica segura, ativação glútea profunda e controle postural.
+        </p>
+<!-- Exercises List Component -->
+<div class="flex flex-col gap-space-xs mb-space-md">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Sequência de Exercícios (4)</span>
+<span class="font-label-sm text-label-sm">Clique p/ ver execução</span>
+</div>
+<!-- Exercise item 1 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Agachamento Livre com Barra', 'Quadríceps, Glúteo Máximo, Adutores e Paravertebrais', '4 séries x 8 repetições • Descanso: 120s', 'Manter pressão nos três pontos do pé, descida profunda com joelhos rastreando a ponta dos pés.', 'Pernas')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">sports_gymnastics</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Agachamento Livre com Barra</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Quadríceps &amp; Glúteos • Rack</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">4x 8 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 2 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Stiff com Halteres', 'Isquiotibiais, Glúteo Máximo e Eretores da Espinha', '3 séries x 10 a 12 repetições • Descanso: 75s', 'Incline o quadril para trás mantendo os joelhos semiflexionados e as costas retas durante a descida.', 'Posterior')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">fitness_center</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Stiff com Halteres</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Isquiotibiais • Halteres</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 10-12 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 3 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Cadeira Extensora', 'Quadríceps foco no Reto Femoral', '3 séries x 12 a 15 repetições • 2s de pausa no topo • Descanso: 60s', 'Ajuste a almofada no tornozelo e mantenha a lombar apoiada firmemente no assento.', 'Quadríceps')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">airline_seat_recline_normal</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Cadeira Extensora</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Quadríceps • Máquina</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 12-15 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+<!-- Exercise item 4 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer group/item" onclick="openExerciseModal('Mesa Flexora', 'Bíceps Femoral e Isquiotibiais', '3 séries x 12 repetições • Descanso: 60s', 'Evite elevar o quadril durante a flexão dos joelhos; execute movimento cadenciado.', 'Posterior')">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-8 h-8 rounded-md bg-surface-container-lowest flex items-center justify-center text-primary group-hover/item:text-primary-container">
+<span class="material-symbols-outlined text-[18px]">bed</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate group-hover/item:text-primary-container">Mesa Flexora</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Isquiotibiais • Máquina</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0">
+<span class="px-2 py-0.5 rounded bg-surface-container-lowest font-label-sm text-label-sm text-on-surface font-semibold">3x 12 reps</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover/item:translate-x-0.5 transition-transform">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Footer -->
+<div class="p-space-md bg-surface-container-low/60 flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">schedule</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">65 min</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">• Foco em Força Tensional</span>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto">
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-space-md h-10 rounded-full font-label-md text-label-md text-primary-container hover:bg-primary-container/10 transition-all font-semibold" onclick="showToast('Adicionado com sucesso às suas listas!')">
+<span class="material-symbols-outlined text-[18px]">playlist_add</span>
+<span>Salvar</span>
+</button>
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-space-lg h-10 rounded-full font-label-md text-label-md bg-primary-container text-on-primary hover:bg-primary transition-all font-semibold shadow-sm" onclick="startWorkout('Inferiores Completo — Foco Quadríceps &amp; Isquiotibiais', '65 min', 4)">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+<span>Iniciar Treino</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Helper Banner / Gym Floor Pro-tip -->
+<div class="mt-space-xl p-space-lg rounded-xl bg-surface-container-lowest shadow-sm flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[28px]">qr_code_scanner</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Integração com Aparelhos do Salão</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Aponte o app para a tag NFC ou QR code das máquinas UniFit para sincronizar automaticamente carga, cadência e repetições sugeridas.</span>
+</div>
+</div>
+<button class="shrink-0 px-space-md py-space-sm rounded-full font-label-md text-label-md bg-surface-container-low hover:bg-surface-container text-on-surface font-semibold transition-all">
+      Como Funciona
+    </button>
+</div>
+<!-- Exercise Detail Modal (Interactive Level 3) -->
+<div class="fixed inset-0 z-50 hidden flex items-center justify-center p-space-md bg-on-surface/40 backdrop-blur-sm transition-opacity" id="exerciseModal">
+<div class="bg-surface-container-lowest w-full max-w-xl rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+<!-- Modal Header -->
+<div class="p-space-lg bg-surface-container-low flex items-start justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs mb-1">
+<span class="px-2 py-0.5 rounded font-label-sm text-label-sm bg-primary-container/10 text-primary-container font-semibold" id="modalCategoryTag">Grupamento</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">UniFit Gym BioMech</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold" id="modalExerciseTitle">Título do Exercício</h3>
+</div>
+<button class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors" onclick="closeExerciseModal()">
+<span class="material-symbols-outlined text-[22px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-space-lg overflow-y-auto flex flex-col gap-space-md">
+<!-- Muscle Targets -->
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Músculos Principais &amp; Sinergistas</span>
+<p class="font-body-md text-body-md text-on-surface font-medium bg-surface-container-low/50 p-space-sm rounded-lg" id="modalMuscles"></p>
+</div>
+<!-- Prescribed Volume -->
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Prescrição Oficial</span>
+<div class="flex items-center gap-space-xs text-primary-container bg-primary-container/5 p-space-sm rounded-lg">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+<p class="font-label-md text-label-md font-semibold" id="modalPrescription"></p>
+</div>
+</div>
+<!-- Biomechanical Execution Cues -->
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Instruções Biomecânicas &amp; Dicas</span>
+<p class="font-body-md text-body-md text-on-surface leading-relaxed" id="modalExecution"></p>
+</div>
+<!-- Rest Interval Graphic Indicator -->
+<div class="bg-surface-container-low p-space-md rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[24px]">timelapse</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Descanso Ideal Sugerido</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Recuperação total de fosfocreatina (CP)</span>
+</div>
+</div>
+<span class="font-headline-sm text-headline-sm font-bold text-primary-container">60-90s</span>
+</div>
+</div>
+<!-- Modal Action -->
+<div class="p-space-md bg-surface-container-low flex justify-end gap-space-sm">
+<button class="px-space-lg h-10 rounded-full font-label-md text-label-md bg-on-surface text-surface-container-lowest hover:opacity-90 font-semibold transition-all" onclick="closeExerciseModal()">
+          Entendido
+        </button>
+</div>
+</div>
+</div>
+<!-- Toast Notification Feedback -->
+<div class="fixed bottom-6 right-6 z-50 hidden transform transition-all duration-300 translate-y-4" id="toastNotification">
+<div class="flex items-center gap-space-sm px-space-lg py-space-md rounded-xl bg-on-surface text-surface-container-lowest shadow-xl">
+<span class="material-symbols-outlined text-primary-container text-[22px]">check_circle</span>
+<span class="font-label-md text-label-md font-medium" id="toastMessage">Operação realizada com sucesso.</span>
+</div>
+</div>
+<!-- Active Workout Starter Dialog -->
+<div class="fixed inset-0 z-50 hidden flex items-center justify-center p-space-md bg-on-surface/50 backdrop-blur-sm" id="startWorkoutDialog">
+<div class="bg-surface-container-lowest w-full max-w-md rounded-xl shadow-2xl p-space-lg flex flex-col text-center">
+<div class="w-14 h-14 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center mx-auto mb-space-md">
+<span class="material-symbols-outlined text-[32px]">play_circle</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">Iniciar Sessão Oficial</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 mb-space-lg" id="dialogWorkoutTitle">
+        Carregando treino...
+      </p>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-around mb-space-lg">
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Duração Est.</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold" id="dialogDuration">--</span>
+</div>
+<div class="w-px h-8 bg-surface-variant"></div>
+<div class="flex flex-col items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Exercícios</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold" id="dialogExercisesCount">--</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="flex-1 h-11 rounded-full font-label-md text-label-md bg-surface-container-low text-on-surface hover:bg-surface-container font-semibold transition-all" onclick="closeStartDialog()">
+          Cancelar
+        </button>
+<button class="flex-1 h-11 rounded-full font-label-md text-label-md bg-primary-container text-on-primary hover:bg-primary font-semibold transition-all shadow-md" onclick="confirmWorkoutStart()">
+          Começar Agora
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Filter chips selection handler
+  const filterChips = document.querySelectorAll('.filter-chip');
+  filterChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      filterChips.forEach(c => {
+        c.classList.remove('bg-on-surface', 'text-surface-container-lowest');
+        c.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+      });
+      chip.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+      chip.classList.add('bg-on-surface', 'text-surface-container-lowest');
+    });
+  });
+
+  // Modal open & close
+  function openExerciseModal(title, muscles, prescription, execution, category) {
+    document.getElementById('modalExerciseTitle').innerText = title;
+    document.getElementById('modalMuscles').innerText = muscles;
+    document.getElementById('modalPrescription').innerText = prescription;
+    document.getElementById('modalExecution').innerText = execution;
+    document.getElementById('modalCategoryTag').innerText = category;
+    
+    const modal = document.getElementById('exerciseModal');
+    modal.classList.remove('hidden');
+  }
+
+  function closeExerciseModal() {
+    document.getElementById('exerciseModal').classList.add('hidden');
+  }
+
+  // Toast feedback helper
+  function showToast(message) {
+    const toast = document.getElementById('toastNotification');
+    const toastMsg = document.getElementById('toastMessage');
+    toastMsg.innerText = message;
+    
+    toast.classList.remove('hidden');
+    setTimeout(() => {
+      toast.classList.remove('translate-y-4');
+      toast.classList.add('translate-y-0');
+    }, 10);
+
+    setTimeout(() => {
+      toast.classList.add('translate-y-4');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 300);
+    }, 3000);
+  }
+
+  // Workout launcher flow
+  let currentSelectedWorkout = '';
+  function startWorkout(title, duration, count) {
+    currentSelectedWorkout = title;
+    document.getElementById('dialogWorkoutTitle').innerText = title;
+    document.getElementById('dialogDuration').innerText = duration;
+    document.getElementById('dialogExercisesCount').innerText = count + ' itens';
+    document.getElementById('startWorkoutDialog').classList.remove('hidden');
+  }
+
+  function closeStartDialog() {
+    document.getElementById('startWorkoutDialog').classList.add('hidden');
+  }
+
+  function confirmWorkoutStart() {
+    closeStartDialog();
+    showToast('Iniciando: ' + currentSelectedWorkout + '! Cronômetro ativado.');
+  }
+
+  // Search micro-interaction
+  const searchInput = document.getElementById('routineSearchInput');
+  searchInput.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const cards = document.querySelectorAll('.grid > div');
+    cards.forEach(card => {
+      const text = card.innerText.toLowerCase();
+      if (text.includes(term)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+</script></main></div></body></html>

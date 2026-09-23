@@ -1,0 +1,34 @@
+:root {
+  --uf-bg: #faf9fa;
+  --uf-surface: #ffffff;
+  --uf-surface-low: #f5f3f4;
+  --uf-surface-container: #efedee;
+  --uf-surface-high: #e9e8e9;
+  --uf-text: #1b1c1d;
+  --uf-text-2: #5d3f3b;
+  --uf-border: #e6e8ea;
+  --uf-primary: #c30505;
+  --uf-primary-deep: #970001;
+  --uf-primary-hover: #e60000;
+  --uf-primary-press: #960404;
+  --uf-primary-soft: rgba(195, 5, 5, 0.1);
+  --uf-soft: #f46e6e;
+  --uf-soft-bg: #feeceb;
+  --uf-secondary: #005cba;
+  --uf-secondary-bright: #2f80ed;
+  --uf-danger: #ba1a1a;
+  --uf-danger-bg: #ffdad6;
+  --uf-success: #27ae60;
+  --uf-success-bg: #e8f8ee;
+  --uf-radius-sm: 8px;
+  --uf-radius: 12px;
+  --uf-radius-xl: 16px;
+  --uf-radius-pill: 9999px;
+  --uf-shadow-1: 0 2px 8px -2px rgba(31, 32, 33, 0.04), 0 4px 16px -4px rgba(31, 32, 33, 0.06);
+  --uf-shadow-2: 0 8px 24px -4px rgba(31, 32, 33, 0.08), 0 4px 12px -2px rgba(195, 5, 5, 0.06);
+  --uf-overlay: rgba(31, 32, 33, 0.4);
+  --uf-sidebar: 288px;
+  --uf-topbar: 80px;
+  --uf-font-title: 'Plus Jakarta Sans', sans-serif;
+  --uf-font-body: Inter, sans-serif;
+}

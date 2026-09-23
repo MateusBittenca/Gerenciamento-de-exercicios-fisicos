@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { swalDark } from '../../api/client';
-import '../../css/table.css';
-import '../../css/homepageAdm.css';
+import { useFeedback } from '../../auth/FeedbackContext';
 
 export default function Users() {
   const { request } = useAuth();
+  const { toast, confirmar } = useFeedback();
   const [usuarios, setUsuarios] = useState([]);
   const [filtro, setFiltro] = useState('');
   const [editandoId, setEditandoId] = useState(null);
@@ -17,12 +15,7 @@ export default function Users() {
     if (obj.status === true) {
       setUsuarios(obj.dados || []);
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Sessão expirada!',
-        text: 'Não foi possível carregar os usuários. Faça login novamente.',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Não foi possível carregar os alunos.');
     }
   }
 
@@ -31,36 +24,21 @@ export default function Users() {
   }, [request]);
 
   async function excluir(id) {
-    const result = await Swal.fire({
-      title: 'Você tem certeza?',
-      text: 'Você não poderá reverter a sua escolha!',
-      icon: 'warning',
-      showCancelButton: true,
-      ...swalDark,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Cancelar!',
-      confirmButtonText: 'Sim!'
+    const ok = await confirmar({
+      titulo: 'Excluir este aluno?',
+      texto: 'Essa ação não pode ser desfeita.',
+      confirma: 'Excluir',
+      perigo: true
     });
-    if (!result.isConfirmed) {
+    if (!ok) {
       return;
     }
     const obj = await request('/usuario/' + id, { method: 'delete' });
     if (obj.status === true) {
-      Swal.fire({
-        title: 'Excluido!',
-        ...swalDark,
-        text: 'Usuario excluido!.',
-        icon: 'success'
-      });
+      toast('ok', 'Aluno excluído.');
       carregar();
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Erro!',
-        text: 'Não foi possível excluir o usuário.',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Não foi possível excluir.');
     }
   }
 
@@ -88,20 +66,10 @@ export default function Users() {
     });
     if (obj.status === true) {
       setEditandoId(null);
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Dados do usuario modificados!',
-        icon: 'success'
-      });
+      toast('ok', 'Dados atualizados.');
       carregar();
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Erro!',
-        text: 'Não foi possível salvar as alterações do usuário.',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Não foi possível salvar.');
     }
   }
 
@@ -113,68 +81,98 @@ export default function Users() {
   });
 
   return (
-    <div className="tabela">
-      <div className="cabeca">
-        <h1>Usuarios</h1>
+    <div>
+      <section className="uf-card uf-page-intro">
+        <div>
+          <p className="uf-kicker" style={{ marginBottom: 8 }}>Gestão operacional</p>
+          <h1>Gestão de Usuários & Alunos</h1>
+          <p>Cadastre, edite e monitore os alunos da academia.</p>
+        </div>
+      </section>
+      <div className="uf-admin-kpis">
+        <article className="uf-card uf-kpi">
+          <div className="uf-kpi-top">
+            Total de usuários
+            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>groups</span>
+          </div>
+          <strong>{usuarios.length}</strong>
+        </article>
+        <article className="uf-card uf-kpi">
+          <div className="uf-kpi-top">
+            Exibindo
+            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>filter_alt</span>
+          </div>
+          <strong>{visiveis.length}</strong>
+        </article>
       </div>
-      <br />
-      <input type="text" id="txtFiltro" placeholder="Filtro" value={filtro} onChange={(e) => setFiltro(e.target.value)} />
-      <br /><br />
-      <div className="tabela-scroll">
-      <table id="tblUsuarios">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Sexo</th>
-            <th>Altura</th>
-            <th>Peso</th>
-            <th>Excluir</th>
-            <th>Editar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {visiveis.map((usuario) => (
-            <tr key={usuario.UsuarioID}>
-              {editandoId === usuario.UsuarioID ? (
-                <>
-                  <td>{usuario.UsuarioID}</td>
-                  <td><input type="text" value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} /></td>
-                  <td><input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></td>
-                  <td>
-                    <select value={form.sexo} onChange={(e) => setForm({ ...form, sexo: e.target.value })}>
-                      <option value="" disabled>Sexo</option>
-                      <option value="Feminino">Feminino</option>
-                      <option value="Masculino">Masculino</option>
-                    </select>
-                  </td>
-                  <td><input type="text" value={form.altura} onChange={(e) => setForm({ ...form, altura: e.target.value })} /></td>
-                  <td><input type="text" value={form.peso} onChange={(e) => setForm({ ...form, peso: e.target.value })} /></td>
-                  <td colSpan="2">
-                    <button onClick={() => salvar(usuario.UsuarioID)}>Salvar</button>
-                  </td>
-                </>
-              ) : (
-                <>
-                  <td>{usuario.UsuarioID}</td>
-                  <td>{usuario.Nome}</td>
-                  <td>{usuario.Email}</td>
-                  <td>{usuario.Sexo || ''}</td>
-                  <td>{usuario.Altura || ''}</td>
-                  <td>{usuario.Peso || ''}</td>
-                  <td>
-                    <button className="btn-excluir" onClick={() => excluir(usuario.UsuarioID)}>Excluir</button>
-                  </td>
-                  <td>
-                    <button className="btn-editar" onClick={() => iniciarEdicao(usuario)}>Editar</button>
-                  </td>
-                </>
-              )}
+      <div className="uf-toolbar">
+        <div className="uf-search">
+          <span className="material-symbols-outlined">search</span>
+          <input type="text" id="txtFiltro" className="uf-input" placeholder="Buscar por nome ou e-mail..." value={filtro} onChange={(e) => setFiltro(e.target.value)} />
+        </div>
+      </div>
+      <div className="uf-card uf-table-wrap">
+        <table className="uf-table" id="tblUsuarios">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Sexo</th>
+              <th>Altura</th>
+              <th>Peso</th>
+              <th>Excluir</th>
+              <th>Editar</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {visiveis.length === 0 ? (
+              <tr>
+                <td colSpan="8" className="uf-empty">Nenhum usuário encontrado.</td>
+              </tr>
+            ) : visiveis.map((usuario) => (
+              <tr key={usuario.UsuarioID}>
+                {editandoId === usuario.UsuarioID ? (
+                  <>
+                    <td>{usuario.UsuarioID}</td>
+                    <td><input type="text" className="uf-input" value={form.nome} onChange={(e) => setForm({ ...form, nome: e.target.value })} /></td>
+                    <td><input type="email" className="uf-input" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></td>
+                    <td>
+                      <select className="uf-select" value={form.sexo} onChange={(e) => setForm({ ...form, sexo: e.target.value })}>
+                        <option value="" disabled>Sexo</option>
+                        <option value="Feminino">Feminino</option>
+                        <option value="Masculino">Masculino</option>
+                      </select>
+                    </td>
+                    <td><input type="text" className="uf-input" value={form.altura} onChange={(e) => setForm({ ...form, altura: e.target.value })} /></td>
+                    <td><input type="text" className="uf-input" value={form.peso} onChange={(e) => setForm({ ...form, peso: e.target.value })} /></td>
+                    <td colSpan="2">
+                      <div className="uf-actions">
+                        <button type="button" className="uf-btn-ghost" onClick={() => setEditandoId(null)}>Cancelar</button>
+                        <button type="button" className="uf-btn-primary" onClick={() => salvar(usuario.UsuarioID)}>Salvar</button>
+                      </div>
+                    </td>
+                  </>
+                ) : (
+                  <>
+                    <td>{usuario.UsuarioID}</td>
+                    <td>{usuario.Nome}</td>
+                    <td>{usuario.Email}</td>
+                    <td>{usuario.Sexo || ''}</td>
+                    <td>{usuario.Altura || ''}</td>
+                    <td>{usuario.Peso || ''}</td>
+                    <td>
+                      <button type="button" className="uf-btn-danger btn-excluir" onClick={() => excluir(usuario.UsuarioID)}>Excluir</button>
+                    </td>
+                    <td>
+                      <button type="button" className="uf-btn-edit btn-editar" onClick={() => iniciarEdicao(usuario)}>Editar</button>
+                    </td>
+                  </>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

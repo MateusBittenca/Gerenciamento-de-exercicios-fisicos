@@ -1,16 +1,47 @@
 import { NavLink } from 'react-router-dom';
-import '../css/homepageAdm.css';
+import { useAuth } from '../auth/AuthContext';
 
-export default function AdminNavbar() {
+const LINKS = [
+  { to: '/admin/usuarios', label: 'Gestão de Usuários', icon: 'group' },
+  { to: '/admin/admins', label: 'Administradores', icon: 'admin_panel_settings' },
+  { to: '/admin/exercicios', label: 'Catálogo de Exercícios', icon: 'fitness_center' },
+  { to: '/admin/listas', label: 'Listas Oficiais', icon: 'fact_check' }
+];
+
+export default function AdminNavbar({ onNavigate }) {
+  const { logout } = useAuth();
+
   return (
-    <div className="navbar">
-      <img src="/image/logo.png" alt="logo" />
-      <ul>
-        <li><NavLink to="/admin/usuarios" className={({ isActive }) => (isActive ? 'ativo' : undefined)}>Usuarios</NavLink></li>
-        <li><NavLink to="/admin/admins" className={({ isActive }) => (isActive ? 'ativo' : undefined)}>ADMS</NavLink></li>
-        <li><NavLink to="/admin/exercicios" className={({ isActive }) => (isActive ? 'ativo' : undefined)}>Exercicios</NavLink></li>
-        <li><NavLink to="/admin/listas" className={({ isActive }) => (isActive ? 'ativo' : undefined)}>Listas de Treino</NavLink></li>
-      </ul>
-    </div>
+    <aside className="uf-sidebar">
+      <div>
+        <div className="uf-sidebar-brand">
+          <img src="/image/logo.png" alt="UniFit" />
+          <div>
+            <strong>UniFit</strong>
+            <span>Portal Admin & Gestão</span>
+          </div>
+        </div>
+        <p className="uf-nav-label">Menu operacional</p>
+        <nav>
+          {LINKS.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className={({ isActive }) => 'uf-nav-link' + (isActive ? ' ativo' : '')}
+              onClick={onNavigate}
+            >
+              <span className="material-symbols-outlined">{link.icon}</span>
+              {link.label}
+            </NavLink>
+          ))}
+        </nav>
+      </div>
+      <div className="uf-sidebar-foot">
+        <NavLink to="/" className="uf-logout" onClick={logout}>
+          <span className="material-symbols-outlined">logout</span>
+          Encerrar sessão
+        </NavLink>
+      </div>
+    </aside>
   );
 }

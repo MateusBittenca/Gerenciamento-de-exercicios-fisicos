@@ -5,7 +5,7 @@ export default function ProtectedRoute({ role }) {
   const { token, payload, role: currentRole } = useAuth();
 
   if (!token || !payload) { 
-    return <Navigate to={role === 'admin' ? '/admin/login' : '/login'} replace />;
+    return <Navigate to={role === 'admin' ? '/login?papel=admin' : '/login'} replace />;
   }
 
   if (currentRole !== role) {

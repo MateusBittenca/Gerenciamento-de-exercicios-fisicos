@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
-import { swalDark } from '../../api/client';
+import { useFeedback } from '../../auth/FeedbackContext';
+import { defaultPrescricao } from '../../api/client';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
-import '../../css/exercicios.css';
-import '../../css/modalExercicios.css';
+import PrescriptionFields from '../../components/PrescriptionFields';
 
 const FILTROS = [
   { label: 'Biceps', value: 'Bíceps' },
@@ -19,6 +18,7 @@ const FILTROS = [
 
 export default function AddExerciseToList() {
   const { request } = useAuth();
+  const { toast } = useFeedback();
   const navigate = useNavigate();
   const [exercicios, setExercicios] = useState([]);
   const [filtroMusculo, setFiltroMusculo] = useState('');
@@ -26,6 +26,7 @@ export default function AddExerciseToList() {
   const [selecionado, setSelecionado] = useState(null);
   const [listasModal, setListasModal] = useState(null);
   const [listas, setListas] = useState([]);
+  const [presc, setPresc] = useState(defaultPrescricao('hipertrofia'));
 
   useEffect(() => {
     async function carregar() {
@@ -42,38 +43,30 @@ export default function AddExerciseToList() {
     if (obj.status === true) {
       setListas(obj.dados || []);
       setListasModal(exercicio);
+      setPresc(defaultPrescricao('hipertrofia'));
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Erro!',
-        text: 'Não foi possível buscar as listas de exercícios.',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Não foi possível carregar as listas.');
     }
   }
 
   async function adicionarNaLista(lista) {
+    const def = defaultPrescricao(lista.objetivo);
     const obj = await request('/lista/exercicios/create', {
       method: 'post',
       body: JSON.stringify({
         idListaExer: lista.idlista,
-        idExercicios: listasModal.idexercicio
+        idExercicios: listasModal.idexercicio,
+        series: presc.series || def.series,
+        reps: presc.reps || def.reps,
+        carga_kg: presc.carga_kg || null,
+        descanso_seg: presc.descanso_seg || def.descanso_seg
       })
     });
     if (obj.status === true) {
-      Swal.fire({
-        ...swalDark,
-        title: 'Sucesso!',
-        text: 'Exercicio adionado a lista!',
-        icon: 'success'
-      });
+      toast('ok', 'Exercício adicionado à lista.');
+      setListasModal(null);
     } else {
-      Swal.fire({
-        ...swalDark,
-        title: 'Erro!',
-        text: 'Erro ao adicionar exercicio na lista!',
-        icon: 'error'
-      });
+      toast('erro', obj.msg || 'Não foi possível adicionar.');
     }
   }
 
@@ -83,26 +76,42 @@ export default function AddExerciseToList() {
     : exercicios;
 
   if (textoBusca) {
-    visiveis = exercicios.filter((exercicio) => exercicio.nome.toLowerCase().includes(textoBusca));
+    visiveis = visiveis.filter((exercicio) => exercicio.nome.toLowerCase().includes(textoBusca));
   }
 
   return (
     <>
-      <div id="filtro">
-        <button type="button" id="voltar" onClick={() => navigate('/admin/listas')}>
-          <i className="bi bi-arrow-left"></i>
+      <div className="uf-page-head">
+        <div>
+          <h1>Adicionar exercícios</h1>
+          <p>Escolha um exercício e a lista oficial de destino.</p>
+        </div>
+        <button type="button" className="uf-btn-ghost" id="voltar" onClick={() => navigate('/admin/listas')}>
+          <span className="material-symbols-outlined">arrow_back</span>
+          Voltar
         </button>
-        <button type="button" className={!filtroMusculo && !busca ? 'filtro-ativo' : undefined} onClick={() => { setFiltroMusculo(''); setBusca(''); }}>Todos</button>
+      </div>
+
+      <div className="uf-toolbar">
+        <div className="uf-search">
+          <span className="material-symbols-outlined">search</span>
+          <input type="text" id="busca" className="uf-input" placeholder="Buscar" value={busca} onChange={(e) => setBusca(e.target.value)} />
+        </div>
+      </div>
+
+      <div className="uf-chips" id="filtro" style={{ marginBottom: 24 }}>
+        <button type="button" className={'uf-chip' + (!filtroMusculo && !busca ? ' ativo' : '')} onClick={() => { setFiltroMusculo(''); setBusca(''); }}>Todos</button>
         {FILTROS.map((filtro) => (
-          <button key={filtro.value} type="button" className={filtroMusculo === filtro.value && !busca ? 'filtro-ativo' : undefined} onClick={() => { setFiltroMusculo(filtro.value); setBusca(''); }}>
+          <button key={filtro.value} type="button" className={'uf-chip' + (filtroMusculo === filtro.value && !busca ? ' ativo' : '')} onClick={() => { setFiltroMusculo(filtro.value); setBusca(''); }}>
             {filtro.label}
           </button>
         ))}
-        <input type="text" id="busca" placeholder="Buscar" value={busca} onChange={(e) => setBusca(e.target.value)} />
       </div>
 
-      <div className="card-container" id="card">
-        {visiveis.map((exercicio) => (
+      <div className="uf-grid-cards" id="card">
+        {visiveis.length === 0 ? (
+          <p className="uf-empty uf-card">Nenhum exercício encontrado.</p>
+        ) : visiveis.map((exercicio) => (
           <ExerciseCard
             key={exercicio.idexercicio}
             exercicio={exercicio}
@@ -115,26 +124,25 @@ export default function AddExerciseToList() {
       <ExerciseModal exercicio={selecionado} onClose={() => setSelecionado(null)} />
 
       {listasModal && (
-        <div className="modal aberto">
-          <div className="modal-content">
-            <span className="close-button" onClick={() => setListasModal(null)}>&times;</span>
-            <h2>Listas de Exercícios</h2>
-            <table className="exercise-table">
-              <thead>
-                <tr>
-                  <th>Lista</th>
-                  <th>Tipo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {listas.map((lista) => (
-                  <tr key={lista.idlista} onClick={() => adicionarNaLista(lista)}>
-                    <td>{lista.nome}</td>
-                    <td>{lista.tipo}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="uf-modal" onClick={() => setListasModal(null)}>
+          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button type="button" className="uf-modal-close" onClick={() => setListasModal(null)}>&times;</button>
+            <div className="uf-modal-form">
+              <h2>Adicionar à lista</h2>
+              <PrescriptionFields value={presc} onChange={setPresc} />
+              {listas.length === 0 ? (
+                <p className="uf-muted">Nenhuma lista oficial encontrada.</p>
+              ) : (
+                <ul className="uf-pick-list">
+                  {listas.map((lista) => (
+                    <li key={lista.idlista} onClick={() => adicionarNaLista(lista)}>
+                      <strong>{lista.nome}</strong>
+                      <span className="uf-muted">{lista.tipo} · {lista.objetivo || 'hipertrofia'}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       )}

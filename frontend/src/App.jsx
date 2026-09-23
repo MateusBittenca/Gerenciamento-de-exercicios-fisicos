@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
+import { FeedbackProvider } from './auth/FeedbackContext';
 import ProtectedRoute from './auth/ProtectedRoute';
 import UserLayout from './layouts/UserLayout';
 import AdminLayout from './layouts/AdminLayout';
@@ -12,6 +13,7 @@ import Exercises from './pages/user/Exercises';
 import PublicLists from './pages/user/PublicLists';
 import MyLists from './pages/user/MyLists';
 import Profile from './pages/user/Profile';
+import WorkoutSession from './pages/user/WorkoutSession';
 import Users from './pages/admin/Users';
 import Admins from './pages/admin/Admins';
 import AdminExercises from './pages/admin/Exercises';
@@ -21,6 +23,7 @@ import AddExerciseToList from './pages/admin/AddExerciseToList';
 export default function App() {
   return (
     <AuthProvider>
+      <FeedbackProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
@@ -35,6 +38,7 @@ export default function App() {
               <Route path="/app/listas" element={<PublicLists />} />
               <Route path="/app/minhas-listas" element={<MyLists />} />
               <Route path="/app/perfil" element={<Profile />} />
+              <Route path="/app/treino/:sessaoId" element={<WorkoutSession />} />
             </Route>
           </Route>
 
@@ -51,6 +55,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
+      </FeedbackProvider>
     </AuthProvider>
   );
 }
