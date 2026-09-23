@@ -102,28 +102,52 @@ export default function Exercises() {
     visiveis = visiveis.filter((exercicio) => favoritos.includes(exercicio.idexercicio));
   }
 
+  function contarMusculo(valor) {
+    return exercicios.filter((exercicio) => exercicio.musculo === valor).length;
+  }
+
   return (
     <>
-      <div className="uf-page-head">
+      <section className="uf-card uf-page-intro">
         <div>
-          <h1>Catálogo de exercícios</h1>
-          <p>Toque no + para colocar o exercício numa lista sua. O coração marca favorito.</p>
+          <p className="uf-kicker" style={{ marginBottom: 8 }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>fitness_center</span>
+            Biblioteca oficial UniFit
+          </p>
+          <h1>Catálogo de Exercícios</h1>
+          <p>Explore a biblioteca com instruções, biomecânica e adicione aos seus treinos pessoais.</p>
         </div>
-      </div>
+        <div className="uf-stat-pill">
+          <span className="material-symbols-outlined">video_library</span>
+          <div>
+            <small>Disponíveis</small>
+            <strong>{exercicios.length} exercícios</strong>
+          </div>
+        </div>
+      </section>
 
       <div className="uf-toolbar">
         <div className="uf-search">
           <span className="material-symbols-outlined">search</span>
-          <input type="text" id="busca" className="uf-input" placeholder="Buscar" value={busca} onChange={(e) => setBusca(e.target.value)} />
+          <input type="text" id="busca" className="uf-input" placeholder="Buscar por nome de exercício, equipamento ou músculo..." value={busca} onChange={(e) => setBusca(e.target.value)} />
         </div>
       </div>
 
-      <div className="uf-chips" id="filtro" style={{ marginBottom: 24 }}>
-        <button type="button" className={'uf-chip' + (!filtroMusculo && !busca && !apenasFav ? ' ativo' : '')} onClick={() => { setFiltroMusculo(''); setBusca(''); setApenasFav(false); }}>Todos</button>
+      <div className="uf-chips" id="filtro">
+        <button type="button" className={'uf-chip' + (!filtroMusculo && !busca && !apenasFav ? ' ativo' : '')} onClick={() => { setFiltroMusculo(''); setBusca(''); setApenasFav(false); }}>
+          Todos <span className="uf-chip-count">{exercicios.length}</span>
+        </button>
         {FILTROS.map((filtro) => (
-          <button key={filtro.value} type="button" className={'uf-chip' + (filtroMusculo === filtro.value && !busca ? ' ativo' : '')} onClick={() => { setFiltroMusculo(filtro.value); setBusca(''); }}>{filtro.label}</button>
+          <button key={filtro.value} type="button" className={'uf-chip' + (filtroMusculo === filtro.value && !busca ? ' ativo' : '')} onClick={() => { setFiltroMusculo(filtro.value); setBusca(''); }}>
+            {filtro.label} <span className="uf-chip-count">{contarMusculo(filtro.value)}</span>
+          </button>
         ))}
-        <button type="button" className={'uf-chip' + (apenasFav ? ' ativo' : '')} onClick={() => setApenasFav((v) => !v)}>Favoritos</button>
+        <button type="button" className={'uf-chip' + (apenasFav ? ' ativo' : '')} onClick={() => setApenasFav((v) => !v)}>
+          Favoritos <span className="uf-chip-count">{favoritos.length}</span>
+        </button>
+      </div>
+      <div className="uf-filter-meta">
+        <span><i style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--uf-primary)', marginRight: 8 }} />Exibindo <strong>{visiveis.length}</strong> exercícios cadastrados</span>
       </div>
 
       <div className="uf-grid-cards" id="card">

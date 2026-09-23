@@ -113,8 +113,12 @@ export default function AdminLists() {
     <div>
       <div className="uf-page-head">
         <div>
-          <h1>Listas de treino</h1>
-          <p>Listas oficiais visíveis para os alunos.</p>
+          <p className="uf-kicker" style={{ marginBottom: 8 }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>verified</span>
+            Homologado UniFit
+          </p>
+          <h1>Listas Oficiais</h1>
+          <p>Listas visíveis para os alunos no portal.</p>
         </div>
         <div className="uf-actions">
           <button type="button" className="uf-btn-primary" id="Create-lista" onClick={() => setCriarAberto(true)}>
@@ -133,12 +137,13 @@ export default function AdminLists() {
       ) : (
         <div className="uf-grid-lists" id="tabelaExercicios">
           {Object.keys(agrupadas).map((idLista) => (
-            <ListaCard
-              key={idLista}
-              lista={agrupadas[idLista]}
-              onAbrir={() => setDetalheLista(agrupadas[idLista])}
-              onAdicionar={() => navigate('/admin/listas/adicionar')}
-            />
+              <ListaCard
+                key={idLista}
+                lista={agrupadas[idLista]}
+                oficial
+                onAbrir={() => setDetalheLista(agrupadas[idLista])}
+                onAdicionar={() => navigate('/admin/listas/adicionar')}
+              />
           ))}
         </div>
       )}

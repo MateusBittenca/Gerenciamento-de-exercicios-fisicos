@@ -2,10 +2,10 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 
 const LINKS = [
-  { to: '/admin/usuarios', label: 'Usuários', icon: 'group' },
+  { to: '/admin/usuarios', label: 'Gestão de Usuários', icon: 'group' },
   { to: '/admin/admins', label: 'Administradores', icon: 'admin_panel_settings' },
-  { to: '/admin/exercicios', label: 'Exercícios', icon: 'fitness_center' },
-  { to: '/admin/listas', label: 'Listas de Treino', icon: 'assignment' }
+  { to: '/admin/exercicios', label: 'Catálogo de Exercícios', icon: 'fitness_center' },
+  { to: '/admin/listas', label: 'Listas Oficiais', icon: 'fact_check' }
 ];
 
 export default function AdminNavbar({ onNavigate }) {
@@ -18,9 +18,10 @@ export default function AdminNavbar({ onNavigate }) {
           <img src="/image/logo.png" alt="UniFit" />
           <div>
             <strong>UniFit</strong>
-            <span>Portal Admin</span>
+            <span>Portal Admin & Gestão</span>
           </div>
         </div>
+        <p className="uf-nav-label">Menu operacional</p>
         <nav>
           {LINKS.map((link) => (
             <NavLink
@@ -38,7 +39,7 @@ export default function AdminNavbar({ onNavigate }) {
       <div className="uf-sidebar-foot">
         <NavLink to="/" className="uf-logout" onClick={logout}>
           <span className="material-symbols-outlined">logout</span>
-          Sair
+          Encerrar sessão
         </NavLink>
       </div>
     </aside>

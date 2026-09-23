@@ -89,6 +89,7 @@ export default function Admins() {
     <div>
       <div className="uf-page-head">
         <div>
+          <p className="uf-kicker" style={{ marginBottom: 8 }}>Portal admin</p>
           <h1>Administradores</h1>
           <p>Quem pode gerenciar o catálogo, as listas e os alunos.</p>
         </div>
@@ -100,7 +101,7 @@ export default function Admins() {
       <div className="uf-toolbar">
         <div className="uf-search">
           <span className="material-symbols-outlined">search</span>
-          <input type="text" id="txtFiltro" className="uf-input" placeholder="Filtro" value={filtro} onChange={(e) => setFiltro(e.target.value)} />
+          <input type="text" id="txtFiltro" className="uf-input" placeholder="Buscar por nome ou e-mail..." value={filtro} onChange={(e) => setFiltro(e.target.value)} />
         </div>
       </div>
       <div className="uf-card uf-table-wrap">

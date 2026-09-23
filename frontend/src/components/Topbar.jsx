@@ -2,23 +2,23 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 
 const CRUMBS = {
-  '/app': ['Início'],
-  '/app/exercicios': ['Início', 'Catálogo de Exercícios'],
-  '/app/listas': ['Início', 'Listas Oficiais'],
-  '/app/minhas-listas': ['Início', 'Minhas Listas'],
-  '/app/perfil': ['Início', 'Perfil'],
-  '/admin/usuarios': ['Admin', 'Usuários'],
-  '/admin/admins': ['Admin', 'Administradores'],
-  '/admin/exercicios': ['Admin', 'Exercícios'],
-  '/admin/listas': ['Admin', 'Listas de Treino'],
-  '/admin/listas/adicionar': ['Admin', 'Listas de Treino', 'Adicionar']
+  '/app': ['Painel', 'Treinamento Diário'],
+  '/app/exercicios': ['Painel', 'Catálogo de Exercícios'],
+  '/app/listas': ['Painel', 'Listas Oficiais'],
+  '/app/minhas-listas': ['Painel', 'Minhas Listas'],
+  '/app/perfil': ['Painel', 'Perfil'],
+  '/admin/usuarios': ['UniFit Hub', 'Gestão de Usuários'],
+  '/admin/admins': ['UniFit Hub', 'Administradores'],
+  '/admin/exercicios': ['UniFit Hub', 'Catálogo de Exercícios'],
+  '/admin/listas': ['UniFit Hub', 'Listas Oficiais'],
+  '/admin/listas/adicionar': ['UniFit Hub', 'Listas Oficiais', 'Adicionar']
 };
 
 export default function Topbar({ onMenu }) {
   const { payload, role } = useAuth();
   const { pathname } = useLocation();
   const crumbs = pathname.startsWith('/app/treino/')
-    ? ['Início', 'Treino']
+    ? ['Painel', 'Treino']
     : (CRUMBS[pathname] || ['UniFit']);
   const nome = payload?.nome || 'Usuário';
   const inicial = nome.trim().charAt(0).toUpperCase();
@@ -33,8 +33,8 @@ export default function Topbar({ onMenu }) {
         </button>
         <div className="uf-crumb">
           {crumbs.map((item, index) => (
-            <span key={item + index}>
-              {index > 0 && <span> / </span>}
+            <span key={item + index} style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+              {index > 0 && <span className="material-symbols-outlined">chevron_right</span>}
               {index === crumbs.length - 1 ? <strong>{item}</strong> : item}
             </span>
           ))}

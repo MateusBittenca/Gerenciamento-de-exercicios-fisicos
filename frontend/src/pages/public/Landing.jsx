@@ -21,7 +21,8 @@ export default function Landing() {
             </nav>
           </div>
           <div className="uf-lp-header-right">
-            <Link to="/login" className="uf-lp-link-quiet">Entrar</Link>
+            <Link to="/login" className="uf-lp-link-quiet">Já sou aluno / Entrar</Link>
+            <Link to="/login?papel=admin" className="uf-lp-link-admin">Acesso Admin</Link>
             <button type="button" className="uf-lp-cta" onClick={() => navigate('/cadastro')}>Começar Agora</button>
             <Link to="/login" className="uf-lp-person" aria-label="Entrar">
               <span className="material-symbols-outlined" style={{ fontSize: 18 }}>person</span>
@@ -41,13 +42,19 @@ export default function Landing() {
               <p>Catálogo completo com animações de execução, listas prescritas por instrutores e controle pessoal de cargas e biomecânica.</p>
               <div className="uf-lp-hero-actions">
                 <button type="button" className="uf-lp-cta lg" onClick={() => navigate('/cadastro')}>
-                  Cadastrar
+                  Cadastrar como aluno
                   <span className="material-symbols-outlined">arrow_forward</span>
                 </button>
                 <button type="button" className="uf-lp-cta ghost lg" onClick={() => navigate('/login')}>
-                  Entrar
+                  Entrar na minha conta
                 </button>
               </div>
+              <p className="uf-hero-note">
+                <Link to="/login?papel=admin">
+                  <span className="material-symbols-outlined" style={{ fontSize: 16 }}>corporate_fare</span>
+                  Acesso de administrador da academia
+                </Link>
+              </p>
             </div>
 
             <div className="uf-lp-mock">

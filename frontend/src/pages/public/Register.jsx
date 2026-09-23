@@ -47,6 +47,7 @@ export default function Register() {
           <div className="uf-auth-form-col">
             <div style={{ marginBottom: 24 }}>
               <img src="/image/logo.png" alt="UniFit" />
+              <span className="uf-auth-pill"><i />Cadastro de aluno</span>
             </div>
             <h1 style={{ fontSize: 28, lineHeight: '36px' }}>Crie sua conta no UniFit</h1>
             <p className="uf-muted">Preencha seus dados para conectar seu perfil às listas oficiais da sua academia.</p>

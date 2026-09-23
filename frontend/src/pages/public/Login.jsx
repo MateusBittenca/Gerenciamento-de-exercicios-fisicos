@@ -48,7 +48,8 @@ export default function Login() {
     <div className="uf-auth">
       <div className="uf-card uf-auth-card">
         <img src="/image/logo.png" alt="UniFit" />
-        <h1>Entrar</h1>
+        <span className="uf-auth-pill"><i />{ehAdmin ? 'Portal do Administrador' : 'Portal do Aluno'}</span>
+        <h1>{ehAdmin ? 'Acesso administrativo' : 'Bem-vindo de volta'}</h1>
         <p className="uf-muted">
           {ehAdmin
             ? 'Acesse o painel para gerenciar usuários, exercícios e listas.'
@@ -82,7 +83,7 @@ export default function Login() {
             </div>
           </div>
           <button type="submit" id="btnLogin" className="uf-btn-primary">
-            Entrar
+            {ehAdmin ? 'Entrar no painel' : 'Entrar na minha conta'}
             <span className="material-symbols-outlined">arrow_forward</span>
           </button>
         </form>
@@ -93,6 +94,11 @@ export default function Login() {
               <span className="material-symbols-outlined">person_add</span>
               Criar meu cadastro de aluno
             </Link>
+            <p className="uf-muted" style={{ marginTop: 16 }}>
+              <Link to="/login?papel=admin" style={{ color: 'var(--uf-secondary)', fontWeight: 600 }}>
+                É um gestor? Acesse o portal do administrador
+              </Link>
+            </p>
           </>
         )}
         {ehAdmin && (

@@ -79,16 +79,40 @@ export default function Home() {
   const sugestoes = exercicios.slice(0, 4);
   const idsMinhas = Object.keys(minhasAgrupadas);
   const sessao = sessaoAtiva && sessaoAtiva.sessao;
+  const primeiro = (payload?.nome || 'aluno').split(' ')[0];
 
   return (
     <div>
-      <div className="uf-page-head">
+      <section className="uf-hello">
         <div>
-          <p className="uf-kicker">Portal do aluno</p>
-          <h1>Olá, {payload?.nome}</h1>
-          <p>Escolha uma lista e treine. O restante fica salvo no seu perfil.</p>
+          <p className="uf-kicker"><i />Portal do aluno</p>
+          <h1>Olá, {primeiro} 👋</h1>
+          <p>Bora treinar hoje? Confira seus treinos organizados e os exercícios do catálogo da academia.</p>
         </div>
-      </div>
+        <div className="uf-kpi-row">
+          <article className="uf-card uf-kpi">
+            <div className="uf-kpi-top">
+              Treinos
+              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--uf-primary)' }}>check_circle</span>
+            </div>
+            <strong>{treinosMes} <small>/ mês</small></strong>
+          </article>
+          <article className="uf-card uf-kpi">
+            <div className="uf-kpi-top">
+              Listas
+              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--uf-secondary)' }}>format_list_bulleted</span>
+            </div>
+            <strong>{idsMinhas.length} <small>ativas</small></strong>
+          </article>
+          <article className="uf-card uf-kpi">
+            <div className="uf-kpi-top">
+              Favoritos
+              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--uf-primary)', fontVariationSettings: "'FILL' 1" }}>favorite</span>
+            </div>
+            <strong>{favoritos} <small>itens</small></strong>
+          </article>
+        </div>
+      </section>
 
       {sessao && sessao.status === 'em_andamento' && (
         <button type="button" className="uf-banner" onClick={() => navigate('/app/treino/' + sessao.id)}>
@@ -98,50 +122,47 @@ export default function Home() {
         </button>
       )}
 
-      <section className="uf-home-metrics">
-        <article className="uf-card uf-metric">
-          <span className="uf-muted">Treinos no mês</span>
-          <strong>{treinosMes}</strong>
-        </article>
-        <article className="uf-card uf-metric">
-          <span className="uf-muted">Minhas listas</span>
-          <strong>{idsMinhas.length}</strong>
-        </article>
-        <article className="uf-card uf-metric">
-          <span className="uf-muted">Favoritos</span>
-          <strong>{favoritos}</strong>
-        </article>
-      </section>
-
       <section>
-        <div className="uf-page-head">
-          <h2>Minhas listas</h2>
+        <div className="uf-section-head">
+          <h2>
+            <span className="material-symbols-outlined" style={{ color: 'var(--uf-primary)' }}>view_timeline</span>
+            Minhas listas em destaque
+          </h2>
+          <button type="button" className="uf-section-link" onClick={() => navigate('/app/minhas-listas')}>
+            Ver todas as listas
+            <span className="material-symbols-outlined">arrow_forward</span>
+          </button>
         </div>
-        {idsMinhas.length === 0 ? (
-          <div className="uf-empty uf-card">
-            <p>Crie uma lista ou salve uma oficial para começar.</p>
-            <div className="uf-actions" style={{ justifyContent: 'center' }}>
-              <button type="button" className="uf-btn-primary" onClick={() => navigate('/app/minhas-listas')}>Criar lista</button>
-              <button type="button" className="uf-btn-outline" onClick={() => navigate('/app/listas')}>Ver oficiais</button>
+        <div className="uf-grid-lists">
+          {idsMinhas.map((idLista) => (
+            <ListaCard
+              key={idLista}
+              lista={minhasAgrupadas[idLista]}
+              destaqueHoje={listaProgramadaHoje(minhasAgrupadas[idLista][0])}
+              onIniciar={() => iniciar(minhasAgrupadas[idLista][0].id_lista)}
+              onAbrir={() => navigate('/app/minhas-listas')}
+            />
+          ))}
+          <button type="button" className="uf-card uf-list-create" onClick={() => navigate('/app/minhas-listas')}>
+            <div className="uf-list-create-icon">
+              <span className="material-symbols-outlined">add</span>
             </div>
-          </div>
-        ) : (
-          <div className="uf-grid-lists">
-            {idsMinhas.map((idLista) => (
-              <ListaCard
-                key={idLista}
-                lista={minhasAgrupadas[idLista]}
-                destaqueHoje={listaProgramadaHoje(minhasAgrupadas[idLista][0])}
-                onIniciar={() => iniciar(minhasAgrupadas[idLista][0].id_lista)}
-              />
-            ))}
-          </div>
-        )}
+            <strong>Criar nova lista</strong>
+            <span>Monte uma rotina personalizada ou organize seus exercícios favoritos.</span>
+          </button>
+        </div>
       </section>
 
-      <section style={{ marginTop: 28 }}>
-        <div className="uf-page-head">
-          <h2>Oficiais para salvar</h2>
+      <section style={{ marginTop: 48 }}>
+        <div className="uf-section-head">
+          <h2>
+            <span className="material-symbols-outlined" style={{ color: 'var(--uf-secondary)' }}>verified</span>
+            Listas oficiais UniFit
+          </h2>
+          <button type="button" className="uf-section-link" onClick={() => navigate('/app/listas')}>
+            Explorar catálogo oficial
+            <span className="material-symbols-outlined">arrow_forward</span>
+          </button>
         </div>
         {Object.keys(oficiaisAgrupadas).length === 0 ? (
           <p className="uf-empty uf-card">Nenhuma lista oficial.</p>
@@ -151,6 +172,7 @@ export default function Home() {
               <ListaCard
                 key={idLista}
                 lista={oficiaisAgrupadas[idLista]}
+                oficial
                 onSalvar={() => salvarOficial(oficiaisAgrupadas[idLista][0].id_lista)}
                 onIniciar={() => iniciar(oficiaisAgrupadas[idLista][0].id_lista)}
               />
@@ -159,9 +181,16 @@ export default function Home() {
         )}
       </section>
 
-      <section style={{ marginTop: 28 }}>
-        <div className="uf-page-head">
-          <h2>Do catálogo</h2>
+      <section style={{ marginTop: 48 }}>
+        <div className="uf-section-head">
+          <h2>
+            <span className="material-symbols-outlined" style={{ color: 'var(--uf-primary)' }}>fitness_center</span>
+            Do catálogo
+          </h2>
+          <button type="button" className="uf-section-link" onClick={() => navigate('/app/exercicios')}>
+            Ver catálogo
+            <span className="material-symbols-outlined">arrow_forward</span>
+          </button>
         </div>
         <div className="uf-grid-cards">
           {sugestoes.length === 0 ? (

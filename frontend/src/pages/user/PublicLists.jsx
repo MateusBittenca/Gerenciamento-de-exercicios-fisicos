@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { useFeedback } from '../../auth/FeedbackContext';
-import { groupListsById } from '../../api/client';
+import { groupListsById, OBJETIVOS } from '../../api/client';
 import ExerciseModal from '../../components/ExerciseModal';
 import ListaCard from '../../components/ListaCard';
 
@@ -12,6 +12,8 @@ export default function PublicLists() {
   const navigate = useNavigate();
   const [listaExer, setListaExer] = useState([]);
   const [selecionado, setSelecionado] = useState(null);
+  const [busca, setBusca] = useState('');
+  const [filtroObjetivo, setFiltroObjetivo] = useState('');
 
   useEffect(() => {
     async function carregar() {
@@ -52,25 +54,77 @@ export default function PublicLists() {
   }
 
   const agrupadas = groupListsById(listaExer);
+  const ids = Object.keys(agrupadas).filter((idLista) => {
+    const meta = agrupadas[idLista][0];
+    const nome = (meta.nome_lista || '').toLowerCase();
+    const objetivo = meta.objetivo || '';
+    if (filtroObjetivo && objetivo !== filtroObjetivo) {
+      return false;
+    }
+    if (busca && !nome.includes(busca.toLowerCase()) && !objetivo.toLowerCase().includes(busca.toLowerCase())) {
+      return false;
+    }
+    return true;
+  });
+
+  function contarObjetivo(valor) {
+    return Object.keys(agrupadas).filter((idLista) => agrupadas[idLista][0].objetivo === valor).length;
+  }
 
   return (
     <div>
-      <div className="uf-page-head">
+      <section className="uf-card uf-page-intro">
         <div>
-          <h1>Listas oficiais</h1>
-          <p>Sugestões da academia. Salve na rotina ou treine direto.</p>
+          <p className="uf-kicker" style={{ marginBottom: 8 }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>verified</span>
+            Homologado UniFit
+          </p>
+          <h1>Listas Oficiais UniFit</h1>
+          <p>Rotinas prescritas pela academia. Salve na sua rotina ou execute direto no salão.</p>
+        </div>
+        <div className="uf-stat-pill">
+          <span className="material-symbols-outlined">fitness_center</span>
+          <div>
+            <small>Catálogo ativo</small>
+            <strong>{Object.keys(agrupadas).length} fichas oficiais</strong>
+          </div>
+        </div>
+      </section>
+
+      <div className="uf-card uf-toolbar-card">
+        <div className="uf-toolbar">
+          <div className="uf-search">
+            <span className="material-symbols-outlined">search</span>
+            <input className="uf-input" placeholder="Buscar rotina oficial ou grupamento muscular..." value={busca} onChange={(e) => setBusca(e.target.value)} />
+          </div>
+        </div>
+        <div className="uf-chips" style={{ marginTop: 12 }}>
+          <button type="button" className={'uf-chip escuro' + (!filtroObjetivo ? ' ativo' : '')} onClick={() => setFiltroObjetivo('')}>
+            Todos <span className="uf-chip-count">{Object.keys(agrupadas).length}</span>
+          </button>
+          {OBJETIVOS.map((item) => (
+            <button
+              key={item.value}
+              type="button"
+              className={'uf-chip' + (filtroObjetivo === item.value ? ' ativo' : '')}
+              onClick={() => setFiltroObjetivo(item.value)}
+            >
+              {item.label} <span className="uf-chip-count">{contarObjetivo(item.value)}</span>
+            </button>
+          ))}
         </div>
       </div>
 
-      {Object.keys(agrupadas).length === 0 ? (
+      {ids.length === 0 ? (
         <p className="uf-empty uf-card">Nenhuma lista oficial no momento.</p>
       ) : (
         <div className="uf-grid-lists" id="tabelaExercicios">
-          {Object.keys(agrupadas).map((idLista) => (
+          {ids.map((idLista) => (
             <ListaCard
               key={idLista}
               lista={agrupadas[idLista]}
-              onAbrir={() => setSelecionado(agrupadas[idLista].find((item) => item.id_exercicio) || null)}
+              oficial
+              onExercicio={(exercicio) => setSelecionado(exercicio)}
               onSalvar={() => salvarOficial(agrupadas[idLista][0].id_lista)}
               onIniciar={() => iniciar(agrupadas[idLista][0].id_lista)}
             />

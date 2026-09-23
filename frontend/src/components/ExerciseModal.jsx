@@ -14,6 +14,10 @@ export default function ExerciseModal({ exercicio, onClose, favorito, onFav }) {
     <div className="uf-modal" onClick={onClose}>
       <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
         <button type="button" className="uf-modal-close" onClick={onClose}>&times;</button>
+        <p className="uf-kicker" style={{ marginBottom: 8 }}>
+          <span className="material-symbols-outlined" style={{ fontSize: 16 }}>fitness_center</span>
+          {musculo || 'Exercício'}
+        </p>
         <div className="uf-page-head" style={{ marginBottom: 8 }}>
           <h2>{nome}</h2>
           {onFav && (
@@ -23,15 +27,15 @@ export default function ExerciseModal({ exercicio, onClose, favorito, onFav }) {
           )}
         </div>
         {imagem && (
-          <img className="uf-gif" src={exerciseImageSrc(imagem)} alt={nome} style={{ marginTop: 16 }} />
+          <img className="uf-gif" src={exerciseImageSrc(imagem)} alt={nome} style={{ marginTop: 16, borderRadius: 12 }} />
         )}
         <div className="uf-meta">
-          <div><strong>Músculo:</strong> {musculo}</div>
-          <div><strong>Equipamento:</strong> {exercicio.equipamento}</div>
-          <div><strong>Dificuldade:</strong> {exercicio.dificuldade}</div>
-          <div><strong>Tipo:</strong> {tipo}</div>
+          <div><strong>Músculo</strong><span>{musculo || '—'}</span></div>
+          <div><strong>Equipamento</strong><span>{exercicio.equipamento || '—'}</span></div>
+          <div><strong>Dificuldade</strong><span>{exercicio.dificuldade || '—'}</span></div>
+          <div><strong>Tipo</strong><span>{tipo || '—'}</span></div>
         </div>
-        <p>{exercicio.instrucao}</p>
+        {exercicio.instrucao ? <p style={{ color: 'var(--uf-text-2)', lineHeight: '24px' }}>{exercicio.instrucao}</p> : null}
       </div>
     </div>
   );

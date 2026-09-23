@@ -6,8 +6,8 @@ import { formatCronometro, segundosDesde } from '../api/client';
 const LINKS = [
   { to: '/app', label: 'Início', icon: 'home', end: true },
   { to: '/app/exercicios', label: 'Catálogo de Exercícios', icon: 'fitness_center' },
-  { to: '/app/listas', label: 'Listas Oficiais', icon: 'assignment' },
-  { to: '/app/minhas-listas', label: 'Minhas Listas', icon: 'list_alt' },
+  { to: '/app/listas', label: 'Listas Oficiais', icon: 'verified' },
+  { to: '/app/minhas-listas', label: 'Minhas Listas', icon: 'playlist_add_check' },
   { to: '/app/perfil', label: 'Perfil', icon: 'person' }
 ];
 

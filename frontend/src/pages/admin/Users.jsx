@@ -82,16 +82,33 @@ export default function Users() {
 
   return (
     <div>
-      <div className="uf-page-head">
+      <section className="uf-card uf-page-intro">
         <div>
-          <h1>Usuários</h1>
-          <p>Gerencie os alunos cadastrados na academia.</p>
+          <p className="uf-kicker" style={{ marginBottom: 8 }}>Gestão operacional</p>
+          <h1>Gestão de Usuários & Alunos</h1>
+          <p>Cadastre, edite e monitore os alunos da academia.</p>
         </div>
+      </section>
+      <div className="uf-admin-kpis">
+        <article className="uf-card uf-kpi">
+          <div className="uf-kpi-top">
+            Total de usuários
+            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>groups</span>
+          </div>
+          <strong>{usuarios.length}</strong>
+        </article>
+        <article className="uf-card uf-kpi">
+          <div className="uf-kpi-top">
+            Exibindo
+            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>filter_alt</span>
+          </div>
+          <strong>{visiveis.length}</strong>
+        </article>
       </div>
       <div className="uf-toolbar">
         <div className="uf-search">
           <span className="material-symbols-outlined">search</span>
-          <input type="text" id="txtFiltro" className="uf-input" placeholder="Filtro" value={filtro} onChange={(e) => setFiltro(e.target.value)} />
+          <input type="text" id="txtFiltro" className="uf-input" placeholder="Buscar por nome ou e-mail..." value={filtro} onChange={(e) => setFiltro(e.target.value)} />
         </div>
       </div>
       <div className="uf-card uf-table-wrap">

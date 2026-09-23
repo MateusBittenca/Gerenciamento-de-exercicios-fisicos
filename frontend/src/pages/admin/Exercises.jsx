@@ -132,20 +132,24 @@ export default function AdminExercises() {
 
   return (
     <div>
-      <div className="uf-page-head">
+      <section className="uf-card uf-page-intro">
         <div>
-          <h1>Exercícios</h1>
+          <p className="uf-kicker" style={{ marginBottom: 8 }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>fitness_center</span>
+            Biblioteca oficial
+          </p>
+          <h1>Catálogo de Exercícios</h1>
           <p>Catálogo usado pelos alunos no portal.</p>
         </div>
         <button type="button" className="uf-btn-primary" id="Create-exer" onClick={() => setCriarAberto(true)}>
           <span className="material-symbols-outlined">add</span>
           Novo exercício
         </button>
-      </div>
+      </section>
       <div className="uf-toolbar">
         <div className="uf-search">
           <span className="material-symbols-outlined">search</span>
-          <input type="text" id="txtFiltro" className="uf-input" placeholder="Filtro" value={filtro} onChange={(e) => setFiltro(e.target.value)} />
+          <input type="text" id="txtFiltro" className="uf-input" placeholder="Buscar exercício..." value={filtro} onChange={(e) => setFiltro(e.target.value)} />
         </div>
       </div>
       <div className="uf-card uf-table-wrap">
