@@ -83,6 +83,43 @@ module.exports = class TreinoSessao {
         return operacao;
     }
 
+    async diasTreinados(ano, mes) {
+        const operacao = new Promise((resolve, reject) => {
+            const parametros = [this._usuarioId, ano, mes];
+            const sql = `SELECT DATE_FORMAT(encerrada_em, '%Y-%m-%d') AS dia
+                         FROM treino_sessao
+                         WHERE usuario_id = ?
+                           AND status = 'concluida'
+                           AND YEAR(encerrada_em) = ?
+                           AND MONTH(encerrada_em) = ?
+                         GROUP BY dia
+                         ORDER BY dia;`;
+            this._banco.query(sql, parametros, function (erro, resultados) {
+                if (erro) {
+                    reject(erro);
+                } else {
+                    resolve(resultados.map(r => r.dia));
+                }
+            });
+        });
+        return operacao;
+    }
+
+    async contarTotal() {
+        const operacao = new Promise((resolve, reject) => {
+            const parametros = [this._usuarioId];
+            const sql = "SELECT COUNT(*) AS qtd FROM treino_sessao WHERE usuario_id = ? AND status = 'concluida';";
+            this._banco.query(sql, parametros, function (erro, resultados) {
+                if (erro) {
+                    reject(erro);
+                } else {
+                    resolve(resultados[0] ? resultados[0].qtd : 0);
+                }
+            });
+        });
+        return operacao;
+    }
+
     set id(id) { this._id = id; }
     get id() { return this._id; }
     set usuarioId(usuarioId) { this._usuarioId = usuarioId; }

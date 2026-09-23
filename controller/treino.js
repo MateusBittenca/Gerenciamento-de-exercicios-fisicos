@@ -201,7 +201,17 @@ module.exports.resumo = function (request, response, banco) {
     const dados = jwt.dados(validou);
     const sessao = new TreinoSessao(banco);
     sessao.usuarioId = dados.usuarioId;
-    Promise.all([sessao.readAtiva(), sessao.contarConcluidasMes()]).then(async ([ativas, mes]) => {
+
+    const agora = new Date();
+    const ano = parseInt(request.query.ano) || agora.getFullYear();
+    const mes = parseInt(request.query.mes) || (agora.getMonth() + 1);
+
+    Promise.all([
+        sessao.readAtiva(),
+        sessao.contarConcluidasMes(),
+        sessao.diasTreinados(ano, mes),
+        sessao.contarTotal()
+    ]).then(async ([ativas, mes_count, dias, total]) => {
         let sessaoAtiva = null;
         if (ativas && ativas.length > 0) {
             sessaoAtiva = await montarSessao(banco, ativas[0].id);
@@ -212,7 +222,9 @@ module.exports.resumo = function (request, response, banco) {
             codigo: '002',
             dados: {
                 sessaoAtiva: sessaoAtiva,
-                concluidasMes: mes && mes[0] ? mes[0].qtd : 0
+                concluidasMes: mes_count && mes_count[0] ? mes_count[0].qtd : 0,
+                diasTreinados: dias || [],
+                totalTreinos: total || 0
             },
             token: jwt.gerar(jwt.dados(validou))
         });
