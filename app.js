@@ -30,8 +30,8 @@ const banco = mysql.createPool({
 rotas_usuario(app,banco);
 rotas_exercicios(app,banco);
 rotas_admin(app,banco);
-rotas_lista(app,banco);
 rotas_listaExer(app,banco);
+rotas_lista(app,banco);
 rotas_exerfav(app,banco);
 rotas_treino(app,banco);
 
