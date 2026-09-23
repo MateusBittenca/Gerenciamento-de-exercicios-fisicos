@@ -1,5 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'motion/react';
+import Reveal from '../../components/Reveal';
+import { DUR, EASE, fadeUp, staggerParent, tap } from '../../motion';
 import '../../css/landing.css';
+
+const MotionLink = motion.create(Link);
+
+/* Traço do instrutor: desce a margem esquerda, passa sob o texto, sobe atrás da ficha. */
+const ONDA =
+  'M 118 -50 C 132 150 102 340 130 520 C 155 640 400 670 700 650 C 980 630 1050 40 1260 80 C 1480 120 1420 580 1600 720';
+
+const barras = [
+  { cls: 'c1', valor: '56', delay: 0 },
+  { cls: 'c2', valor: '60', delay: 0.05 },
+  { cls: 'c3', valor: '60', delay: 0.1 },
+  { cls: 'c4', valor: '62', delay: 0.15 },
+  { cls: 'c5', valor: '65', delay: 0.2 }
+];
 
 export default function Landing() {
   const navigate = useNavigate();
@@ -20,37 +37,76 @@ export default function Landing() {
           </nav>
           <div className="uf-lp-header-actions">
             <Link to="/login" className="uf-lp-entrar">Entrar</Link>
-            <Link to="/cadastro" className="uf-lp-btn compacto">Criar conta</Link>
+            <MotionLink to="/cadastro" className="uf-lp-btn compacto" whileTap={tap}>
+              Criar conta
+            </MotionLink>
           </div>
         </div>
       </header>
 
       <main id="conteudo">
+        <div className="uf-lp-hero-wrap">
+          <svg className="uf-lp-onda" viewBox="0 0 1440 820" preserveAspectRatio="none" aria-hidden="true">
+            <motion.path
+              className="uf-lp-onda-faixa"
+              d={ONDA}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1.4, ease: EASE }}
+            />
+            <motion.path
+              className="uf-lp-onda-eco"
+              d={ONDA}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1.6, delay: 0.12, ease: EASE }}
+            />
+            <motion.path
+              className="uf-lp-onda-traco"
+              d={ONDA}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1.8, ease: EASE }}
+            />
+          </svg>
         <section className="uf-lp-hero">
-          <div className="uf-lp-hero-texto">
-            <p className="uf-lp-overline">Gerenciador de treinos da sua academia</p>
-            <h1>
+          <motion.div
+            className="uf-lp-hero-texto"
+            variants={staggerParent}
+            initial="hidden"
+            animate="show"
+          >
+            <motion.p className="uf-lp-overline" variants={fadeUp}>
+              Gerenciador de treinos da sua academia
+            </motion.p>
+            <motion.h1 variants={fadeUp}>
               Seu treino não termina na <em>ficha.</em>
-            </h1>
-            <p className="uf-lp-hero-sub">
+            </motion.h1>
+            <motion.p className="uf-lp-hero-sub" variants={fadeUp}>
               O UniFit coloca a ficha da academia no seu bolso: consulte cada exercício
               com demonstração, registre série por série e acompanhe a carga subir
               semana após semana.
-            </p>
-            <div className="uf-lp-hero-acoes">
-              <button type="button" className="uf-lp-btn" onClick={() => navigate('/cadastro')}>
+            </motion.p>
+            <motion.div className="uf-lp-hero-acoes" variants={fadeUp}>
+              <motion.button type="button" className="uf-lp-btn" whileTap={tap} onClick={() => navigate('/cadastro')}>
                 Criar conta de aluno
-              </button>
-              <button type="button" className="uf-lp-btn contorno" onClick={() => navigate('/login')}>
+              </motion.button>
+              <motion.button type="button" className="uf-lp-btn contorno" whileTap={tap} onClick={() => navigate('/login')}>
                 Já tenho conta
-              </button>
-            </div>
-            <p className="uf-lp-hero-adm">
+              </motion.button>
+            </motion.div>
+            <motion.p className="uf-lp-hero-adm" variants={fadeUp}>
               Administra uma academia? <Link to="/login?papel=admin">Acesso administrativo</Link>
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
-          <aside className="uf-lp-ficha" aria-label="Exemplo de sessão de treino no UniFit">
+          <motion.aside
+            className="uf-lp-ficha"
+            aria-label="Exemplo de sessão de treino no UniFit"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.16, ease: EASE }}
+          >
             <div className="uf-lp-ficha-head">
               <span className="uf-lp-ficha-tag">Ficha A</span>
               <span className="uf-lp-ficha-nome">Peito e tríceps</span>
@@ -81,54 +137,63 @@ export default function Landing() {
                 <dd>90<small>s</small></dd>
               </div>
             </dl>
-            <ol className="uf-lp-ficha-series">
-              <li className="feita">
+            <motion.ol
+              className="uf-lp-ficha-series"
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.08, delayChildren: 0.38 } }
+              }}
+              initial="hidden"
+              animate="show"
+            >
+              <motion.li className="feita" variants={fadeUp}>
                 <span className="material-symbols-outlined" aria-hidden="true">check</span>
                 <span className="uf-lp-serie-nome">Série 1</span>
                 <b>10 × 36 kg</b>
-              </li>
-              <li className="atual">
+              </motion.li>
+              <motion.li className="atual" variants={fadeUp}>
                 <span className="uf-lp-serie-agora" aria-hidden="true" />
                 <span className="uf-lp-serie-nome">Série 2</span>
                 <b>8 × 40 kg</b>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li variants={fadeUp}>
                 <span className="uf-lp-serie-vazio" aria-hidden="true" />
                 <span className="uf-lp-serie-nome">Série 3</span>
                 <b>— × 40 kg</b>
-              </li>
-            </ol>
+              </motion.li>
+            </motion.ol>
             <p className="uf-lp-ficha-nota">Sessão de exemplo. Os números aqui são os seus.</p>
-          </aside>
+          </motion.aside>
         </section>
+        </div>
 
         <section className="uf-lp-secao" id="como-funciona">
-          <header className="uf-lp-secao-head">
+          <Reveal as="header" className="uf-lp-secao-head">
             <p className="uf-lp-overline">Como funciona</p>
             <h2>Da recepção ao rack, um caminho só.</h2>
-          </header>
-          <ol className="uf-lp-fluxo">
-            <li>
+          </Reveal>
+          <Reveal as="ol" className="uf-lp-fluxo" stagger>
+            <motion.li variants={fadeUp}>
               <span className="uf-lp-fluxo-n">01</span>
               <h3>A academia monta</h3>
               <p>A equipe da unidade cadastra o catálogo de exercícios e publica as fichas oficiais de treino.</p>
-            </li>
-            <li>
+            </motion.li>
+            <motion.li variants={fadeUp}>
               <span className="uf-lp-fluxo-n">02</span>
               <h3>Você organiza</h3>
               <p>Salve uma ficha oficial na sua rotina ou monte listas pessoais com objetivo e dias da semana.</p>
-            </li>
-            <li>
+            </motion.li>
+            <motion.li variants={fadeUp}>
               <span className="uf-lp-fluxo-n">03</span>
               <h3>O treino fica registrado</h3>
               <p>Inicie a sessão, marque cada série concluída, ajuste a carga e respeite o descanso.</p>
-            </li>
-          </ol>
+            </motion.li>
+          </Reveal>
         </section>
 
         <section className="uf-lp-sessao" aria-label="O produto em ação">
           <div className="uf-lp-sessao-inner">
-            <div className="uf-lp-sessao-texto">
+            <Reveal className="uf-lp-sessao-texto">
               <p className="uf-lp-overline clara">Produto em ação</p>
               <h2>Aperte iniciar e a ficha vira sessão.</h2>
               <p>
@@ -136,8 +201,8 @@ export default function Landing() {
                 entre séries e guarda as cargas que você levantou. Na próxima vez,
                 o exercício já abre com a sua última carga.
               </p>
-            </div>
-            <div className="uf-lp-sessao-painel">
+            </Reveal>
+            <Reveal className="uf-lp-sessao-painel" delay={0.08}>
               <div className="uf-lp-sessao-topo">
                 <div>
                   <span className="uf-lp-rotulo">Tempo de sessão</span>
@@ -174,24 +239,30 @@ export default function Landing() {
               <div className="uf-lp-historico">
                 <span className="uf-lp-rotulo">Últimas cargas registradas</span>
                 <div className="uf-lp-barras" role="img" aria-label="Histórico de carga do agachamento livre: 56, 60, 60, 62 e 65 quilos">
-                  <span className="c1"><i /><em>56</em></span>
-                  <span className="c2"><i /><em>60</em></span>
-                  <span className="c3"><i /><em>60</em></span>
-                  <span className="c4"><i /><em>62</em></span>
-                  <span className="c5"><i /><em>65</em></span>
+                  {barras.map((barra) => (
+                    <span key={barra.cls} className={barra.cls}>
+                      <motion.i
+                        initial={{ scaleY: 0 }}
+                        whileInView={{ scaleY: 1 }}
+                        viewport={{ once: true, amount: 0.6 }}
+                        transition={{ duration: DUR, delay: barra.delay, ease: EASE }}
+                      />
+                      <em>{barra.valor}</em>
+                    </span>
+                  ))}
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
 
         <section className="uf-lp-secao" id="recursos">
-          <header className="uf-lp-secao-head">
+          <Reveal as="header" className="uf-lp-secao-head">
             <p className="uf-lp-overline">Recursos</p>
             <h2>O que você encontra dentro do UniFit.</h2>
-          </header>
+          </Reveal>
 
-          <article className="uf-lp-rec">
+          <Reveal as="article" className="uf-lp-rec">
             <div className="uf-lp-rec-texto">
               <span className="uf-lp-rec-n">01</span>
               <h3>Catálogo visual de exercícios</h3>
@@ -204,9 +275,9 @@ export default function Landing() {
               <img src={'/ExerciciosGif/' + encodeURIComponent('Puxada-Alta-na-Polia-_Lat-Pulldown_.gif')} alt="Demonstração animada da puxada alta na polia" />
               <figcaption>Puxada alta na polia — costas</figcaption>
             </figure>
-          </article>
+          </Reveal>
 
-          <article className="uf-lp-rec invertido">
+          <Reveal as="article" className="uf-lp-rec invertido">
             <div className="uf-lp-rec-texto">
               <span className="uf-lp-rec-n">02</span>
               <h3>Fichas oficiais da academia</h3>
@@ -219,9 +290,9 @@ export default function Landing() {
               <img src="/image/academiaTCC.jpg" alt="Sala de musculação da academia" />
               <figcaption>Prescrição da equipe, execução sua</figcaption>
             </figure>
-          </article>
+          </Reveal>
 
-          <article className="uf-lp-rec">
+          <Reveal as="article" className="uf-lp-rec">
             <div className="uf-lp-rec-texto">
               <span className="uf-lp-rec-n">03</span>
               <h3>Listas pessoais do seu jeito</h3>
@@ -243,9 +314,9 @@ export default function Landing() {
               <p className="uf-lp-presc">3 × 8–12 · 20 kg · 90 s de pausa</p>
               <span className="uf-lp-presc-legenda">Prescrição de um exercício da lista</span>
             </div>
-          </article>
+          </Reveal>
 
-          <article className="uf-lp-rec invertido">
+          <Reveal as="article" className="uf-lp-rec invertido">
             <div className="uf-lp-rec-texto">
               <span className="uf-lp-rec-n">04</span>
               <h3>Registro e evolução</h3>
@@ -258,12 +329,12 @@ export default function Landing() {
               <img src={'/ExerciciosGif/' + encodeURIComponent('Agachamento livre.gif')} alt="Demonstração animada do agachamento livre" />
               <figcaption>Agachamento livre — pernas</figcaption>
             </figure>
-          </article>
+          </Reveal>
         </section>
 
         <section className="uf-lp-academias" id="academias">
           <div className="uf-lp-academias-inner">
-            <div className="uf-lp-academias-texto">
+            <Reveal className="uf-lp-academias-texto">
               <p className="uf-lp-overline azul">Para academias</p>
               <h2>A gestão do treino no mesmo lugar que o aluno.</h2>
               <p>
@@ -271,40 +342,40 @@ export default function Landing() {
                 vê no app: os alunos cadastrados, o catálogo de exercícios e as fichas
                 oficiais com prescrição.
               </p>
-            </div>
-            <div className="uf-lp-academias-itens">
+            </Reveal>
+            <Reveal className="uf-lp-academias-itens" delay={0.06}>
               <ul>
                 <li>Gestão de alunos e administradores</li>
                 <li>Catálogo de exercícios da unidade</li>
                 <li>Fichas oficiais com séries, carga e descanso</li>
               </ul>
-              <Link to="/login?papel=admin" className="uf-lp-link-adm">
+              <MotionLink to="/login?papel=admin" className="uf-lp-link-adm" whileTap={tap}>
                 Acesso administrativo
                 <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-              </Link>
-            </div>
+              </MotionLink>
+            </Reveal>
           </div>
         </section>
 
         <section className="uf-lp-final">
-          <div className="uf-lp-final-aluno">
+          <Reveal className="uf-lp-final-aluno">
             <h2>Comece pelo próximo treino.</h2>
             <p>Crie sua conta, escolha sua ficha e registre a primeira sessão hoje.</p>
             <div className="uf-lp-final-acoes">
-              <button type="button" className="uf-lp-btn" onClick={() => navigate('/cadastro')}>
+              <motion.button type="button" className="uf-lp-btn" whileTap={tap} onClick={() => navigate('/cadastro')}>
                 Criar conta de aluno
-              </button>
+              </motion.button>
               <Link to="/login" className="uf-lp-final-entrar">Já treino com o UniFit</Link>
             </div>
-          </div>
-          <div className="uf-lp-final-adm">
+          </Reveal>
+          <Reveal className="uf-lp-final-adm" delay={0.06}>
             <h3>É da equipe da academia?</h3>
             <p>Entre no painel para gerenciar alunos, catálogo e fichas oficiais.</p>
-            <Link to="/login?papel=admin" className="uf-lp-link-adm">
+            <MotionLink to="/login?papel=admin" className="uf-lp-link-adm" whileTap={tap}>
               Acesso administrativo
               <span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-            </Link>
-          </div>
+            </MotionLink>
+          </Reveal>
         </section>
       </main>
 

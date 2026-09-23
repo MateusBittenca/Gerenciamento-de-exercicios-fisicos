@@ -1,8 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
 import { useAuth } from '../../auth/AuthContext';
 import { api } from '../../api/client';
+import { DUR, EASE, tap } from '../../motion';
 import '../../css/auth.css';
+
+const fadeSwap = {
+  initial: { opacity: 0, y: 8 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -8 },
+  transition: { duration: 0.32, ease: EASE }
+};
 
 export default function Login() {
   const navigate = useNavigate();
@@ -56,57 +65,71 @@ export default function Login() {
 
       <div className="uf-auth-shell">
         <aside className="uf-auth-rail" aria-hidden="true">
-          <p className={'uf-auth-overline' + (ehAdmin ? ' azul' : '')}>
-            {ehAdmin ? 'Painel da academia' : 'Portal do aluno'}
-          </p>
-          <h2>
-            {ehAdmin ? <>Gestão do catálogo e das <em>fichas.</em></> : <>O treino continua <em>aqui.</em></>}
-          </h2>
-          <p>
-            {ehAdmin
-              ? 'Alunos, exercícios e listas oficiais no mesmo lugar que o aluno vê no app.'
-              : 'Abra sua ficha, registre as séries e acompanhe a carga do último treino.'}
-          </p>
-          {!ehAdmin && (
-            <>
-              <dl className="uf-auth-rail-dados">
-                <div>
-                  <dt>Séries</dt>
-                  <dd>4</dd>
-                </div>
-                <div>
-                  <dt>Reps</dt>
-                  <dd>8–10</dd>
-                </div>
-                <div>
-                  <dt>Carga</dt>
-                  <dd>40</dd>
-                </div>
-              </dl>
-              <p className="uf-auth-rail-nota">Exemplo de prescrição. Os números na conta são os seus.</p>
-            </>
-          )}
-          {ehAdmin && (
-            <ul className="uf-auth-rail-lista">
-              <li>Gestão de alunos e administradores</li>
-              <li>Catálogo de exercícios</li>
-              <li>Fichas oficiais com prescrição</li>
-            </ul>
-          )}
+          <AnimatePresence mode="wait">
+            <motion.div key={papel} {...fadeSwap}>
+              <p className={'uf-auth-overline' + (ehAdmin ? ' azul' : '')}>
+                {ehAdmin ? 'Painel da academia' : 'Portal do aluno'}
+              </p>
+              <h2>
+                {ehAdmin ? <>Gestão do catálogo e das <em>fichas.</em></> : <>O treino continua <em>aqui.</em></>}
+              </h2>
+              <p>
+                {ehAdmin
+                  ? 'Alunos, exercícios e listas oficiais no mesmo lugar que o aluno vê no app.'
+                  : 'Abra sua ficha, registre as séries e acompanhe a carga do último treino.'}
+              </p>
+              {!ehAdmin && (
+                <>
+                  <dl className="uf-auth-rail-dados">
+                    <div>
+                      <dt>Séries</dt>
+                      <dd>4</dd>
+                    </div>
+                    <div>
+                      <dt>Reps</dt>
+                      <dd>8–10</dd>
+                    </div>
+                    <div>
+                      <dt>Carga</dt>
+                      <dd>40</dd>
+                    </div>
+                  </dl>
+                  <p className="uf-auth-rail-nota">Exemplo de prescrição. Os números na conta são os seus.</p>
+                </>
+              )}
+              {ehAdmin && (
+                <ul className="uf-auth-rail-lista">
+                  <li>Gestão de alunos e administradores</li>
+                  <li>Catálogo de exercícios</li>
+                  <li>Fichas oficiais com prescrição</li>
+                </ul>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </aside>
 
         <div className="uf-auth-main">
-          <div className="uf-auth-box">
-            <p className={'uf-auth-overline' + (ehAdmin ? ' azul' : '')}>
-              {ehAdmin ? 'Acesso administrativo' : 'Entrar'}
-            </p>
-            <h1>{ehAdmin ? 'Painel da unidade' : <>Bem-vindo de <em>volta.</em></>}</h1>
-            <p className="uf-auth-lead">
-              {ehAdmin
-                ? 'Entre com o e-mail e a senha de administrador.'
-                : 'Use o e-mail e a senha da sua conta de aluno.'}
-            </p>
+          <motion.div
+            className="uf-auth-box"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: DUR, ease: EASE }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div key={papel} className="uf-auth-intro" {...fadeSwap}>
+                <p className={'uf-auth-overline' + (ehAdmin ? ' azul' : '')}>
+                  {ehAdmin ? 'Acesso administrativo' : 'Entrar'}
+                </p>
+                <h1>{ehAdmin ? 'Painel da unidade' : <>Bem-vindo de <em>volta.</em></>}</h1>
+                <p className="uf-auth-lead">
+                  {ehAdmin
+                    ? 'Entre com o e-mail e a senha de administrador.'
+                    : 'Use o e-mail e a senha da sua conta de aluno.'}
+                </p>
+              </motion.div>
+            </AnimatePresence>
 
+            <LayoutGroup>
             <div className="uf-auth-papeis" role="tablist" aria-label="Tipo de acesso">
               <button
                 type="button"
@@ -116,6 +139,7 @@ export default function Login() {
                 onClick={() => escolherPapel('aluno')}
               >
                 Aluno
+                {!ehAdmin && <motion.span layoutId="uf-auth-papel" className="uf-auth-tab-linha" />}
               </button>
               <button
                 type="button"
@@ -125,10 +149,25 @@ export default function Login() {
                 onClick={() => escolherPapel('admin')}
               >
                 Administrador
+                {ehAdmin && <motion.span layoutId="uf-auth-papel" className="uf-auth-tab-linha admin" />}
               </button>
             </div>
+            </LayoutGroup>
 
-            {erro && <p className="uf-form-erro" role="alert">E-mail ou senha incorretos.</p>}
+            <AnimatePresence>
+              {erro && (
+                <motion.p
+                  className="uf-form-erro"
+                  role="alert"
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.22, ease: EASE }}
+                >
+                  E-mail ou senha incorretos.
+                </motion.p>
+              )}
+            </AnimatePresence>
 
             <form onSubmit={onclick_btnLogin}>
               <div className="uf-field">
@@ -171,9 +210,9 @@ export default function Login() {
                   </button>
                 </div>
               </div>
-              <button type="submit" id="btnLogin" className={'uf-auth-enviar' + (ehAdmin ? ' admin' : '')}>
+              <motion.button type="submit" id="btnLogin" className={'uf-auth-enviar' + (ehAdmin ? ' admin' : '')} whileTap={tap}>
                 {ehAdmin ? 'Entrar no painel' : 'Entrar'}
-              </button>
+              </motion.button>
             </form>
 
             {!ehAdmin && (
@@ -190,7 +229,7 @@ export default function Login() {
                 <Link to="/">Voltar para o início</Link>
               </p>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

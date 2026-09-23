@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import Sidebar from '../components/Sidebar';
 import Topbar from '../components/Topbar';
+import PageFade from '../components/PageFade';
 
 export default function UserLayout() {
   const [menuAberto, setMenuAberto] = useState(false);
@@ -27,7 +27,7 @@ export default function UserLayout() {
       <div className="uf-main">
         <Topbar onMenu={() => setMenuAberto(true)} />
         <div className="uf-content">
-          <Outlet />
+          <PageFade />
         </div>
       </div>
     </div>

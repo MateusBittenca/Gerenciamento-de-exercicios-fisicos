@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'motion/react';
 import { useFeedback } from '../../auth/FeedbackContext';
 import { api } from '../../api/client';
+import { DUR, EASE, tap } from '../../motion';
 import '../../css/auth.css';
 
 export default function Register() {
@@ -51,7 +53,12 @@ export default function Register() {
       </header>
 
       <div className="uf-auth-shell">
-        <aside className="uf-auth-rail">
+        <motion.aside
+          className="uf-auth-rail"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: DUR, ease: EASE }}
+        >
           <p className="uf-auth-overline">Cadastro de aluno</p>
           <h2>Primeiro a conta. Depois a <em>ficha.</em></h2>
           <p>
@@ -75,16 +82,34 @@ export default function Register() {
           <p className="uf-auth-rail-nota">
             Altura e peso entram no perfil para o cálculo de IMC. Não vão para um instrutor automático.
           </p>
-        </aside>
+        </motion.aside>
 
         <div className="uf-auth-main">
-          <div className="uf-auth-box">
+          <motion.div
+            className="uf-auth-box"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: DUR, ease: EASE, delay: 0.06 }}
+          >
             <p className="uf-auth-overline">Nova conta</p>
             <h1>Criar conta de <em>aluno.</em></h1>
             <p className="uf-auth-lead">Nome, e-mail, senha e os dados que o perfil usa no IMC.</p>
 
             <form onSubmit={onclick_btnCadastrar}>
-              {erro && <p className="uf-form-erro" role="alert">{erro}</p>}
+              <AnimatePresence>
+                {erro && (
+                  <motion.p
+                    className="uf-form-erro"
+                    role="alert"
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.22, ease: EASE }}
+                  >
+                    {erro}
+                  </motion.p>
+                )}
+              </AnimatePresence>
 
               <p className="uf-auth-etapa"><span>01</span> Acesso</p>
 
@@ -221,15 +246,15 @@ export default function Register() {
                 Confirmo que os dados informados são meus.
               </label>
 
-              <button id="btncadastrar" className="uf-auth-enviar" type="submit">
+              <motion.button id="btncadastrar" className="uf-auth-enviar" type="submit" whileTap={tap}>
                 Criar conta
-              </button>
+              </motion.button>
             </form>
 
             <p className="uf-auth-pe">
               Já tem conta? <Link to="/login">Entrar</Link>
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

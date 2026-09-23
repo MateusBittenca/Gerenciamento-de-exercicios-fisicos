@@ -1,4 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { MotionConfig } from 'motion/react';
 import { AuthProvider } from './auth/AuthContext';
 import { FeedbackProvider } from './auth/FeedbackContext';
 import ProtectedRoute from './auth/ProtectedRoute';
@@ -22,6 +23,7 @@ import AddExerciseToList from './pages/admin/AddExerciseToList';
 
 export default function App() {
   return (
+    <MotionConfig reducedMotion="user">
     <AuthProvider>
       <FeedbackProvider>
       <BrowserRouter>
@@ -57,5 +59,6 @@ export default function App() {
       </BrowserRouter>
       </FeedbackProvider>
     </AuthProvider>
+    </MotionConfig>
   );
 }

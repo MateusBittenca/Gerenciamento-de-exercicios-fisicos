@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import AdminNavbar from '../components/AdminNavbar';
 import Topbar from '../components/Topbar';
+import PageFade from '../components/PageFade';
 
 export default function AdminLayout() {
   const [menuAberto, setMenuAberto] = useState(false);
@@ -13,7 +13,7 @@ export default function AdminLayout() {
       <div className="uf-main">
         <Topbar onMenu={() => setMenuAberto(true)} />
         <div className="uf-content">
-          <Outlet />
+          <PageFade />
         </div>
       </div>
     </div>

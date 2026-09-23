@@ -232,6 +232,7 @@
 }
 
 .uf-auth-papeis button {
+  position: relative;
   height: 44px;
   border: 0;
   border-bottom: 2px solid transparent;
@@ -250,12 +251,27 @@
 
 .uf-auth-papeis button.ativo {
   color: var(--uf-primary);
-  border-bottom-color: var(--uf-primary);
 }
 
 .uf-auth-papeis button.admin.ativo {
   color: var(--uf-secondary);
-  border-bottom-color: var(--uf-secondary);
+}
+
+.uf-auth-tab-linha {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--uf-primary);
+}
+
+.uf-auth-tab-linha.admin {
+  background: var(--uf-secondary);
+}
+
+.uf-auth-intro {
+  min-height: 128px;
 }
 
 .uf-auth-enviar {
