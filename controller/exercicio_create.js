@@ -2,12 +2,14 @@ const Exercicio = require("../model/Exercicios.js");
 const JWT = require('../model/JWT');
 module.exports = function(request,response,banco){
     console.log("POST:/exercicio");
-    const jwt = new JWT(banco);
-    const auth = request.headers.authorization;
-    const validou = jwt.validar(auth);
-            
-    if(validou.status == true){
-        const p_nome = request.body.nome;
+    const jwt = new JWT();
+    const entrada = jwt.entrar(request.headers.authorization, 'admin');
+    if (!entrada.ok) {
+        jwt.negar(response, entrada);
+        return;
+    }
+
+    const p_nome = request.body.nome;
         const p_musculo = request.body.musculo;
         const p_equipamento = request.body.equipamento;
         const p_dificuldade = request.body.dificuldade;
@@ -60,18 +62,5 @@ module.exports = function(request,response,banco){
                 }
                 response.status(200).send(resposta);
             }); 
-        }
-
-    }else{
-        const resposta = {
-            status: false,
-            msg: 'Token invalido!',
-            codigo: '003',
-            dados: {}
-        };
-        response.status(200).send(resposta);
     }
-
-   
-       
 }

@@ -3,12 +3,13 @@ const JWT = require('../model/JWT');
 module.exports = function(request,response,banco){
     console.log("POST:/exercicio");
     const jwt = new JWT();
-    const auth = request.headers.authorization;
-    const validou = jwt.validar(auth);
+    const entrada = jwt.entrar(request.headers.authorization, 'admin');
+    if (!entrada.ok) {
+        jwt.negar(response, entrada);
+        return;
+    }
 
-    if(validou.status == true){
-
-        const p_idexercicio = request.params.idexercicio;
+    const p_idexercicio = request.params.idexercicio;
         const p_nome = request.body.nome;
         const p_musculo = request.body.musculo;
         const p_equipamento = request.body.equipamento;
@@ -43,7 +44,7 @@ module.exports = function(request,response,banco){
                         tipo:p_tipo,
                         imagem:p_imagem
                     },
-                    token:jwt.gerar(validou.payload)
+                    token:jwt.gerar(entrada.dados)
                 }
                 response.status(200).send(resposta)
     
@@ -56,13 +57,4 @@ module.exports = function(request,response,banco){
                 }
                 response.status(200).send(resposta);
             });
-    }else{
-        const resposta = {
-            status: false,
-            msg: 'Token invalido!',
-            codigo: '003',
-            dados: {}
-        };
-        response.status(200).send(resposta);
-    }
 }

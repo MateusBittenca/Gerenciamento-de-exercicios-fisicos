@@ -32,7 +32,35 @@ module.exports = class Lista_exercicios {
             const sql = "INSERT INTO lista_exercicios (lista_idlista,exercicios_idexercicio,ordem,series,reps,carga_kg,descanso_seg,observacao) VALUES (?,?,?,?,?,?,?,?);";
             this._banco.query(sql, parametros, function (erro, resultados) {
                 if (erro) {
-                    console.log(erro);
+                    reject(erro);
+                } else {
+                    resolve(resultados);
+                }
+            });
+        });
+        return operacao;
+    }
+
+    async proximaOrdem() {
+        const operacao = new Promise((resolve, reject) => {
+            const idLista = typeof this._idLista === 'object' ? this._idLista.idlista : this._idLista;
+            const sql = 'SELECT COALESCE(MAX(ordem), 0) + 1 AS ordem FROM lista_exercicios WHERE lista_idlista = ?';
+            this._banco.query(sql, [idLista], function (erro, resultados) {
+                if (erro) {
+                    reject(erro);
+                } else {
+                    resolve(resultados[0].ordem);
+                }
+            });
+        });
+        return operacao;
+    }
+
+    async readListaIdDaLinha() {
+        const operacao = new Promise((resolve, reject) => {
+            const sql = 'SELECT lista_idlista FROM lista_exercicios WHERE id = ?';
+            this._banco.query(sql, [this._idLinha], function (erro, resultados) {
+                if (erro) {
                     reject(erro);
                 } else {
                     resolve(resultados);

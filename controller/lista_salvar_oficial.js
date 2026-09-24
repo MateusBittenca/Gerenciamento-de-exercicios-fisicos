@@ -40,7 +40,7 @@ module.exports = function(request, response, banco) {
         const origem = new Lista(banco);
         origem.idLista = idLista;
         const rows = await origem.readById();
-        if (!rows || rows.length === 0) {
+        if (!rows || rows.length === 0 || rows[0].usuario_UsuarioID != null) {
             response.status(200).send({ status: false, msg: 'Lista oficial não encontrada.', codigo: '003', dados: {} });
             return;
         }

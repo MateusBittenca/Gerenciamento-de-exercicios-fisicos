@@ -46,6 +46,14 @@ module.exports = function(request, response, banco) {
                 };
                 response.status(200).send(obj);
             }
+        }).catch((erro) => {
+            console.error(erro);
+            response.status(200).send({
+                status: false,
+                msg: 'erro ao entrar!!',
+                codigo: '003',
+                dados: {}
+            });
         });
     }
 };

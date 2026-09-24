@@ -11,6 +11,26 @@
             this._listaOrigemId = null;
         }
 
+        static podeAlterar(linha, acesso) {
+            if (!linha || !acesso) {
+                return false;
+            }
+            if (linha.usuario_UsuarioID == null) {
+                return acesso.admin === true;
+            }
+            return acesso.aluno === true && String(linha.usuario_UsuarioID) === String(acesso.usuarioId);
+        }
+
+        static podeTreinar(linha, acesso) {
+            if (!linha || !acesso || acesso.aluno !== true) {
+                return false;
+            }
+            if (linha.usuario_UsuarioID == null) {
+                return true;
+            }
+            return String(linha.usuario_UsuarioID) === String(acesso.usuarioId);
+        }
+
         async create() {
             const operacao = new Promise((resolve, reject) => {
                 const nome = this._nome;

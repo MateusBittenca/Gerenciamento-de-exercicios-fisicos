@@ -1,38 +1,32 @@
 const Admin = require("../model/Administradores");
 const JWT = require("../model/JWT");
 
-module.exports = function(request,response,banco){
-    console.log("DELETE:/admin");
-
+module.exports = function(request, response, banco) {
     const jwt = new JWT();
-
-    const auth = request.headers.authorization;
-    const validou = jwt.validar(auth);
-
-    if(validou.status == true){
-        const p_adminID = request.params.adminID;
-        const admin = new Admin(banco);
-        admin.adminID = p_adminID;
-
-        admin.delete().then(respostaPromisse=>{
-            const resposta = {
-                status:true,
-                msg:'Deletado com sucesso!!',
-                codigo:'002',
-                dados:{}
-            }
-            response.status(200).send(resposta);
-        }).catch(erro=>{
-            const resposta = {
-                status:false,
-                msg:'erro ao deletar!!',
-                codigo:'003',
-                dados:{}
-            }
-            response.status(200).send(resposta);
-        });
+    const entrada = jwt.entrar(request.headers.authorization, 'admin');
+    if (!entrada.ok) {
+        jwt.negar(response, entrada);
+        return;
     }
 
-   
-    
-}
+    const admin = new Admin(banco);
+    admin.adminID = request.params.adminID;
+
+    admin.delete().then(() => {
+        response.status(200).send({
+            status: true,
+            msg: 'Deletado com sucesso!!',
+            codigo: '002',
+            dados: {},
+            token: jwt.gerar(entrada.dados)
+        });
+    }).catch((erro) => {
+        console.error(erro);
+        response.status(200).send({
+            status: false,
+            msg: 'erro ao deletar!!',
+            codigo: '003',
+            dados: {}
+        });
+    });
+};

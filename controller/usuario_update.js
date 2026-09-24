@@ -20,7 +20,18 @@ module.exports = function(request,response,banco){
     const validou = jwt.validar(auth);
 
     if(validou.status == true){
+    const dadosJwt = jwt.dados(validou);
+    const admin = dadosJwt.adminID != null && dadosJwt.usuarioId == null;
+    const aluno = dadosJwt.usuarioId != null && dadosJwt.adminID == null;
+    if (!admin && !aluno) {
+        response.status(200).send({ status: false, msg: 'Sem permissão.', codigo: '003', dados: {} });
+        return;
+    }
     const p_usuarioId = request.params.usuarioId;
+    if (aluno && String(p_usuarioId) !== String(dadosJwt.usuarioId)) {
+        response.status(200).send({ status: false, msg: 'Sem permissão.', codigo: '003', dados: {} });
+        return;
+    }
     const p_nome = request.body.nome;
     const p_email = request.body.email;
     const p_sexo = request.body.sexo;
@@ -116,7 +127,14 @@ module.exports.foto = function(request, response, banco) {
         response.status(200).send({ status: false, msg: 'Token invalido!', codigo: '003', dados: {} });
         return;
     }
+    const dadosJwt = jwt.dados(validou);
+    const admin = dadosJwt.adminID != null && dadosJwt.usuarioId == null;
+    const aluno = dadosJwt.usuarioId != null && dadosJwt.adminID == null;
     const usuarioId = request.params.usuarioId;
+    if ((!admin && !aluno) || (aluno && String(usuarioId) !== String(dadosJwt.usuarioId))) {
+        response.status(200).send({ status: false, msg: 'Sem permissão.', codigo: '003', dados: {} });
+        return;
+    }
     const raw = request.body.foto || request.body.imagem || '';
     const match = String(raw).match(/^data:image\/(png|jpeg|jpg|webp);base64,(.+)$/);
     if (!match) {
@@ -154,6 +172,13 @@ module.exports.afericoes = function(request, response, banco) {
     const validou = jwt.validar(request.headers.authorization);
     if (validou.status != true) {
         response.status(200).send({ status: false, msg: 'Token invalido!', codigo: '003', dados: {} });
+        return;
+    }
+    const dadosJwt = jwt.dados(validou);
+    const admin = dadosJwt.adminID != null && dadosJwt.usuarioId == null;
+    const aluno = dadosJwt.usuarioId != null && dadosJwt.adminID == null;
+    if ((!admin && !aluno) || (aluno && String(request.params.usuarioId) !== String(dadosJwt.usuarioId))) {
+        response.status(200).send({ status: false, msg: 'Sem permissão.', codigo: '003', dados: {} });
         return;
     }
     const afericao = new UsuarioAfericoes(banco);

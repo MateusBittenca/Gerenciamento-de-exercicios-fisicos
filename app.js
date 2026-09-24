@@ -25,8 +25,8 @@ const banco = mysql.createPool({
     connectionLimit: 128,
     host: 'localhost',
     port: 3307,
-    user: 'root',
-    password: 'root',
+    user: process.env.UNIFIT_DB_USER || 'root',
+    password: process.env.UNIFIT_DB_PASSWORD || 'root',
     database: 'unifit'
 });
 

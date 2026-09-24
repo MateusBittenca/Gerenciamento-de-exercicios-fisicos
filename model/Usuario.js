@@ -32,7 +32,7 @@ module.exports = class Usuario {
                     console.log(erro);
                     reject(erro);
                 } else {
-                    resolve(JSON.stringify(resultados));
+                    resolve(resultados);
                 }
             });
         });

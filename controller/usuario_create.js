@@ -1,5 +1,4 @@
 const Usuario = require("../model/Usuario");
-const JWT = require("../model/JWT");
 
 module.exports = function(request, response, banco) {
 
@@ -43,10 +42,6 @@ module.exports = function(request, response, banco) {
         
 
         usuario.create().then(respostaPromisse => {
-            if (respostaPromisse.status == true) {
-                const jwt = new JWT();
-                
-            }
             const resposta = {
                 status: true,
                 msg: "Usuario cadastrado com sucesso!!",
@@ -55,11 +50,9 @@ module.exports = function(request, response, banco) {
                     UsuarioID: respostaPromisse.insertId,
                     nome: p_nome,
                     email: p_email,
-                    senha: p_senha,
                     sexo: p_sexo,
                     altura: p_altura,
                     peso: p_peso
-                   
                 }
             };
             response.status(200).send(resposta);

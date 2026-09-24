@@ -23,7 +23,7 @@ async create(){
                 console.log(erro);
                 reject(erro);
             }else{
-                resolve(JSON.stringify(resultados));
+                resolve(resultados);
             }
         });
     });
@@ -36,7 +36,7 @@ async read(){
 
         const adminID = this._administradorID;
         const parametros = [adminID];
-        const sql = "SELECT * FROM administradores WHERE AdminstradoreID = ?;";
+        const sql = "SELECT * FROM administradores WHERE AdministradorID = ?;";
 
         this._banco.query(sql,parametros,function(erro,resultados){
             if(erro){

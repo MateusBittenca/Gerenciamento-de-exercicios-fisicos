@@ -17,7 +17,7 @@ module.exports = function(app,banco){
     app.put("/admin/:adminID",(request,response)=>{
         admin_update(request,response,banco);
     });
-    app.get("/admin/adminID",(request,response)=>{
+    app.get("/admin/:adminID",(request,response)=>{
         admin_read(request,response,banco);
     });
     app.delete("/admin/:adminID",(request,response)=>{

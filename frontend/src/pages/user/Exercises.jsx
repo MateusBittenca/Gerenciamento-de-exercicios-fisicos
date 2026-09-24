@@ -29,6 +29,7 @@ export default function Exercises() {
   const [listas, setListas] = useState([]);
   const [presc, setPresc] = useState(defaultPrescricao('hipertrofia'));
   const [favoritos, setFavoritos] = useState([]);
+  const [salvando, setSalvando] = useState(false);
 
   async function carregarFav() {
     const obj = await request('/exerfav', { method: 'get' });
@@ -70,23 +71,31 @@ export default function Exercises() {
   }
 
   async function adicionarNaLista(lista) {
+    if (salvando) {
+      return;
+    }
+    setSalvando(true);
     const def = defaultPrescricao(lista.objetivo);
-    const obj = await request('/lista/exercicios/create', {
-      method: 'post',
-      body: JSON.stringify({
-        idListaExer: lista.idlista,
-        idExercicios: listasModal.idexercicio,
-        series: presc.series || def.series,
-        reps: presc.reps || def.reps,
-        carga_kg: presc.carga_kg || null,
-        descanso_seg: presc.descanso_seg || def.descanso_seg
-      })
-    });
-    if (obj.status === true) {
-      toast('ok', 'Adicionado em ' + lista.nome + '.');
-      setListasModal(null);
-    } else {
-      toast('erro', obj.msg || 'Esse exercício já está na lista.');
+    try {
+      const obj = await request('/lista/exercicios/create', {
+        method: 'post',
+        body: JSON.stringify({
+          idListaExer: lista.idlista,
+          idExercicios: listasModal.idexercicio,
+          series: presc.series || def.series,
+          reps: presc.reps || def.reps,
+          carga_kg: presc.carga_kg || null,
+          descanso_seg: presc.descanso_seg || def.descanso_seg
+        })
+      });
+      if (obj.status === true) {
+        toast('ok', 'Adicionado em ' + lista.nome + '.');
+        setListasModal(null);
+      } else {
+        toast('erro', obj.msg || 'Esse exercício já está na lista.');
+      }
+    } finally {
+      setSalvando(false);
     }
   }
 
@@ -169,7 +178,7 @@ export default function Exercises() {
               ) : (
                 <ul className="uf-pick-list">
                   {listas.map((lista) => (
-                    <li key={lista.idlista} onClick={() => adicionarNaLista(lista)}>
+                    <li key={lista.idlista} onClick={() => adicionarNaLista(lista)} style={salvando ? { pointerEvents: 'none', opacity: 0.6 } : undefined}>
                       <strong>{lista.nome}</strong>
                       <span className="uf-muted">{lista.tipo} · {lista.objetivo || 'hipertrofia'}</span>
                     </li>

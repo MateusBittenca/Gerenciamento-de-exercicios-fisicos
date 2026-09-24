@@ -27,6 +27,7 @@ export default function AddExerciseToList() {
   const [listasModal, setListasModal] = useState(null);
   const [listas, setListas] = useState([]);
   const [presc, setPresc] = useState(defaultPrescricao('hipertrofia'));
+  const [salvando, setSalvando] = useState(false);
 
   useEffect(() => {
     async function carregar() {
@@ -50,23 +51,31 @@ export default function AddExerciseToList() {
   }
 
   async function adicionarNaLista(lista) {
+    if (salvando) {
+      return;
+    }
+    setSalvando(true);
     const def = defaultPrescricao(lista.objetivo);
-    const obj = await request('/lista/exercicios/create', {
-      method: 'post',
-      body: JSON.stringify({
-        idListaExer: lista.idlista,
-        idExercicios: listasModal.idexercicio,
-        series: presc.series || def.series,
-        reps: presc.reps || def.reps,
-        carga_kg: presc.carga_kg || null,
-        descanso_seg: presc.descanso_seg || def.descanso_seg
-      })
-    });
-    if (obj.status === true) {
-      toast('ok', 'Exercício adicionado à lista.');
-      setListasModal(null);
-    } else {
-      toast('erro', obj.msg || 'Não foi possível adicionar.');
+    try {
+      const obj = await request('/lista/exercicios/create', {
+        method: 'post',
+        body: JSON.stringify({
+          idListaExer: lista.idlista,
+          idExercicios: listasModal.idexercicio,
+          series: presc.series || def.series,
+          reps: presc.reps || def.reps,
+          carga_kg: presc.carga_kg || null,
+          descanso_seg: presc.descanso_seg || def.descanso_seg
+        })
+      });
+      if (obj.status === true) {
+        toast('ok', 'Exercício adicionado à lista.');
+        setListasModal(null);
+      } else {
+        toast('erro', obj.msg || 'Não foi possível adicionar.');
+      }
+    } finally {
+      setSalvando(false);
     }
   }
 
@@ -135,7 +144,7 @@ export default function AddExerciseToList() {
               ) : (
                 <ul className="uf-pick-list">
                   {listas.map((lista) => (
-                    <li key={lista.idlista} onClick={() => adicionarNaLista(lista)}>
+                    <li key={lista.idlista} onClick={() => adicionarNaLista(lista)} style={salvando ? { pointerEvents: 'none', opacity: 0.6 } : undefined}>
                       <strong>{lista.nome}</strong>
                       <span className="uf-muted">{lista.tipo} · {lista.objetivo || 'hipertrofia'}</span>
                     </li>

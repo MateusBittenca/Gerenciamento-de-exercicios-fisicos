@@ -1,42 +1,37 @@
 const Lista = require("../model/lista");
 const JWT = require("../model/JWT.js");
 
-module.exports = function(request,response,banco){
+module.exports = function(request, response, banco) {
     const jwt = new JWT();
-    const auth = request.headers.authorization;
-    const validou = jwt.validar(auth);
+    const entrada = jwt.entrar(request.headers.authorization, 'qualquer');
+    if (!entrada.ok) {
+        jwt.negar(response, entrada);
+        return;
+    }
 
-    if(validou.status == true){
-        const lista = new Lista(banco);
-        const p_usuarioId = request.params.usuarioId;
-        lista.usuarioId = p_usuarioId;
+    const p_usuarioId = request.params.usuarioId;
+    if (entrada.aluno && String(p_usuarioId) !== String(entrada.usuarioId)) {
+        jwt.negar(response, { motivo: 'papel' });
+        return;
+    }
 
-        lista.read().then(respostaPromisse =>{
-            const resposta = {
-                status:true,
-                msg:'sucesso!!',
-                codigo:'002',
-                dados: respostaPromisse,
-                token: jwt.gerar(validou.payload)       
-            }
-            response.status(200).send(resposta);
-        }).catch(erro =>{
-            const resposta = {
-                status:false,
-                msg:'erro!!',
-                codigo:'003',
-                dados:{}
-            }
-            response.status(200).send(resposta);
-        })
-
-    }else{
-        const resposta = {
+    const lista = new Lista(banco);
+    lista.usuarioId = p_usuarioId;
+    lista.read().then((respostaPromisse) => {
+        response.status(200).send({
+            status: true,
+            msg: 'sucesso!!',
+            codigo: '002',
+            dados: respostaPromisse,
+            token: jwt.gerar(entrada.dados)
+        });
+    }).catch((erro) => {
+        console.error(erro);
+        response.status(200).send({
             status: false,
-            msg: 'Token invalido!',
+            msg: 'erro!!',
             codigo: '003',
             dados: {}
-        };
-        response.status(200).send(resposta);
-    }
-}
+        });
+    });
+};

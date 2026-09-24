@@ -1,6 +1,7 @@
 const TreinoSessao = require("../model/treino_sessao");
 const TreinoSerie = require("../model/treino_serie");
 const ListaExer = require("../model/lista_exercicios");
+const Lista = require("../model/lista");
 const JWT = require("../model/JWT");
 
 function recusar(response) {
@@ -45,6 +46,14 @@ module.exports.iniciar = function (request, response, banco) {
                 dados: atual,
                 token: jwt.gerar(jwt.dados(validou))
             });
+            return;
+        }
+
+        const listaDono = new Lista(banco);
+        listaDono.idLista = idLista;
+        const listas = await listaDono.readById();
+        if (!Lista.podeTreinar(listas && listas[0], { aluno: true, usuarioId: usuarioId })) {
+            response.status(200).send({ status: false, msg: 'Sem permissão.', codigo: '003', dados: {} });
             return;
         }
 
@@ -117,9 +126,14 @@ module.exports.read = function (request, response, banco) {
     const jwt = new JWT();
     const validou = jwt.validar(request.headers.authorization);
     if (validou.status != true) { recusar(response); return; }
+    const dados = jwt.dados(validou);
     montarSessao(banco, request.params.id).then((payload) => {
         if (!payload) {
             response.status(200).send({ status: false, msg: 'Treino não encontrado.', codigo: '003', dados: {} });
+            return;
+        }
+        if (String(payload.sessao.usuario_id) !== String(dados.usuarioId)) {
+            response.status(200).send({ status: false, msg: 'Sem permissão.', codigo: '003', dados: {} });
             return;
         }
         response.status(200).send({ status: true, msg: 'sucesso!!', codigo: '002', dados: payload, token: jwt.gerar(jwt.dados(validou)) });
@@ -133,15 +147,27 @@ module.exports.serie = function (request, response, banco) {
     const jwt = new JWT();
     const validou = jwt.validar(request.headers.authorization);
     if (validou.status != true) { recusar(response); return; }
-    const serie = new TreinoSerie(banco);
-    serie.id = request.body.id;
-    serie.sessaoId = request.params.id;
-    serie.cargaKg = request.body.carga_kg != null ? request.body.carga_kg : request.body.cargaKg;
-    serie.repsFeitas = request.body.reps_feitas != null ? request.body.reps_feitas : request.body.repsFeitas;
-    serie.concluida = request.body.concluida ? 1 : 0;
-    serie.update().then(() => {
-        return montarSessao(banco, request.params.id);
+    const dados = jwt.dados(validou);
+    montarSessao(banco, request.params.id).then((payload) => {
+        if (!payload) {
+            response.status(200).send({ status: false, msg: 'Treino não encontrado.', codigo: '003', dados: {} });
+            return;
+        }
+        if (String(payload.sessao.usuario_id) !== String(dados.usuarioId)) {
+            response.status(200).send({ status: false, msg: 'Sem permissão.', codigo: '003', dados: {} });
+            return;
+        }
+        const serie = new TreinoSerie(banco);
+        serie.id = request.body.id;
+        serie.sessaoId = request.params.id;
+        serie.cargaKg = request.body.carga_kg != null ? request.body.carga_kg : request.body.cargaKg;
+        serie.repsFeitas = request.body.reps_feitas != null ? request.body.reps_feitas : request.body.repsFeitas;
+        serie.concluida = request.body.concluida ? 1 : 0;
+        return serie.update().then(() => montarSessao(banco, request.params.id));
     }).then((payload) => {
+        if (!payload || response.headersSent) {
+            return;
+        }
         response.status(200).send({ status: true, msg: 'série atualizada!!', codigo: '002', dados: payload, token: jwt.gerar(jwt.dados(validou)) });
     }).catch((erro) => {
         console.error(erro);
@@ -160,7 +186,11 @@ function encerrar(status) {
         sessao.usuarioId = dados.usuarioId;
         sessao.status = status;
         sessao.duracaoSeg = request.body.duracao_seg || request.body.duracaoSeg || null;
-        sessao.encerrar().then(() => {
+        sessao.encerrar().then((resultado) => {
+            if (!resultado || resultado.affectedRows === 0) {
+                response.status(200).send({ status: false, msg: 'Sem permissão.', codigo: '003', dados: {} });
+                return;
+            }
             response.status(200).send({
                 status: true,
                 msg: status === 'concluida' ? 'Treino concluído!' : 'Treino cancelado.',
