@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { useFeedback } from '../../auth/FeedbackContext';
-import { defaultPrescricao } from '../../api/client';
+import { defaultPrescricao, escolhaInicialModal, fichasParaModal, listaContemExercicio } from '../../api/client';
+import AddToListModal from '../../components/AddToListModal';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
-import PrescriptionFields from '../../components/PrescriptionFields';
 
 const FILTROS = [
   { label: 'Biceps', value: 'Bíceps' },
@@ -26,7 +26,7 @@ export default function AddExerciseToList() {
   const [selecionado, setSelecionado] = useState(null);
   const [listasModal, setListasModal] = useState(null);
   const [listas, setListas] = useState([]);
-  const [presc, setPresc] = useState(defaultPrescricao('hipertrofia'));
+  const [escolha, setEscolha] = useState(null);
   const [salvando, setSalvando] = useState(false);
 
   useEffect(() => {
@@ -40,18 +40,20 @@ export default function AddExerciseToList() {
   }, [request]);
 
   async function abrirListas(exercicio) {
-    const obj = await request('/lista', { method: 'get' });
+    const obj = await request('/listas/read', { method: 'get' });
     if (obj.status === true) {
-      setListas(obj.dados || []);
+      const fichas = fichasParaModal(obj.dados || []);
+      setListas(fichas);
+      setEscolha(escolhaInicialModal(fichas, exercicio.idexercicio));
       setListasModal(exercicio);
-      setPresc(defaultPrescricao('hipertrofia'));
     } else {
       toast('erro', obj.msg || 'Não foi possível carregar as listas.');
     }
   }
 
-  async function adicionarNaLista(lista) {
-    if (salvando) {
+  async function adicionarNaLista() {
+    const lista = listas.find((item) => String(item.id) === String(escolha));
+    if (!lista || salvando || listaContemExercicio(lista, listasModal.idexercicio)) {
       return;
     }
     setSalvando(true);
@@ -60,12 +62,12 @@ export default function AddExerciseToList() {
       const obj = await request('/lista/exercicios/create', {
         method: 'post',
         body: JSON.stringify({
-          idListaExer: lista.idlista,
+          idListaExer: lista.id,
           idExercicios: listasModal.idexercicio,
-          series: presc.series || def.series,
-          reps: presc.reps || def.reps,
-          carga_kg: presc.carga_kg || null,
-          descanso_seg: presc.descanso_seg || def.descanso_seg
+          series: def.series,
+          reps: def.reps,
+          carga_kg: null,
+          descanso_seg: def.descanso_seg
         })
       });
       if (obj.status === true) {
@@ -132,29 +134,18 @@ export default function AddExerciseToList() {
 
       <ExerciseModal exercicio={selecionado} onClose={() => setSelecionado(null)} />
 
-      {listasModal && (
-        <div className="uf-modal" onClick={() => setListasModal(null)}>
-          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
-            <button type="button" className="uf-modal-close" onClick={() => setListasModal(null)}>&times;</button>
-            <div className="uf-modal-form">
-              <h2>Adicionar à lista</h2>
-              <PrescriptionFields value={presc} onChange={setPresc} />
-              {listas.length === 0 ? (
-                <p className="uf-muted">Nenhuma lista oficial encontrada.</p>
-              ) : (
-                <ul className="uf-pick-list">
-                  {listas.map((lista) => (
-                    <li key={lista.idlista} onClick={() => adicionarNaLista(lista)} style={salvando ? { pointerEvents: 'none', opacity: 0.6 } : undefined}>
-                      <strong>{lista.nome}</strong>
-                      <span className="uf-muted">{lista.tipo} · {lista.objetivo || 'hipertrofia'}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      <AddToListModal
+        exercicio={listasModal}
+        listas={listas}
+        escolha={escolha}
+        onEscolher={setEscolha}
+        salvando={salvando}
+        buscaPlaceholder="Buscar listas oficiais..."
+        criarLabel="Criar nova lista oficial"
+        onClose={() => setListasModal(null)}
+        onConfirm={adicionarNaLista}
+        onCreate={() => { setListasModal(null); navigate('/admin/listas'); }}
+      />
     </>
   );
 }

@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { useFeedback } from '../../auth/FeedbackContext';
-import { defaultPrescricao } from '../../api/client';
+import { defaultPrescricao, escolhaInicialModal, fichasParaModal, listaContemExercicio } from '../../api/client';
+import AddToListModal from '../../components/AddToListModal';
 import ExerciseCard from '../../components/ExerciseCard';
 import ExerciseModal from '../../components/ExerciseModal';
-import PrescriptionFields from '../../components/PrescriptionFields';
 
 const FILTROS = [
   { label: 'Biceps', value: 'Bíceps' },
@@ -27,7 +27,7 @@ export default function Exercises() {
   const [selecionado, setSelecionado] = useState(null);
   const [listasModal, setListasModal] = useState(null);
   const [listas, setListas] = useState([]);
-  const [presc, setPresc] = useState(defaultPrescricao('hipertrofia'));
+  const [escolha, setEscolha] = useState(null);
   const [favoritos, setFavoritos] = useState([]);
   const [salvando, setSalvando] = useState(false);
 
@@ -60,18 +60,20 @@ export default function Exercises() {
   }
 
   async function abrirListas(exercicio) {
-    const obj = await request('/lista/' + payload.usuarioId, { method: 'get' });
+    const obj = await request('/lista/exercicios/' + payload.usuarioId, { method: 'get' });
     if (obj.status === true) {
-      setListas(obj.dados || []);
+      const fichas = fichasParaModal(obj.dados || []);
+      setListas(fichas);
+      setEscolha(escolhaInicialModal(fichas, exercicio.idexercicio));
       setListasModal(exercicio);
-      setPresc(defaultPrescricao('hipertrofia'));
     } else {
       toast('erro', obj.msg || 'Não foi possível carregar suas listas.');
     }
   }
 
-  async function adicionarNaLista(lista) {
-    if (salvando) {
+  async function adicionarNaLista() {
+    const lista = listas.find((item) => String(item.id) === String(escolha));
+    if (!lista || salvando || listaContemExercicio(lista, listasModal.idexercicio)) {
       return;
     }
     setSalvando(true);
@@ -80,12 +82,12 @@ export default function Exercises() {
       const obj = await request('/lista/exercicios/create', {
         method: 'post',
         body: JSON.stringify({
-          idListaExer: lista.idlista,
+          idListaExer: lista.id,
           idExercicios: listasModal.idexercicio,
-          series: presc.series || def.series,
-          reps: presc.reps || def.reps,
-          carga_kg: presc.carga_kg || null,
-          descanso_seg: presc.descanso_seg || def.descanso_seg
+          series: def.series,
+          reps: def.reps,
+          carga_kg: null,
+          descanso_seg: def.descanso_seg
         })
       });
       if (obj.status === true) {
@@ -124,7 +126,7 @@ export default function Exercises() {
         </div>
       </div>
 
-      <div className="uf-chips" id="filtro">
+      <div className="uf-chips" id="filtro" style={{ marginBottom: 20 }}>
         <button type="button" className={'uf-chip' + (!filtroMusculo && !busca && !apenasFav ? ' ativo' : '')} onClick={() => { setFiltroMusculo(''); setBusca(''); setApenasFav(false); }}>
           Todos <span className="uf-chip-count">{exercicios.length}</span>
         </button>
@@ -136,9 +138,6 @@ export default function Exercises() {
         <button type="button" className={'uf-chip' + (apenasFav ? ' ativo' : '')} onClick={() => setApenasFav((v) => !v)}>
           Favoritos <span className="uf-chip-count">{favoritos.length}</span>
         </button>
-      </div>
-      <div className="uf-filter-meta">
-        <span><i style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: 'var(--uf-primary)', marginRight: 8 }} />Exibindo <strong>{visiveis.length}</strong> exercícios cadastrados</span>
       </div>
 
       <div className="uf-grid-cards" id="card">
@@ -163,32 +162,17 @@ export default function Exercises() {
         onFav={toggleFav}
       />
 
-      {listasModal && (
-        <div className="uf-modal" onClick={() => setListasModal(null)}>
-          <div className="uf-modal-card" onClick={(e) => e.stopPropagation()}>
-            <button type="button" className="uf-modal-close" onClick={() => setListasModal(null)}>&times;</button>
-            <div className="uf-modal-form">
-              <h2>Adicionar à lista</h2>
-              <PrescriptionFields value={presc} onChange={setPresc} />
-              {listas.length === 0 ? (
-                <div className="uf-empty">
-                  <p>Crie uma lista pessoal primeiro.</p>
-                  <button type="button" className="uf-btn-primary" onClick={() => { setListasModal(null); navigate('/app/minhas-listas'); }}>Ir para minhas listas</button>
-                </div>
-              ) : (
-                <ul className="uf-pick-list">
-                  {listas.map((lista) => (
-                    <li key={lista.idlista} onClick={() => adicionarNaLista(lista)} style={salvando ? { pointerEvents: 'none', opacity: 0.6 } : undefined}>
-                      <strong>{lista.nome}</strong>
-                      <span className="uf-muted">{lista.tipo} · {lista.objetivo || 'hipertrofia'}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      <AddToListModal
+        exercicio={listasModal}
+        listas={listas}
+        escolha={escolha}
+        onEscolher={setEscolha}
+        salvando={salvando}
+        alunoNome={payload.nome}
+        onClose={() => setListasModal(null)}
+        onConfirm={adicionarNaLista}
+        onCreate={() => { setListasModal(null); navigate('/app/minhas-listas'); }}
+      />
     </>
   );
 }

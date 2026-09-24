@@ -52,6 +52,32 @@ export function exerciciosDaLista(lista) {
   return (lista || []).filter((item) => item.id_exercicio);
 }
 
+export function fichasParaModal(linhas) {
+  const agrupadas = groupListsById(linhas || []);
+  return Object.keys(agrupadas).map((id) => {
+    const itens = agrupadas[id];
+    const meta = itens[0];
+    const exercicios = exerciciosDaLista(itens);
+    return {
+      id: meta.id_lista,
+      nome: meta.nome_lista,
+      tipo: meta.tipo_lista,
+      objetivo: meta.objetivo,
+      quantidade: exercicios.length,
+      exercicios: exercicios.map((item) => item.id_exercicio)
+    };
+  });
+}
+
+export function listaContemExercicio(ficha, exercicioId) {
+  return (ficha.exercicios || []).some((id) => String(id) === String(exercicioId));
+}
+
+export function escolhaInicialModal(fichas, exercicioId) {
+  const livre = (fichas || []).find((ficha) => !listaContemExercicio(ficha, exercicioId));
+  return livre ? livre.id : null;
+}
+
 export function formatPrescricao(item) {
   if (!item || !item.series) {
     return '';
@@ -136,6 +162,20 @@ export function calcularImc(peso, alturaMetros) {
     return null;
   }
   return Number((p / (a * a)).toFixed(1));
+}
+
+export function classeDificuldade(valor) {
+  const texto = String(valor || '').trim().toLowerCase();
+  if (texto === 'iniciante') {
+    return 'uf-diff-iniciante';
+  }
+  if (texto === 'intermediário' || texto === 'intermediario') {
+    return 'uf-diff-intermediario';
+  }
+  if (texto === 'iniciante a intermediário' || texto === 'iniciante a intermediario') {
+    return 'uf-diff-entre';
+  }
+  return '';
 }
 
 export function classificarImc(imc) {

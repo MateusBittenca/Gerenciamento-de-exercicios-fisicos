@@ -1,4 +1,4 @@
-import { exerciseImageSrc } from '../api/client';
+import { classeDificuldade, exerciseImageSrc } from '../api/client';
 
 export default function ExerciseCard({ exercicio, compact = false, onOpen, onAdd, favorito, onFav }) {
   return (
@@ -25,7 +25,7 @@ export default function ExerciseCard({ exercicio, compact = false, onOpen, onAdd
       </div>
       <div className="uf-ex-card-body">
         <div className="uf-ex-card-meta">
-          <span>{exercicio.dificuldade || 'Catálogo'}</span>
+          <span className={classeDificuldade(exercicio.dificuldade) || undefined}>{exercicio.dificuldade || 'Catálogo'}</span>
           {exercicio.tipo ? <span>{exercicio.tipo}</span> : null}
         </div>
         <h3 onClick={onOpen} style={{ cursor: 'pointer' }}>{exercicio.nome}</h3>
