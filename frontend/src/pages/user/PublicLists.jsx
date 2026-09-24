@@ -73,24 +73,6 @@ export default function PublicLists() {
 
   return (
     <div>
-      <section className="uf-card uf-page-intro">
-        <div>
-          <p className="uf-kicker" style={{ marginBottom: 8 }}>
-            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>verified</span>
-            Homologado UniFit
-          </p>
-          <h1>Listas Oficiais UniFit</h1>
-          <p>Rotinas prescritas pela academia. Salve na sua rotina ou execute direto no salão.</p>
-        </div>
-        <div className="uf-stat-pill">
-          <span className="material-symbols-outlined">fitness_center</span>
-          <div>
-            <small>Catálogo ativo</small>
-            <strong>{Object.keys(agrupadas).length} fichas oficiais</strong>
-          </div>
-        </div>
-      </section>
-
       <div className="uf-card uf-toolbar-card">
         <div className="uf-toolbar">
           <div className="uf-search">

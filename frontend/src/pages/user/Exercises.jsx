@@ -108,24 +108,6 @@ export default function Exercises() {
 
   return (
     <>
-      <section className="uf-card uf-page-intro">
-        <div>
-          <p className="uf-kicker" style={{ marginBottom: 8 }}>
-            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>fitness_center</span>
-            Biblioteca oficial UniFit
-          </p>
-          <h1>Catálogo de Exercícios</h1>
-          <p>Explore a biblioteca com instruções, biomecânica e adicione aos seus treinos pessoais.</p>
-        </div>
-        <div className="uf-stat-pill">
-          <span className="material-symbols-outlined">video_library</span>
-          <div>
-            <small>Disponíveis</small>
-            <strong>{exercicios.length} exercícios</strong>
-          </div>
-        </div>
-      </section>
-
       <div className="uf-toolbar">
         <div className="uf-search">
           <span className="material-symbols-outlined">search</span>
