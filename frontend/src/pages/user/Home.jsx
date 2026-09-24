@@ -165,7 +165,10 @@ export default function Home() {
     <div className="uf-home">
       <header className="uf-home-top">
         <p className="uf-home-date">{dataLonga(new Date())}</p>
-        <p className="uf-home-mes">{mesLabel}</p>
+        <p className="uf-home-mes">
+          <span className="material-symbols-outlined" aria-hidden="true">calendar_month</span>
+          {mesLabel}
+        </p>
       </header>
 
       {aoVivo && (
@@ -242,7 +245,8 @@ export default function Home() {
             />
           ) : (
             <p className="uf-home-livre">
-              {dia === hoje ? 'Hoje' : NOME_DIA[dia]} sem treino marcado.
+              <span className="material-symbols-outlined" aria-hidden="true">event_busy</span>
+              <span>{dia === hoje ? 'Hoje' : NOME_DIA[dia]} sem treino marcado.</span>
             </p>
           )}
 
