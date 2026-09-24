@@ -40,7 +40,7 @@ export default function ExerciseModal({ exercicio, onClose, favorito, onFav }) {
           <div className="uf-exdetail-actions">
             {onFav && (
               <button type="button" className={'uf-fav' + (favorito ? ' ativo' : '')} onClick={() => onFav(exercicio)} aria-label="Favoritar">
-                <span className="material-symbols-outlined" style={favorito ? { fontVariationSettings: "'FILL' 1" } : undefined}>favorite</span>
+                <span className="material-symbols-outlined">favorite</span>
               </button>
             )}
             <button type="button" className="uf-exdetail-close" onClick={onClose} aria-label="Fechar">

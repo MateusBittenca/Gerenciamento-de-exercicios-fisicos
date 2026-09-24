@@ -19,7 +19,7 @@ export default function ExerciseCard({ exercicio, compact = false, onOpen, onAdd
             aria-label="Favoritar"
             style={{ zIndex: 2 }}
           >
-            <span className="material-symbols-outlined" style={favorito ? { fontVariationSettings: "'FILL' 1" } : undefined}>favorite</span>
+            <span className="material-symbols-outlined">favorite</span>
           </button>
         )}
       </div>
