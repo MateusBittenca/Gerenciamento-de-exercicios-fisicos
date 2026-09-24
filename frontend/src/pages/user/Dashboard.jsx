@@ -114,49 +114,30 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Métricas do mês */}
-      <section className="uf-dashboard-metrics">
-        <article className="uf-card uf-metric">
-          <span className="uf-muted">Treinos no mês</span>
-          <strong>{resumo.concluidasMes}</strong>
-        </article>
-        <article className="uf-card uf-metric">
-          <span className="uf-muted">Total de treinos</span>
-          <strong>{resumo.totalTreinos}</strong>
-        </article>
-        <article className="uf-card uf-metric">
-          <span className="uf-muted">Exercícios rastreados</span>
-          <strong>{exercicios.length}</strong>
-        </article>
-        {selecionado && cargas.length > 0 ? (
-          <>
-            <article className="uf-card uf-metric uf-metric--highlight">
-              <span className="uf-muted">Recorde — {selecionado.nome}</span>
-              <strong>{maxCarga} <small>kg</small></strong>
-            </article>
-            <article className="uf-card uf-metric">
-              <span className="uf-muted">Média de carga</span>
-              <strong>{mediaCargas} <small>kg</small></strong>
-            </article>
-          </>
-        ) : (
-          <article className="uf-card uf-metric uf-metric--placeholder" style={{ gridColumn: 'span 2' }}>
-            <span className="uf-muted">Selecione um exercício para ver métricas</span>
-            <strong style={{ fontSize: 20, color: 'var(--uf-text-2)' }}>—</strong>
-          </article>
-        )}
-      </section>
 
-      {/* Calendário de treinos */}
+      {/* Calendário de treinos e Métricas */}
       <section className="uf-dashboard-calendar-wrap">
         <div className="uf-card uf-dashboard-cal-card">
-          <div className="uf-dashboard-cal-head">
-            <p className="uf-kicker">
-              <span className="material-symbols-outlined" style={{ fontSize: 14 }}>calendar_month</span>
-              Calendário
-            </p>
-            <h2>Dias treinados</h2>
-            <p className="uf-muted">Navegue pelos meses para ver sua frequência de treinos.</p>
+          <div className="uf-dashboard-cal-left">
+            <div className="uf-dashboard-cal-head">
+              <p className="uf-kicker">
+                <span className="material-symbols-outlined" style={{ fontSize: 14 }}>calendar_month</span>
+                Calendário
+              </p>
+              <h2>Dias treinados</h2>
+              <p className="uf-muted">Navegue pelos meses para ver sua frequência de treinos.</p>
+            </div>
+            
+            <div className="uf-dashboard-metrics-inline" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginTop: '32px' }}>
+              <article className="uf-card uf-metric">
+                <span className="uf-muted">Treinos no mês</span>
+                <strong>{resumo.concluidasMes}</strong>
+              </article>
+              <article className="uf-card uf-metric">
+                <span className="uf-muted">Total de treinos</span>
+                <strong>{resumo.totalTreinos}</strong>
+              </article>
+            </div>
           </div>
           <WorkoutCalendar
             diasTreinados={diasTreinados}
@@ -235,12 +216,10 @@ export default function Dashboard() {
                     )}
                   </p>
                 </div>
-                <span className="uf-badge" style={{ alignSelf: 'flex-start' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: 14 }}>
-                    {selecionado.equipamento || 'fitness_center'}
-                  </span>
-                  {selecionado.equipamento || 'Livre'}
-                </span>
+                <article className="uf-card uf-metric" style={{ alignSelf: 'flex-start', padding: '16px', minWidth: '140px' }}>
+                  <span className="uf-muted">Média de carga</span>
+                  <strong>{mediaCargas || '—'} <small>kg</small></strong>
+                </article>
               </div>
 
               {carregandoHist ? (
