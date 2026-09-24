@@ -60,7 +60,7 @@ module.exports = class TreinoSerie {
     async historicoCarga() {
         const operacao = new Promise((resolve, reject) => {
             const parametros = [this._usuarioId, this._exercicioId];
-            const sql = "SELECT ts.carga_kg, ts.reps_feitas, ts.concluida_em, s.id AS sessao_id FROM treino_serie ts JOIN treino_sessao s ON s.id = ts.sessao_id WHERE s.usuario_id = ? AND ts.exercicio_id = ? AND ts.concluida = 1 AND ts.carga_kg IS NOT NULL ORDER BY ts.concluida_em DESC LIMIT 10;";
+            const sql = "SELECT ts.carga_kg, ts.reps_feitas, ts.concluida_em, s.id AS sessao_id FROM treino_serie ts JOIN treino_sessao s ON s.id = ts.sessao_id WHERE s.usuario_id = ? AND ts.exercicio_id = ? AND ts.concluida = 1 AND ts.carga_kg IS NOT NULL ORDER BY ts.concluida_em DESC LIMIT 100;";
             this._banco.query(sql, parametros, function (erro, resultados) {
                 if (erro) {
                     reject(erro);
