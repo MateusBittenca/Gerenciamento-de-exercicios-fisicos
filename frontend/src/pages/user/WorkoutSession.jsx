@@ -90,8 +90,8 @@ export default function WorkoutSession() {
       method: 'put',
       body: JSON.stringify({
         id: serie.id,
-        carga_kg: serie.carga_kg || null,
-        reps_feitas: serie.reps_feitas || null,
+        carga_kg: serie.carga_kg !== '' && serie.carga_kg !== null ? serie.carga_kg : null,
+        reps_feitas: serie.reps_feitas !== '' && serie.reps_feitas !== null ? serie.reps_feitas : null,
         concluida: concluida
       })
     });
