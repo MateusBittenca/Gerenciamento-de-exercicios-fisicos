@@ -2,51 +2,102 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import { useFeedback } from '../../auth/FeedbackContext';
-import { groupListsById, listaProgramadaHoje } from '../../api/client';
-import ExerciseCard from '../../components/ExerciseCard';
-import ExerciseModal from '../../components/ExerciseModal';
-import ListaCard from '../../components/ListaCard';
+import {
+  exerciciosDaLista,
+  formatCronometro,
+  formatPrescricao,
+  groupListsById,
+  OBJETIVOS,
+  parseDias,
+  segundosDesde
+} from '../../api/client';
+
+const DIAS = [
+  { value: 1, curto: 'Seg' },
+  { value: 2, curto: 'Ter' },
+  { value: 3, curto: 'Qua' },
+  { value: 4, curto: 'Qui' },
+  { value: 5, curto: 'Sex' },
+  { value: 6, curto: 'Sáb' },
+  { value: 0, curto: 'Dom' }
+];
+
+const NOME_DIA = {
+  0: 'Domingo',
+  1: 'Segunda',
+  2: 'Terça',
+  3: 'Quarta',
+  4: 'Quinta',
+  5: 'Sexta',
+  6: 'Sábado'
+};
+
+function labelObjetivo(valor) {
+  return (OBJETIVOS.find((item) => item.value === valor) || {}).label || valor || 'Lista';
+}
+
+function diasTexto(dias) {
+  return DIAS.filter((dia) => dias.includes(dia.value)).map((dia) => dia.curto).join(' · ');
+}
+
+function dataLonga(data) {
+  const texto = data.toLocaleDateString('pt-BR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  });
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
 
 export default function Home() {
   const { payload, request, refreshSessao, sessaoAtiva } = useAuth();
   const { toast } = useFeedback();
   const navigate = useNavigate();
-  const [exercicios, setExercicios] = useState([]);
-  const [oficiais, setOficiais] = useState([]);
   const [minhas, setMinhas] = useState([]);
-  const [favoritos, setFavoritos] = useState(0);
   const [treinosMes, setTreinosMes] = useState(0);
-  const [selecionado, setSelecionado] = useState(null);
+  const [pronto, setPronto] = useState(false);
+  const [dia, setDia] = useState(() => new Date().getDay());
+  const [escolha, setEscolha] = useState(null);
+  const [decorrido, setDecorrido] = useState('00:00:00');
 
   useEffect(() => {
+    let vivo = true;
     async function carregar() {
-      const listas = await request('/listas/read', { method: 'get' });
-      if (listas.status === true) {
-        setOficiais(listas.dados || []);
-      }
-
-      const minhasRes = await request('/lista/exercicios/' + payload.usuarioId, { method: 'get' });
-      if (minhasRes.status === true) {
-        setMinhas(minhasRes.dados || []);
-      }
-
-      const exer = await request('/exercicios', { method: 'get' });
-      if (exer.status === true) {
-        setExercicios(exer.dados || []);
-      }
-
-      const fav = await request('/exerfav', { method: 'get' });
-      if (fav.status === true) {
-        setFavoritos((fav.dados || []).length);
-      }
-
-      const resumo = await request('/treino/resumo', { method: 'get' });
-      if (resumo.status === true) {
-        setTreinosMes((resumo.dados && resumo.dados.concluidasMes) || 0);
+      try {
+        const minhasRes = await request('/lista/exercicios/' + payload.usuarioId, { method: 'get' });
+        if (vivo && minhasRes.status === true) {
+          setMinhas(minhasRes.dados || []);
+        }
+        const resumo = await request('/treino/resumo', { method: 'get' });
+        if (vivo && resumo.status === true) {
+          setTreinosMes((resumo.dados && resumo.dados.concluidasMes) || 0);
+        }
+      } finally {
+        if (vivo) {
+          setPronto(true);
+        }
       }
     }
     carregar();
+    return () => {
+      vivo = false;
+    };
   }, [payload.usuarioId, request]);
+
+  const sessao = sessaoAtiva && sessaoAtiva.sessao;
+  const aoVivo = sessao && sessao.status === 'em_andamento';
+
+  useEffect(() => {
+    if (!aoVivo) {
+      return undefined;
+    }
+    function marcar() {
+      setDecorrido(formatCronometro(segundosDesde(sessao.iniciada_em)));
+    }
+    marcar();
+    const id = setInterval(marcar, 1000);
+    return () => clearInterval(id);
+  }, [aoVivo, sessao]);
 
   async function iniciar(idLista) {
     const obj = await request('/treino/iniciar', {
@@ -61,152 +112,248 @@ export default function Home() {
     }
   }
 
-  async function salvarOficial(idLista) {
-    const obj = await request('/lista/salvar-oficial', {
-      method: 'post',
-      body: JSON.stringify({ idLista })
-    });
-    if (obj.status === true) {
-      toast('ok', 'Lista salva na sua rotina.');
-      navigate('/app/minhas-listas');
-    } else {
-      toast('info', obj.msg || 'Essa lista já está na sua rotina.');
+  function abrirTreino(idLista) {
+    if (aoVivo && String(sessao.lista_id) === String(idLista)) {
+      navigate('/app/treino/' + sessao.id);
+      return;
     }
+    if (aoVivo) {
+      toast('info', 'Encerre o treino em andamento antes de começar outro.');
+      return;
+    }
+    iniciar(idLista);
   }
 
-  const minhasAgrupadas = groupListsById(minhas);
-  const oficiaisAgrupadas = groupListsById(oficiais);
-  const sugestoes = exercicios.slice(0, 4);
-  const idsMinhas = Object.keys(minhasAgrupadas);
-  const sessao = sessaoAtiva && sessaoAtiva.sessao;
-  const primeiro = (payload?.nome || 'aluno').split(' ')[0];
+  const hoje = new Date().getDay();
+  const agrupadas = groupListsById(minhas);
+  const fichas = Object.keys(agrupadas).map((idLista) => {
+    const lista = agrupadas[idLista];
+    const meta = lista[0];
+    return {
+      id: meta.id_lista,
+      meta,
+      itens: exerciciosDaLista(lista),
+      dias: parseDias(meta.dias_semana)
+    };
+  });
+  const doDia = fichas.filter((ficha) => ficha.dias.includes(dia));
+  const ficha = doDia.find((item) => String(item.id) === String(escolha)) || doDia[0] || null;
+  const resto = fichas.filter((item) => !ficha || String(item.id) !== String(ficha.id));
+  const mesLabel = treinosMes === 0
+    ? 'Nenhum treino neste mês'
+    : treinosMes === 1
+      ? '1 treino neste mês'
+      : treinosMes + ' treinos neste mês';
+
+  function escolherDia(valor) {
+    setDia(valor);
+    setEscolha(null);
+  }
+
+  useEffect(() => {
+    const ativo = document.querySelector('.uf-home .uf-week-day.ativo');
+    if (ativo) {
+      ativo.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+    }
+  }, [dia, pronto]);
+
+  if (!pronto) {
+    return <div className="uf-home" />;
+  }
 
   return (
-    <div>
-      <section className="uf-hello">
-        <div>
-          <p className="uf-kicker"><i />Portal do aluno</p>
-          <h1>Olá, {primeiro} 👋</h1>
-          <p>Bora treinar hoje? Confira seus treinos organizados e os exercícios do catálogo da academia.</p>
-        </div>
-        <div className="uf-kpi-row">
-          <article className="uf-card uf-kpi">
-            <div className="uf-kpi-top">
-              Treinos
-              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--uf-primary)' }}>check_circle</span>
-            </div>
-            <strong>{treinosMes} <small>/ mês</small></strong>
-          </article>
-          <article className="uf-card uf-kpi">
-            <div className="uf-kpi-top">
-              Listas
-              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--uf-secondary)' }}>format_list_bulleted</span>
-            </div>
-            <strong>{idsMinhas.length} <small>ativas</small></strong>
-          </article>
-          <article className="uf-card uf-kpi">
-            <div className="uf-kpi-top">
-              Favoritos
-              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--uf-primary)', fontVariationSettings: "'FILL' 1" }}>favorite</span>
-            </div>
-            <strong>{favoritos} <small>itens</small></strong>
-          </article>
-        </div>
-      </section>
+    <div className="uf-home">
+      <header className="uf-home-top">
+        <p className="uf-home-date">{dataLonga(new Date())}</p>
+        <p className="uf-home-mes">{mesLabel}</p>
+      </header>
 
-      {sessao && sessao.status === 'em_andamento' && (
-        <button type="button" className="uf-banner" onClick={() => navigate('/app/treino/' + sessao.id)}>
-          <span className="material-symbols-outlined">timer</span>
-          <span><strong>Treino em andamento</strong> — {sessao.nome_lista || 'Continuar'}</span>
-          <span className="uf-banner-go">Continuar</span>
+      {aoVivo && (
+        <button type="button" className="uf-live" onClick={() => navigate('/app/treino/' + sessao.id)}>
+          <i />
+          <span>
+            <small>Em andamento</small>
+            <strong>{sessao.nome_lista || 'Treino'}</strong>
+          </span>
+          <b>{decorrido}</b>
+          <em>Retomar</em>
         </button>
       )}
 
-      <section>
-        <div className="uf-section-head">
-          <h2>
-            <span className="material-symbols-outlined" style={{ color: 'var(--uf-primary)' }}>view_timeline</span>
-            Minhas listas em destaque
-          </h2>
-          <button type="button" className="uf-section-link" onClick={() => navigate('/app/minhas-listas')}>
-            Ver todas as listas
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
-        </div>
-        <div className="uf-grid-lists">
-          {idsMinhas.map((idLista) => (
-            <ListaCard
-              key={idLista}
-              lista={minhasAgrupadas[idLista]}
-              destaqueHoje={listaProgramadaHoje(minhasAgrupadas[idLista][0])}
-              onIniciar={() => iniciar(minhasAgrupadas[idLista][0].id_lista)}
-              onAbrir={() => navigate('/app/minhas-listas')}
-            />
-          ))}
-          <button type="button" className="uf-card uf-list-create" onClick={() => navigate('/app/minhas-listas')}>
-            <div className="uf-list-create-icon">
-              <span className="material-symbols-outlined">add</span>
+      {fichas.length === 0 ? (
+        <section className="uf-sheet">
+          <div className="uf-sheet-head">
+            <div>
+              <p className="uf-sheet-kicker">Hoje</p>
+              <h1>Sem lista de treino</h1>
+              <p className="uf-sheet-sub">Crie a sua ou comece por uma lista da academia.</p>
             </div>
-            <strong>Criar nova lista</strong>
-            <span>Monte uma rotina personalizada ou organize seus exercícios favoritos.</span>
-          </button>
-        </div>
-      </section>
-
-      <section style={{ marginTop: 48 }}>
-        <div className="uf-section-head">
-          <h2>
-            <span className="material-symbols-outlined" style={{ color: 'var(--uf-secondary)' }}>verified</span>
-            Listas oficiais UniFit
-          </h2>
-          <button type="button" className="uf-section-link" onClick={() => navigate('/app/listas')}>
-            Explorar catálogo oficial
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
-        </div>
-        {Object.keys(oficiaisAgrupadas).length === 0 ? (
-          <p className="uf-empty uf-card">Nenhuma lista oficial.</p>
-        ) : (
-          <div className="uf-grid-lists">
-            {Object.keys(oficiaisAgrupadas).slice(0, 3).map((idLista) => (
-              <ListaCard
-                key={idLista}
-                lista={oficiaisAgrupadas[idLista]}
-                oficial
-                onSalvar={() => salvarOficial(oficiaisAgrupadas[idLista][0].id_lista)}
-                onIniciar={() => iniciar(oficiaisAgrupadas[idLista][0].id_lista)}
-              />
-            ))}
           </div>
-        )}
-      </section>
+          <div className="uf-sheet-actions">
+            <button type="button" className="uf-btn-primary" onClick={() => navigate('/app/minhas-listas')}>
+              Criar lista
+            </button>
+            <button type="button" className="uf-btn-ghost" onClick={() => navigate('/app/listas')}>
+              Listas da academia
+            </button>
+          </div>
+        </section>
+      ) : (
+        <>
+          <div className="uf-week" role="tablist" aria-label="Dias da semana">
+            {DIAS.map((item) => {
+              const marcadas = fichas.filter((fichaDia) => fichaDia.dias.includes(item.value));
+              const classes = ['uf-week-day'];
+              if (dia === item.value) {
+                classes.push('ativo');
+              }
+              if (item.value === hoje) {
+                classes.push('hoje');
+              }
+              return (
+                <button
+                  key={item.value}
+                  type="button"
+                  role="tab"
+                  aria-selected={dia === item.value}
+                  className={classes.join(' ')}
+                  onClick={() => escolherDia(item.value)}
+                >
+                  <span>{item.curto}</span>
+                  {marcadas.length === 0 ? (
+                    <em>—</em>
+                  ) : marcadas.slice(0, 2).map((marcada) => (
+                    <strong key={marcada.id}>{marcada.meta.nome_lista}</strong>
+                  ))}
+                </button>
+              );
+            })}
+          </div>
 
-      <section style={{ marginTop: 48 }}>
-        <div className="uf-section-head">
-          <h2>
-            <span className="material-symbols-outlined" style={{ color: 'var(--uf-primary)' }}>fitness_center</span>
-            Do catálogo
-          </h2>
-          <button type="button" className="uf-section-link" onClick={() => navigate('/app/exercicios')}>
-            Ver catálogo
-            <span className="material-symbols-outlined">arrow_forward</span>
-          </button>
-        </div>
-        <div className="uf-grid-cards">
-          {sugestoes.length === 0 ? (
-            <p className="uf-empty uf-card">Nenhum exercício no catálogo.</p>
-          ) : sugestoes.map((exercicio) => (
-            <ExerciseCard
-              key={exercicio.idexercicio}
-              exercicio={exercicio}
-              compact
-              onOpen={() => setSelecionado(exercicio)}
+          {ficha ? (
+            <FichaDia
+              ficha={ficha}
+              doDia={doDia}
+              kicker={dia === hoje ? 'Hoje' : NOME_DIA[dia]}
+              aoVivo={aoVivo && String(sessao.lista_id) === String(ficha.id)}
+              onEscolher={setEscolha}
+              onTreinar={() => abrirTreino(ficha.id)}
+              onMontar={() => navigate('/app/exercicios')}
             />
-          ))}
-        </div>
-      </section>
+          ) : (
+            <p className="uf-home-livre">
+              {dia === hoje ? 'Hoje' : NOME_DIA[dia]} sem treino marcado.
+            </p>
+          )}
 
-      <ExerciseModal exercicio={selecionado} onClose={() => setSelecionado(null)} />
+          <section className="uf-listas">
+            <div className="uf-listas-head">
+              <h2>Suas listas</h2>
+              <button type="button" className="uf-home-text" onClick={() => navigate('/app/minhas-listas')}>
+                Gerir
+              </button>
+            </div>
+            <div className="uf-card uf-listas-card">
+              {resto.map((item) => (
+                <div className="uf-lista-row" key={item.id}>
+                  <div className="uf-lista-main">
+                    <strong>{item.meta.nome_lista}</strong>
+                    <span>{resumoLista(item)}</span>
+                  </div>
+                  {item.itens.length === 0 ? (
+                    <button type="button" className="uf-home-go" onClick={() => navigate('/app/exercicios')}>
+                      Montar
+                    </button>
+                  ) : (
+                    <button type="button" className="uf-home-go" onClick={() => abrirTreino(item.id)}>
+                      <span className="material-symbols-outlined">play_arrow</span>
+                      {aoVivo && String(sessao.lista_id) === String(item.id) ? 'Retomar' : 'Começar'}
+                    </button>
+                  )}
+                </div>
+              ))}
+              <button type="button" className="uf-lista-nova" onClick={() => navigate('/app/minhas-listas')}>
+                <span className="material-symbols-outlined">add</span>
+                Nova lista
+              </button>
+            </div>
+          </section>
+        </>
+      )}
     </div>
+  );
+}
+
+function resumoLista(ficha) {
+  const partes = [labelObjetivo(ficha.meta.objetivo)];
+  const dias = diasTexto(ficha.dias);
+  if (dias) {
+    partes.push(dias);
+  }
+  if (ficha.itens.length === 0) {
+    partes.push('sem exercícios');
+  } else {
+    partes.push(ficha.itens.length === 1 ? '1 exercício' : ficha.itens.length + ' exercícios');
+  }
+  return partes.join(' · ');
+}
+
+function FichaDia({ ficha, doDia, kicker, aoVivo, onEscolher, onTreinar, onMontar }) {
+  const vazia = ficha.itens.length === 0;
+  return (
+    <section className="uf-sheet" aria-live="polite">
+      <div className="uf-sheet-head">
+        <div>
+          <p className="uf-sheet-kicker">{kicker}</p>
+          {doDia.length > 1 && (
+            <div className="uf-sheet-switch" role="tablist" aria-label="Listas deste dia">
+              {doDia.map((item) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={String(item.id) === String(ficha.id)}
+                  className={String(item.id) === String(ficha.id) ? 'ativo' : ''}
+                  onClick={() => onEscolher(item.id)}
+                >
+                  {item.meta.nome_lista}
+                </button>
+              ))}
+            </div>
+          )}
+          <h1>{ficha.meta.nome_lista}</h1>
+          <p className="uf-sheet-sub">
+            {labelObjetivo(ficha.meta.objetivo)}
+            {ficha.meta.tipo_lista ? ' · Frequência ' + ficha.meta.tipo_lista : ''}
+            {vazia ? '' : ' · ' + (ficha.itens.length === 1 ? '1 exercício' : ficha.itens.length + ' exercícios')}
+          </p>
+          {vazia && <p className="uf-sheet-vazio">Esta lista ainda não tem exercício.</p>}
+        </div>
+        {vazia ? (
+          <button type="button" className="uf-btn-primary" onClick={onMontar}>Montar</button>
+        ) : (
+          <button type="button" className="uf-btn-primary" onClick={onTreinar}>
+            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>play_arrow</span>
+            {aoVivo ? 'Retomar' : 'Começar'}
+          </button>
+        )}
+      </div>
+      {!vazia && (
+        <ol className="uf-sheet-list">
+          {ficha.itens.map((exercicio, indice) => (
+            <li key={exercicio.id_exercicio}>
+              <span className="uf-sheet-n">{String(indice + 1).padStart(2, '0')}</span>
+              <span className="uf-sheet-name">
+                <strong>{exercicio.nome_exercicio}</strong>
+                {(exercicio.musculo_trabalhado || exercicio.musculo) && (
+                  <em>{exercicio.musculo_trabalhado || exercicio.musculo}</em>
+                )}
+              </span>
+              <span className="uf-sheet-presc">{formatPrescricao(exercicio) || '—'}</span>
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
   );
 }
