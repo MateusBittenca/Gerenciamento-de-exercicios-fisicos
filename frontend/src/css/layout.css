@@ -237,6 +237,17 @@
   min-height: 100vh;
 }
 
+.app-shell.uf-foco .uf-main {
+  margin-left: 0;
+}
+
+.app-shell.uf-foco .uf-content {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
 .app-shell .uf-content {
   max-width: 1440px;
   margin: 0 auto;
